@@ -35,22 +35,20 @@ module.exports = {
 		});
 
 		//  creates  a foreign key reference in the Users table
-		await queryInterface.addColumn("Volunteers", "user_id", {
-			type: Sequelize.INTEGER,
-			references: {
-				model: "Users",
-				key: "id",
-			},
-			onUpdate: "CASCADE",
-			onDelete: "CASCADE",
-		});
+		// 	await queryInterface.addColumn("Volunteers", "user_id", {
+		// 		type: Sequelize.INTEGER,
+		// 		references: {
+		// 			model: "Users",
+		// 			key: "id",
+		// 		},
+		// 		onUpdate: "CASCADE",
+		// 		onDelete: "CASCADE",
+		// 	});
 	},
 
 	async down(queryInterface, Sequelize) {
 		// removes the foreign key column in the down method
-		await queryInterface.removeColumn("Volunteers", "user_id");
+		// await queryInterface.removeColumn("Volunteers", "user_id");
 		await queryInterface.dropTable("Users");
 	},
 };
-
-//
