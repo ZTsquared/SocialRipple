@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
+			User.hasMany(models.Volunteer);
+			User.hasMany(models.Keyword, { through: models.Preference });
+			User.hasMany(models.Action);
+			User.hasMany(models.Action);
 		}
 	}
 	User.init(

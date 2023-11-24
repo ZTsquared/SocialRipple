@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			// define association here
+			Volunteer.belongsTo(models.User);
+			Volunteer.hasMany(model.Requirement);
 		}
 	}
 	Volunteer.init(
