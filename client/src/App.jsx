@@ -1,34 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { useState } from 'react';
+import { Route, Routes, Link } from 'react-router-dom';
+import Home from "./pages/Home"
+import ActionsMenu from "./pages/ActionsMenu"
+import Action from "./pages/Action"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import CreateAction from './pages/CreateAction';
+import JoinAction from './pages/JoinAction';
+import AuthContext from './contexts/auth';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [loggedIn, setIsLoggedIn] = useState(false);
+  const [authObject] = useState({
+    setIsLoggedIn: setIsLoggedIn
+  })
+
+  function handleLogout(){
+    setIsLoggedIn(false)
+    localStorage.clear()
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+    <AuthContext.Provider value={authObject}>
+    <div>
+      <header>
+        <nav>Nav bar of our awesome app {loggedIn ? <button onClick={handleLogout}>Logout</button> : <Link to="./Login">Login</Link>}</nav>
+      </header>
+      
+        <Routes>
+          <Route path="/" element={<Home />}/>                       
+
+          <Route path="/Login" element={<Login />}/>
+          <Route path="/Register" element={<Register />}/>
+          
+          <Route path="/MainMenu" element={<ActionsMenu />}/>
+          <Route path="/Action/View" element={<Action />}/>
+          <Route path="/Action/Create" element={<CreateAction />}/>
+          <Route path="/Action/Join" element={<JoinAction />}/>
+
+        </Routes>
+    
+    </div>
+    </AuthContext.Provider>
   )
 }
 
