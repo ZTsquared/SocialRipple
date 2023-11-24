@@ -8,7 +8,6 @@ import Register from "./pages/Register"
 import CreateAction from './pages/CreateAction';
 import JoinAction from './pages/JoinAction';
 
-
 function App() {
 
   return (
@@ -20,8 +19,8 @@ function App() {
           <Route path="/Login" element={<Login />}/>
           <Route path="/Register" element={<Register />}/>
           
-          <Route path="/ActionMenu" element={<ActionsMenu />}/>
-          <Route path="/Action" element={<Action />}/>
+          <Route path="/Action/Menu" element={<ActionsMenu />}/>
+          <Route path="/Action/View" element={<Action />}/>
           <Route path="/Action/Create" element={<CreateAction />}/>
           <Route path="/Action/Join" element={<JoinAction />}/>
 
