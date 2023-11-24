@@ -48,9 +48,7 @@ module.exports = {
 
 	async down(queryInterface, Sequelize) {
 		// removes the foreign key column in the down method
-		await queryInterface.removeColumn("Volunteers", "user_id");
+		// await queryInterface.removeColumn("Volunteers", "user_id");
 		await queryInterface.dropTable("Users");
 	},
 };
-
-//
