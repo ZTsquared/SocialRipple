@@ -2,16 +2,16 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		await queryInterface.createTable("Volunteers", {
+		await queryInterface.createTable("Volunteerships", {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			requirement_id: {
-				type: Sequelize.INTEGER,
-			},
+			// requirement_id: {
+			// 	type: Sequelize.INTEGER,
+			// },
 			// user_id: {
 			//   type: Sequelize.INTEGER
 			// },
@@ -29,6 +29,6 @@ module.exports = {
 		});
 	},
 	async down(queryInterface, Sequelize) {
-		await queryInterface.dropTable("Volunteers");
+		await queryInterface.dropTable("Volunteerships");
 	},
 };

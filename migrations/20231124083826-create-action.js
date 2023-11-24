@@ -30,9 +30,9 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
-      organiser_id: {
-        type: Sequelize.INTEGER
-      },
+      // organiser_id: {
+      //   type: Sequelize.INTEGER
+      // },
       online_link: {
         type: Sequelize.STRING
       },

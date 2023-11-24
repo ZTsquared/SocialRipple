@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Action.hasMany(models.Requirement, { foreignKey: "action_id" });
-      Action.belongsToMany(Keyword, { through: "actions_keywords" });
+      Action.belongsToMany(models.Keyword, { through: "actions_keywords" });
       //carol: many to many, connects through a table
-      Action.belongsTo(User);
+      Action.belongsTo(models.User);
     }
   }
   Action.init(
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       is_group: DataTypes.BOOLEAN,
       name: DataTypes.STRING,
       description: DataTypes.STRING,
-      organiser_id: DataTypes.INTEGER,
+      // organiser_id: DataTypes.INTEGER,
       online_link: DataTypes.STRING,
       latitude: DataTypes.FLOAT,
       longitude: DataTypes.FLOAT,

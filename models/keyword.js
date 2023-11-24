@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Keyword.belongsToMany(Action, { through: "actions_keywords" });
+      Keyword.belongsToMany(models.Action, { through: "actions_keywords" });
+      Keyword.belongsToMany(models.User, { through: "preferences" });
     }
   }
   Keyword.init(
