@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from 'react';
-import {Route, Routes, Link} from 'react-router-dom';
+import { Route, Routes, Link } from 'react-router-dom';
 import Home from "./pages/Home"
 import ActionsMenu from "./pages/ActionsMenu"
 import Action from "./pages/Action"
@@ -30,7 +30,6 @@ function App() {
         <nav>Nav bar of our awesome app {loggedIn ? <button onClick={handleLogout}>Logout</button> : <Link to="./Login">Login</Link>}</nav>
       </header>
       
-
         <Routes>
           <Route path="/" element={<Home />}/>                       
 

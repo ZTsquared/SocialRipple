@@ -1,15 +1,3 @@
-// import React from 'react'
-
-// export default function Login() {
-//   return (
-
-//     // the app login. Username and password fields.
-//     // not much more for now
-
-//     <div>Login</div>
-//   )
-// }
-
 import React, { useState, useContext } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
@@ -36,9 +24,11 @@ export default function Login() {
 
       event.preventDefault();
       console.log(event);
-      localStorage.setItem("token", "this is a token hahah well maybe not");   //just for test
-        setIsLoggedIn(true);                              //just for test
-        navigate({pathname: "/MainMenu"})                 //just for test
+      localStorage.setItem("token", "this is a token hahah well maybe not");    //just for test
+        setIsLoggedIn(true);                                                    //just for test
+        navigate({pathname: "/MainMenu"})                                       //just for test
+
+      // login();
     }
 
     const login = async () => {
