@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Requirement.belongsTo(model.Action);
-      Requirement.hasMany(model.Volunteer);
+      Requirement.belongsTo(models.Action);
+      Requirement.hasMany(models.Volunteership);
     }
   }
   Requirement.init({
