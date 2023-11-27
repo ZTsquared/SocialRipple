@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React, { useEffect, useRef, useState } from 'react'
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 export default function ActionsMenu() {
 
   const dummyActionsArray = [
@@ -41,12 +41,40 @@ export default function ActionsMenu() {
     }
   ]
 
+  const libraries = ['places'];
+  const mapContainerStyle = {
+    width: '33vw',
+    height: "50vh",
+  };
+  const center = {
+    lat: 7.334194, // default latitude
+    lng: 81.487365, // default longitude
+  };
+
+  const aMarker = {
+    lat: 7.2905715, // default latitude
+    lng: 80.6337262, // default longitude
+  };
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: 'AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs',
+    libraries,
+  });
+
+  if (loadError) {
+    return <div>Error loading maps</div>;
+  }
+
+  if (!isLoaded) {
+    return <div>Loading maps</div>;
+  }
 
   return (
     // maybe show the actions in a 2 columns format: |group| |individual|
 
     <div className="container">
       <div className="row">
+
         <div className="col-sm">
           <h3>Group Actions</h3>
           {dummyActionsArray.map((action, index) => 
@@ -62,7 +90,23 @@ export default function ActionsMenu() {
 
         <div className="col-sm">
           <h3>Individual Actions</h3>
+
         </div>
+        
+        <div className="col-sm">
+          <div>
+            <h3>a decent looking map</h3>
+          <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            zoom={10}
+            center={center}>
+            <Marker position={center}/>
+            <Marker position={aMarker}/>
+          </GoogleMap>
+          </div>
+         
+        </div>
+
       </div>
     </div>
   )
