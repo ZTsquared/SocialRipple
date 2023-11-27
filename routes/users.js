@@ -3,19 +3,16 @@ var router = express.Router();
 const { Op } = require("sequelize");
 const saltRounds = 10;
 var bcrypt = require("bcrypt");
-
-// /* GET users listing. */
-// router.get("/", function (req, res, next) {
-//   res.send("respond with a resource");
-// });
+var userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+var jwt = require("jsonwebtoken");
 
 //GET
 
-router.get("/", async function (req, res, next) {
+router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
   try {
-    const userInfo = await models.User.findAll({
+    const userInfo = await models.User.findOne({
       attributes: ["username", "organisation", "latitude", "longitude"],
-      where: { id },
+      // where: { id }, do i need this?
     });
     res.send(userInfo);
   } catch (error) {
@@ -23,41 +20,24 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-router.get("/preferences", async function (req, res, next) {
-  try {
-    const keywords = await models.User.findOne({
-      where: {
-        id,
-      },
-      include: models.Keyword,
-    });
-    res.send(keywords);
-  } catch (error) {
-    res.status(500).send(error);
+router.get(
+  "/preferences",
+  userShouldBeLoggedIn,
+  async function (req, res, next) {
+    try {
+      const user = await models.User.findOne({
+        where: {
+          id,
+        },
+      });
+      const preferences = await user.getKeywords();
+      res.send(preferences);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   }
-});
+);
 
 //POST
-
-router.post("/register", async function (req, res, next) {
-  const { password } = req.body; // is this right ?
-  try {
-    const hash = await bcrypt.hash(password, saltRounds);
-    const userInfo = await models.User.create({
-      username,
-      password: hash,
-      organisation,
-      latitude,
-      longitude,
-    });
-    //how do i add to preference, its a junction table
-    await models.Preference.create({
-      Keywords,
-    });
-    res.send(userInfo);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
 
 module.exports = router;
