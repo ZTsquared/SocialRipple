@@ -16,6 +16,14 @@ export default function CreateAction() {
     //    · the user can add 0, 1 or more requirements (I'm not sure it makes sense to put 0 req...?)
     //    · the user has to specify the amount of "volunteer users" needed for each requirement
 
-    <div>CreateAction</div>
+    <div>
+      <h3>CreateAction</h3>
+      <form action="">
+        <label htmlFor="name">action name:<input type="text" /></label>
+
+
+
+      </form>
+    </div>
   )
 }
