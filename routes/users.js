@@ -1,9 +1,43 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
+const { Op } = require("sequelize");
+const saltRounds = 10;
+var bcrypt = require("bcrypt");
+var userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+var jwt = require("jsonwebtoken");
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+//GET
+
+router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
+  try {
+    const userInfo = await models.User.findOne({
+      attributes: ["username", "organisation", "latitude", "longitude"],
+      // where: { id }, do i need this?
+    });
+    res.send(userInfo);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
+
+router.get(
+  "/preferences",
+  userShouldBeLoggedIn,
+  async function (req, res, next) {
+    try {
+      const user = await models.User.findOne({
+        where: {
+          id,
+        },
+      });
+      const preferences = await user.getKeywords();
+      res.send(preferences);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+);
+
+//POST
 
 module.exports = router;
