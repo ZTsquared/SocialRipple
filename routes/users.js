@@ -1,42 +1,39 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const { Op } = require("sequelize");
-const saltRounds = 10;
-var bcrypt = require("bcrypt");
-var userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
-var jwt = require("jsonwebtoken");
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+const models = require("../models");
+const { Model } = require("sequelize");
 
 //GET
 
-router.get("/", userShouldBeLoggedIn, async function (req, res, next) {
+router.get("/profile", userShouldBeLoggedIn, async function (req, res, next) {
   try {
     const userInfo = await models.User.findOne({
       attributes: ["username", "organisation", "latitude", "longitude"],
       // where: { id }, do i need this?
     });
-    res.send(userInfo);
+    const preferences = await user.getKeywords();
+    res.send(userInfo, preferences);
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-router.get(
-  "/preferences",
-  userShouldBeLoggedIn,
-  async function (req, res, next) {
-    try {
-      const user = await models.User.findOne({
-        where: {
-          id,
-        },
-      });
-      const preferences = await user.getKeywords();
-      res.send(preferences);
-    } catch (error) {
-      res.status(500).send(error);
-    }
+// GET users info, when viewing their profile (without needing to be logged in)
+router.get("/profile/:id", async function (req, res, next) {
+  const { id } = req.params;
+  try {
+    const user = await models.User.findOne({
+      // attributes: ["username", "organisation"],
+      where: { id },
+    });
+    const preferences = await user.getKeywords();
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error);
   }
-);
+});
 
 //POST
 
