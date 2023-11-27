@@ -3,24 +3,24 @@ var router = express.Router();
 const { Op } = require("sequelize");
 const saltRounds = 10;
 var bcrypt = require("bcrypt");
-var userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 var jwt = require("jsonwebtoken");
 
 router.post("/register", async function (req, res, next) {
-  const { password } = req.body;
+  const { username, password, organisation, latitude, longitude } = req.body;
   try {
-    const hash = await bcrypt.hash(password, saltRounds);
+    // const hash = await bcrypt.hash(password, saltRounds);
+    // console.log("Request Body:", req.body);
     const userInfo = await models.User.create({
       username,
-      password: hash,
+      password,
       organisation,
-      latitude,
       longitude,
+      latitude,
     });
-    await models.Preference.create({
-      Keywords,
-    });
-    res.send(userInfo);
+    // await models.Preference.create({
+    //   Keywords,
+    // });
+    res.send("Register succesful", userInfo);
   } catch (error) {
     res.status(500).send(error);
   }

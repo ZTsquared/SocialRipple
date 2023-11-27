@@ -14,7 +14,7 @@ router.get("/profile", userShouldBeLoggedIn, async function (req, res, next) {
       // where: { id }, do i need this?
     });
     const preferences = await user.getKeywords();
-    res.send(userInfo, preferences);
+    res.send(preferences);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -29,12 +29,31 @@ router.get("/profile/:id", async function (req, res, next) {
       where: { id },
     });
     const preferences = await user.getKeywords();
-    res.send(user);
+    res.send(preferences);
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
 //POST
+
+// ADDING preferences to your own profile
+router.post(
+  "/profile/preferences",
+  userShouldBeLoggedIn,
+  async function (req, res, next) {
+    try {
+      keywordInstance.addUser(1, 1);
+      const user = await models.User.findOne({
+        // attributes: ["username", "organisation"],
+        where: { id },
+      });
+      const preferences = await user.getKeywords();
+      res.send(preferences);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+);
 
 module.exports = router;
