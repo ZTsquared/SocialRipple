@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useNavigate } from 'react-router-dom';
 import Home from "./pages/Home"
 import ActionsMenu from "./pages/ActionsMenu"
 import Action from "./pages/Action"
@@ -9,8 +9,11 @@ import Register from "./pages/Register"
 import CreateAction from './pages/CreateAction';
 import JoinAction from './pages/JoinAction';
 import AuthContext from './contexts/auth';
+import Profile from './pages/Profile';
 
 function App() {
+
+  const navigate = useNavigate();
 
   const [loggedIn, setIsLoggedIn] = useState(false);
   const [authObject] = useState({
@@ -20,14 +23,22 @@ function App() {
   function handleLogout(){
     setIsLoggedIn(false)
     localStorage.clear()
+    navigate({pathname: "./"})
+
   }
 
   return (
 
     <AuthContext.Provider value={authObject}>
     <div>
-      <header>
-        <nav>Nav bar of our awesome app {loggedIn ? <button onClick={handleLogout}>Logout</button> : <Link to="./Login">Login</Link>}</nav>
+      <header className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav>Nav bar of our awesome app {loggedIn ? <div><Link to="./Action/Create" className="btn btn-success">Create Action</Link>
+                                                         <Link to="./Profile" className="btn btn-success">Profile</Link>
+                                                         <button className="btn btn-success" onClick={handleLogout}>Logout</button>
+                                                         </div>
+                                                  : <Link to="./Login" className="btn btn-success">Login</Link>
+                                                  }</nav>
+                                                  
       </header>
       
         <Routes>
@@ -35,6 +46,7 @@ function App() {
 
           <Route path="/Login" element={<Login />}/>
           <Route path="/Register" element={<Register />}/>
+          <Route path="/Profile" element={<Profile />}/>
           
           <Route path="/MainMenu" element={<ActionsMenu />}/>
           <Route path="/Action/View" element={<Action />}/>
@@ -43,6 +55,12 @@ function App() {
 
         </Routes>
     
+      <footer className="footer">
+        
+        <nav className="navbar navbar-expand-lg navbar-light bg-light"><Link to="/MainMenu" className="btn btn-success">Home</Link></nav>
+        
+      </footer>                                            
+
     </div>
     </AuthContext.Provider>
   )
