@@ -15,6 +15,9 @@ npm install sequelize mysql2
 npm install --save-dev sequelize-cli
 npx sequelize-cli init
 npm i dotenv
+npm install jsonwebtoken bcrypt
+npm i sequelize-bcrypt (zia installed this while experimenting with the users model/seed, but tbd whether it will be used)
+
 
 front end installs:
 npm install 
