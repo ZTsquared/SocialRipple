@@ -1,10 +1,17 @@
 
-const express = require("express");
-const router = express.Router();
-const { Op } = require("sequelize");
-const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+var express = require("express");
+var router = express.Router();
+
 const models = require("../models");
-const { Model } = require("sequelize");
+
+const { Op } = require("sequelize");
+const saltRounds = 10;
+var bcrypt = require("bcrypt");
+var userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+var jwt = require("jsonwebtoken");
+const Sequelize = require('sequelize');
+const { QueryTypes } = require('sequelize');
+const users = require("../models/user")
 
 //GET
 

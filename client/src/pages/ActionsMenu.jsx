@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import React, { useEffect, useRef, useState, useCallback } from 'react'
+import { GoogleMap, useLoadScript, useJsApiLoader, Marker } from '@react-google-maps/api';
+
+
 export default function ActionsMenu() {
 
   const dummyActionsArray = [
@@ -41,33 +43,34 @@ export default function ActionsMenu() {
     }
   ]
 
-  const libraries = ['places'];
-  const mapContainerStyle = {
-    width: '33vw',
-    height: "50vh",
+  const containerStyle = {
+    width: '400px',
+    height: '400px'
   };
+  
   const center = {
-    lat: 7.334194, // default latitude
-    lng: 81.487365, // default longitude
+    lat: -3.745,
+    lng: -38.523
   };
 
-  const aMarker = {
-    lat: 7.2905715, // default latitude
-    lng: 80.6337262, // default longitude
-  };
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: "YOUR_API_KEY"
+  })
 
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs',
-    libraries,
-  });
+  const [map, setMap] = useState(null)
 
-  if (loadError) {
-    return <div>Error loading maps</div>;
-  }
+  const onLoad = useCallback(function callback(map) {
+    // This is just an example of getting and using the map instance!!! don't just blindly copy!
+    const bounds = new window.google.maps.LatLngBounds(center);
+    map.fitBounds(bounds);
 
-  if (!isLoaded) {
-    return <div>Loading maps</div>;
-  }
+    setMap(map)
+  }, [])
+
+  const onUnmount = useCallback(function callback(map) {
+    setMap(null)
+  }, [])
 
   return (
     // maybe show the actions in a 2 columns format: |group| |individual|
@@ -96,13 +99,15 @@ export default function ActionsMenu() {
         <div className="col-sm">
           <div>
             <h3>a decent looking map</h3>
-          <GoogleMap
-            mapContainerStyle={mapContainerStyle}
-            zoom={10}
-            center={center}>
-            <Marker position={center}/>
-            <Marker position={aMarker}/>
-          </GoogleMap>
+              {isLoaded && <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={10}
+                onLoad={onLoad}
+                onUnmount={onUnmount}>
+                { /* Child components, such as markers, info windows, etc. */ 
+                <Marker position={center}/>}
+              </GoogleMap>}
           </div>
          
         </div>

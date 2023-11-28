@@ -24,11 +24,11 @@ export default function Login() {
 
       event.preventDefault();
       console.log(event);
-      localStorage.setItem("token", "this is a token hahah well maybe not");    //just for test
-        setIsLoggedIn(true);                                                    //just for test
-        navigate({pathname: "/MainMenu"})                                       //just for test
+      // localStorage.setItem("token", "this is a token hahah well maybe not");    //just for test
+      //   setIsLoggedIn(true);                                                    //just for test
+      //   navigate({pathname: "/MainMenu"})                                       //just for test
 
-      // login();
+      login();
     }
 
     const login = async () => {
@@ -44,12 +44,6 @@ export default function Login() {
           localStorage.setItem("token", data.token);
           setIsLoggedIn(true);
 
-          const userDataToContext = {
-            user_id: data.user_id,
-            user_name: data.user_name,
-            user_type: data.user_type
-          }
-          setUserData(userDataToContext);
           navigate({pathname: "/MainMenu"});
         } catch (error) {
           console.log(error);
