@@ -26,6 +26,14 @@ module.exports = (sequelize, DataTypes) => {
 			password: {
 				type: DataTypes.STRING,
 				allowNull: false,
+				//below is the process for appling a function to the value that was provided by the post route and storing the result (instead of storing the original value)
+				 set(value) {
+					// bcrypt.hashSync is the synchronous version of bcrypt.hash.  
+					// for this particular use case the async version will not work (who knows why...)
+					const hash = bcrypt.hashSync(value, saltRounds)
+					console.log(value, hash)
+					this.setDataValue('password', hash);
+				}
 			},
 			organisation: {
 				type: DataTypes.BOOLEAN,
@@ -33,36 +41,12 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			longitude: DataTypes.NUMBER,
 			latitude: DataTypes.NUMBER,
-			// freezeTableName: true,
-			// instanceMethods: {
-			// 	generateHash(password) {
-			// 		return bcrypt.hash(password, bcrypt.genSaltSync(8));
-			// 	},
-			// 	validPassword(password) {
-			// 		return bcrypt.compare(password, this.password);
-			// 	}
-			// }
 		},
 		{
-			hooks: {
-				beforeCreate: (user) => {
-					const salt = bcrypt.genSaltSync(saltRounds);
-					user.password = bcrypt.hashSync(user.password, salt);
-				  }
-			  },
 			sequelize,
 			modelName: "User",
 		}
 		
 	);
-	// User.beforeCreate((user, options) => {
-	// 	return bcrypt.hash(user.password, 10)
-	// 		.then(hash => {
-	// 			user.password = hash;
-	// 		})
-	// 		.catch(err => { 
-	// 			throw new Error(); 
-	// 		});
-	// });
 	return User;
 };

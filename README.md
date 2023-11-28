@@ -22,6 +22,7 @@ npm i sequelize-bcrypt (zia installed this while experimenting with the users mo
 front end installs:
 npm install 
 npm i react-router-dom (lets see after merge if we all need this or if judit's install covers it)
+npm install --save google-maps-react (judit?)
 
 creat your own .env file in the main folder:
   DB_HOST=localhost
