@@ -1,6 +1,7 @@
 
 var express = require("express");
 var router = express.Router();
+
 const models = require("../models");
 
 const { Op } = require("sequelize");
@@ -35,6 +36,7 @@ router.get("/profile/:id", async function (req, res, next) {
   } catch (error) {
     res.status(500).send(error);
   }
+
 });
 
 //POST

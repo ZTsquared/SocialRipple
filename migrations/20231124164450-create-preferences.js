@@ -2,6 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
+
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable("Preferences", {
       userId: {
@@ -31,7 +32,8 @@ module.exports = {
     });
   },
 
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Preferences");
-  },
+
+	down: (queryInterface, Sequelize) => {
+		return queryInterface.dropTable("Preferences");
+	},
 };
