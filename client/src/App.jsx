@@ -36,7 +36,8 @@ function App() {
                                                          <Link to="./Profile" className="btn btn-success">Profile</Link>
                                                          <button className="btn btn-success" onClick={handleLogout}>Logout</button>
                                                          </div>
-                                                  : <Link to="./Login" className="btn btn-success">Login</Link>
+                                                  : <div><Link to="./Login" className="btn btn-success">Login</Link>
+                                                    <Link to="./Register" className="btn btn-success">Sign In</Link></div>
                                                   }</nav>
                                                   
       </header>
