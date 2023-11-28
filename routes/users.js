@@ -9,12 +9,7 @@ const { Model } = require("sequelize");
 
 router.get("/profile", userShouldBeLoggedIn, async function (req, res, next) {
   try {
-    const userInfo = await models.User.findOne({
-      attributes: ["username", "organisation", "latitude", "longitude"],
-      // where: { id }, do i need this?
-    });
-    const preferences = await user.getKeywords();
-    res.send(preferences);
+    res.send(req.user);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -25,11 +20,11 @@ router.get("/profile/:id", async function (req, res, next) {
   const { id } = req.params;
   try {
     const user = await models.User.findOne({
-      // attributes: ["username", "organisation"],
+      attributes: ["username", "organisation"],
       where: { id },
     });
     const preferences = await user.getKeywords();
-    res.send(preferences);
+    res.send(preferences, user);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -45,7 +40,6 @@ router.post(
     try {
       keywordInstance.addUser(1, 1);
       const user = await models.User.findOne({
-        // attributes: ["username", "organisation"],
         where: { id },
       });
       const preferences = await user.getKeywords();
