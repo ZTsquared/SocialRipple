@@ -14,6 +14,7 @@ router.post("/", async (req, res) => {
 			is_group,
 			name,
 			description,
+			organiserId,
 			online_link,
 			latitude,
 			longitude,
@@ -27,6 +28,7 @@ router.post("/", async (req, res) => {
 			is_group,
 			name,
 			description,
+			organiserId,
 			online_link,
 			latitude,
 			longitude,
@@ -47,14 +49,14 @@ router.get("/", async (req, res) => {
 			where: {
 				Keyword: keyword_id,
 			},
-			include: [
-				{
-					model: models.Keyword,
-					where: {
-						id: keyword_id,
-					},
-				},
-			],
+			// include: [
+			// 	{
+			// 		model: models.Keyword,
+			// 		where: {
+			// 			id: keyword_id,
+			// 		},
+			// 	},
+			// ],
 		});
 
 		res.send(actions);
