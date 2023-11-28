@@ -69,9 +69,9 @@ router.get("/:action_id", async (req, res) => {
 	const action_id = req.params.action_id;
 	try {
 		const action = await models.Action.findAll({
-			where: {
-				id: action_id,
-			},
+			// where: {
+			// 	id: action_id,
+			// },
 			// include: {
 			// 	model: models.Keyword,
 			// 	where: {
@@ -85,5 +85,14 @@ router.get("/:action_id", async (req, res) => {
 		res.status(500).send(error);
 	}
 });
+
+// router.get("/", function (req, res, next) {
+  
+// 	models.Keyword.findAll()
+// 	  .then((data) => res.send(data))
+// 	  .catch((error) => {
+// 		res.status(500).send(error);
+// 	  });
+//   });
 
 module.exports = router;

@@ -22,9 +22,9 @@ router.post("/register", async function (req, res, next) {
       latitude,
     });
 
-    await models.Preference.create({
-      Keywords,
-    });
+    // await models.Preference.create({
+    //   Keywords,
+    // });
     res.send("Register succesful");
 
   } catch (error) {
@@ -34,7 +34,7 @@ router.post("/register", async function (req, res, next) {
 
 router.post("/login", async function (req, res, next) {
   const { username, password } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     // console.log(username);
     const user = await models.User.findOne({
@@ -45,11 +45,16 @@ router.post("/login", async function (req, res, next) {
       console.log(user);
 
       const correctPassword = await bcrypt.compare(password, user.password);
-
+      console.log("password:");
+      console.log(password);
+      console.log(user.password);
+      console.log(correctPassword);
 
       if (!correctPassword) throw new Error("Incorrect password");
-
+      console.log("password is correct");
       var token = jwt.sign({ user_id: user.id }, supersecret);
+      console.log("token:");
+      console.log(token);
 
       res.send({
         message: "Login successful, here is your token",
