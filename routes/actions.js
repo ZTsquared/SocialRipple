@@ -41,36 +41,52 @@ router.post("/", async (req, res) => {
 });
 
 // get all actions by a specific keyword_id
-router.get("/", async (req, res) => {
-	try {
-		const keyword_id = req.query.keyword_id; // get keyword from req
+// router.get("/", async (req, res) => {
+// 	try {
+// 		const keyword_id = req.query.keyword_id; // get keyword from req
 
-		const actions = await models.Action.findAll({
-			where: {
-				Keyword: keyword_id,
-			},
-			// include: [
-			// 	{
-			// 		model: models.Keyword,
-			// 		where: {
-			// 			id: keyword_id,
-			// 		},
-			// 	},
-			// ],
-		});
+// 		const actions = await models.Action.findAll({
+// 			where: {
+// 				Keyword: keyword_id,
+// 			},
+// 			// include: [
+// 			// 	{
+// 			// 		model: models.Keyword,
+// 			// 		where: {
+// 			// 			id: keyword_id,
+// 			// 		},
+// 			// 	},
+// 			// ],
+// 		});
 
-		res.send(actions);
-	} catch (error) {
-		console.error(error);
-		res.status(500).send(error);
-	}
-});
+// 		res.send(actions);
+// 	} catch (error) {
+// 		console.error(error);
+// 		res.status(500).send(error);
+// 	}
+// });
 
 // get all info of action by action_id
 router.get("/:action_id", async (req, res) => {
 	const action_id = req.params.action_id;
 	try {
 		const action = await models.Action.findAll({
+			// attributes: [
+			// 	'id',
+			// 	'online',
+			// 	'in_person',
+			// 	'start_time',
+			// 	'end_time',
+			// 	'is_group',
+			// 	'name',
+			// 	'description',
+			// 	'online_link',
+			// 	'latitude',
+			// 	'longitude',
+			// 	'createdAt',
+			// 	'updatedAt',
+			// 	'organiserId',  // Assuming this is a valid column in your Actions table
+			//   ],
 			// where: {
 			// 	id: action_id,
 			// },
@@ -88,13 +104,5 @@ router.get("/:action_id", async (req, res) => {
 	}
 });
 
-// router.get("/", function (req, res, next) {
-  
-// 	models.Keyword.findAll()
-// 	  .then((data) => res.send(data))
-// 	  .catch((error) => {
-// 		res.status(500).send(error);
-// 	  });
-//   });
 
 module.exports = router;
