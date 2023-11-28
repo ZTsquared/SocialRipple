@@ -15,10 +15,14 @@ npm install sequelize mysql2
 npm install --save-dev sequelize-cli
 npx sequelize-cli init
 npm i dotenv
+npm install jsonwebtoken bcrypt
+npm i sequelize-bcrypt (zia installed this while experimenting with the users model/seed, but tbd whether it will be used)
+
 
 front end installs:
 npm install 
 npm i react-router-dom (lets see after merge if we all need this or if judit's install covers it)
+npm install --save google-maps-react (judit?)
 
 creat your own .env file in the main folder:
   DB_HOST=localhost

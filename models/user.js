@@ -1,5 +1,8 @@
 "use strict";
 const { Model } = require("sequelize");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 module.exports = (sequelize, DataTypes) => {
 	class User extends Model {
 		/**
@@ -11,14 +14,31 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			User.hasMany(models.Volunteership);
 			User.belongsToMany(models.Keyword, { through: 'preferences' });
-			User.hasMany(models.Action, {foreignKey: 'organiser_id'});
+			User.hasMany(models.Action, {foreignKey: 'organiserId'});
 		}
 	}
 	User.init(
 		{
-			username: DataTypes.STRING,
-			password: DataTypes.STRING,
-			organisation: DataTypes.BOOLEAN,
+			username: {
+				type: DataTypes.STRING,
+				allowNull: false,
+			},
+			password: {
+				type: DataTypes.STRING,
+				allowNull: false,
+				//below is the process for appling a function to the value that was provided by the post route and storing the result (instead of storing the original value)
+				 set(value) {
+					// bcrypt.hashSync is the synchronous version of bcrypt.hash.  
+					// for this particular use case the async version will not work (who knows why...)
+					const hash = bcrypt.hashSync(value, saltRounds)
+					console.log(value, hash)
+					this.setDataValue('password', hash);
+				}
+			},
+			organisation: {
+				type: DataTypes.BOOLEAN,
+				allowNull: false,
+			},
 			longitude: DataTypes.NUMBER,
 			latitude: DataTypes.NUMBER,
 		},
@@ -26,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
 			sequelize,
 			modelName: "User",
 		}
+		
 	);
 	return User;
 };
