@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			User.hasMany(models.Volunteership);
 			User.belongsToMany(models.Keyword, { through: 'preferences' });
-			User.hasMany(models.Action, {foreignKey: 'organiser_id'});
+			User.hasMany(models.Action, {foreignKey: 'organiserId'});
 		}
 	}
 	User.init(

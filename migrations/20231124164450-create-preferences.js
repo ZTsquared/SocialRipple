@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable("Preferences", {
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
@@ -12,7 +12,7 @@ module.exports = {
         },
         allowNull: false,
       },
-      keyword_id: {
+      keywordId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Keywords",
