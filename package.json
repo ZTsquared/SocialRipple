@@ -23,6 +23,7 @@
     "mysql2": "^3.6.5",
     "nodemon": "^3.0.1",
     "sequelize": "^6.35.1",
+    "sequelize-bcrypt": "^1.2.0",
     "use-places-autocomplete": "^4.0.1"
   },
   "devDependencies": {
