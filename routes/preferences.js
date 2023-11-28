@@ -9,9 +9,9 @@ const users = require("../models/user")
 
 //GET
 
-router.post("/", async function (req, res, next) {
+router.post("/preferences", async function (req, res, next) {
   
-    await NodeList.Preferences.create({
+    await models.Preferences.create({
       // username: 'alice123',
       // isAdmin: true
     }, { fields: ['username'] });
