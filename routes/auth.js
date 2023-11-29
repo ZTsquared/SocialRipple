@@ -20,7 +20,7 @@ router.post("/register", async function (req, res, next) {
       organisation,
       longitude,
       latitude,
-
+    });
     // await models.Preference.create({
     //   Keywords,
     // });

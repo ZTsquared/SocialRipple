@@ -35,17 +35,17 @@ router.post("/", async (req, res) => {
 				online_link,
 				latitude,
 				longitude,
-				keywords: [
-					{
-						keywordId: 9,
-						Actions_Keywords: {
-							selfGranted: true,
-						},
-					},
-				],
-			},
-			{
-				include: models.Keyword,
+			// 	keywords: [
+			// 		{
+			// 			keywordId: 9,
+			// 			Actions_Keywords: {
+			// 				selfGranted: true,
+			// 			},
+			// 		},
+			// 	],
+			// },
+			// {
+			// 	include: models.Keyword,
 			}
 		);
 
