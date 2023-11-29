@@ -69,26 +69,37 @@ router.post("/", async (req, res) => {
 
 // { message: "Action created successfully", actionId: newAction.id }
 
-// get all actions by a specific keyword_id
+// get all actions
 router.get("/", async (req, res) => {
 	try {
-		const keyword_id = req.query.keyword_id; // get keyword from req
+		const action = await models.Action.findAll({
+			include: [
+				{
+					model: models.Keyword,
+					attributes: ["id", "keyword"],
+					through: {
+						attributes: [],
+					},
+				},
 
-		const actions = await models.Action.findAll({
-			where: {
-				Keyword: keyword_id,
-			},
-			// include: [
-			// 	{
-			// 		model: models.Keyword,
-			// 		where: {
-			// 			id: keyword_id,
-			// 		},
-			// 	},
-			// ],
+				{
+					model: models.Requirement,
+					include: [
+						{
+							model: models.Volunteership,
+							attributes: ["id", "completed"],
+							include: [
+								{
+									model: models.User,
+									attributes: ["id", "username"],
+								},
+							],
+						},
+					],
+				},
+			],
 		});
-
-		res.send(actions);
+		res.send(action);
 	} catch (error) {
 		console.error(error);
 		res.status(500).send(error);
