@@ -32,7 +32,7 @@ router.post("/register", async function (req, res, next) {
 
 router.post("/login", async function (req, res, next) {
   const { username, password } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     // console.log(username);
     const user = await models.User.findOne({
