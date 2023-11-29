@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const models = require("../models");
-const { Op } = require("sequelize");
+const { Op, Association } = require("sequelize");
 
 // create an action
 router.post("/", async (req, res) => {
@@ -18,27 +18,56 @@ router.post("/", async (req, res) => {
 			online_link,
 			latitude,
 			longitude,
+			// keywords,
+			//requirements,
 		} = req.body;
 
-		const newAction = await models.Action.create({
-			online,
-			in_person,
-			start_time,
-			end_time,
-			is_group,
-			name,
-			description,
-			organiserId,
-			online_link,
-			latitude,
-			longitude,
-		});
-		res.status(201).send({ message: "Action created successfully" });
+		const newAction = await models.Action.create(
+			{
+				online,
+				in_person,
+				start_time,
+				end_time,
+				is_group,
+				name,
+				description,
+				organiserId,
+				online_link,
+				latitude,
+				longitude,
+				keywords: [
+					{
+						keywordId: 9,
+						Actions_Keywords: {
+							selfGranted: true,
+						},
+					},
+				],
+			},
+			{
+				include: models.Keyword,
+			}
+		);
+
+		const actionId = newAction.id;
+
+		// console.log(keywords);
+
+		// for (let keywordId of keywords) {
+		// 	await models.Keywords.create({
+		// 		include: [],
+		// 	});
+		// }
+		// keywordId, actionId
+
+		res.status(201).send(newAction);
 	} catch (error) {
 		console.error(error);
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
+
+// { message: "Action created successfully", actionId: newAction.id }
 
 // get all actions by a specific keyword_id
 // router.get("/", async (req, res) => {
@@ -70,27 +99,36 @@ router.post("/", async (req, res) => {
 router.get("/:action_id", async (req, res) => {
 	const action_id = req.params.action_id;
 	try {
-		const action = await models.Action.findAll({
-			attributes: [
-				'id',
-				'online',
-				'in_person',
-				'start_time',
-				'end_time',
-				'is_group',
-				'name',
-				'description',
-				'online_link',
-				'latitude',
-				'longitude',
-				'createdAt',
-				'updatedAt',
-				'organiserId',  // Assuming this is a valid column in your Actions table
-			  ],
+		const action = await models.Action.findOne({
 			where: {
 				id: action_id,
 			},
-			include: models.Keyword,
+			include: [
+				{
+					model: models.Keyword,
+					attributes: ["id", "keyword"],
+					through: {
+						attributes: [],
+					},
+				},
+
+				{
+					model: models.Requirement,
+					include: [
+						{
+							model: models.Volunteership,
+							attributes: ["id", "completed"],
+							include: [
+								{
+									model: models.User,
+									attributes: ["id", "username"],
+								},
+							],
+						},
+					],
+				},
+			],
+
 		});
 		res.send(action);
 	} catch (error) {
@@ -101,31 +139,3 @@ router.get("/:action_id", async (req, res) => {
 
 
 module.exports = router;
-
-// what sequelize is sending to mysql:
-// "SELECT `Action`.`id`, 
-// 	`Action`.`online`, 
-// 	`Action`.`in_person`, 
-// 	`Action`.`start_time`, 
-// 	`Action`.`end_time`, 
-// 	`Action`.`is_group`, 
-// 	`Action`.`name`, 
-// 	`Action`.`description`, 
-// 	`Action`.`online_link`, 
-// 	`Action`.`latitude`, 
-// 	`Action`.`longitude`, 
-// 	`Action`.`createdAt`, 
-// 	`Action`.`updatedAt`, 
-// 	`Action`.`organiserId`, 
-// 	`Keywords`.`id` AS `Keywords.id`, 
-// 	`Keywords`.`keyword` AS `Keywords.keyword`, 
-// 	`Keywords`.`createdAt` AS `Keywords.createdAt`, 
-// 	`Keywords`.`updatedAt` AS `Keywords.updatedAt`, 
-// 	`Keywords->actions_keywords`.`createdAt` AS `Keywords.actions_keywords.createdAt`, 
-// 	`Keywords->actions_keywords`.`updatedAt` AS `Keywords.actions_keywords.updatedAt`, 
-// 	`Keywords->actions_keywords`.`ActionId` AS `Keywords.actions_keywords.ActionId`, 
-// 	`Keywords->actions_keywords`.`KeywordId` AS `Keywords.actions_keywords.KeywordId` 
-// 	FROM `Actions` AS `Action` 
-// 	LEFT OUTER JOIN ( `actions_keywords` AS `Keywords->actions_keywords` 
-// 	INNER JOIN `Keywords` AS `Keywords` ON `Keywords`.`id` = `Keywords->actions_keywords`.`KeywordId`) 
-// 	ON `Action`.`id` = `Keywords->actions_keywords`.`ActionId` WHERE `Action`.`id` = '3';"
