@@ -5,7 +5,6 @@ const models = require("../models");
 const { Op } = require("sequelize");
 const Sequelize = require('sequelize');
 const { QueryTypes } = require('sequelize');
-const users = require("../models/user")
 
 //GET
 

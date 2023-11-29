@@ -22,9 +22,9 @@ router.post("/register", async function (req, res, next) {
       latitude,
     });
 
-    await models.Preference.create({
-      Keywords,
-    });
+    // await models.Preference.create({
+    //   Keywords,
+    // });
     res.send("Register succesful");
 
   } catch (error) {
