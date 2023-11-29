@@ -18,6 +18,11 @@ export default function CreateAction() {
     //    · the user can add 0, 1 or more requirements (I'm not sure it makes sense to put 0 req...?)
     //    · the user has to specify the amount of "volunteer users" needed for each requirement
 
+    // requirements:
+    // description
+    // capacity
+
+
     <div>
       <header className="navbar navbar-expand-lg navbar-light bg-light">
         <nav>
@@ -89,11 +94,11 @@ export default function CreateAction() {
         </label>{" "}
         <br />
         <label htmlFor="requirements">
-          {" "}
-          Requirements:
-          <select name="requirements" id="requirements">
-            <option value="1">to fetch from backend</option>
-          </select>
+         
+          <br /><br />
+          Requirements: <br />
+            title: <input type="text" /> <br />
+            <label htmlFor=""><textarea name="" id="" cols="30" rows="10"></textarea></label> 
         </label>{" "}
         <br />
         <button>Create!</button>

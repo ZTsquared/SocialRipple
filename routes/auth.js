@@ -14,20 +14,20 @@ router.post("/register", async function (req, res, next) {
 		// const hash = await bcrypt.hash(password, saltRounds);
 		console.log("Request Body:", req.body);
 
-		const userInfo = await models.User.create({
-			username,
-			password,
-			organisation,
-			longitude,
-			latitude,
-		});
-		// await models.Preference.create({
-		//   Keywords,
-		// });
-		res.send("Register succesful");
-	} catch (error) {
-		res.status(500).send(error);
-	}
+    const userInfo = await models.User.create({
+      username,
+      password,
+      organisation,
+      longitude,
+      latitude,
+    });
+    // await models.Preference.create({
+    //   Keywords,
+    // });
+    res.send("Register succesful");
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 router.post("/login", async function (req, res, next) {
