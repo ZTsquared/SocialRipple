@@ -45,10 +45,10 @@ const register = async () => {
           data: credentials,
         })
 
-    await axios("/api/preferences", {
-      method: "POST",
-      data: data.id,
-    })
+    // await axios("/api/preferences", {
+    //   method: "POST",
+    //   data: data.id,
+    // })
     console.log(data)
 
     navigate({pathname: "/Login"});

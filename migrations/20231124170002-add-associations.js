@@ -61,10 +61,10 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    // await queryInterface.removeColumn(
-    // 	"Volunteerships", // name of Source model
-    // 	"user_id" // key we want to remove
-    // );
+    await queryInterface.removeColumn(
+      "Volunteerships", // name of Source model
+      "userId" // key we want to remove
+    );
 
     await queryInterface.removeColumn(
       "Actions", // name of Source model
