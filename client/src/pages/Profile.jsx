@@ -48,7 +48,7 @@ export default function Profile() {
       <h1>User profile</h1>
       <h3>Hello {user.username}!</h3>
       <div>These are your preferences:</div>
-      <div>{user.Keywords}</div>
+      {/* <div>{user.Keywords}</div> */}
       <div>
         You have been a memeber since:{" "}
         {
