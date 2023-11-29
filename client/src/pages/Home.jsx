@@ -9,8 +9,8 @@ export default function Home() {
 
   function handleLogout() {
     console.log("Logged out");
-    // onLogout();
-    navigate("/");
+    onLogout();
+    navigate("/MainMenu");
   }
 
   //WAITING FOR ACTIONS ENDPOINTS TO BE FINISHED TO DO THIS PART - carol

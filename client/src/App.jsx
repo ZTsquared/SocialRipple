@@ -13,11 +13,8 @@ import Profile from "./pages/Profile";
 //auth stuff
 import AuthProvider from "./components/AuthProvider";
 import RequireAuth from "./components/RequireAuth";
-import useAuth from "./hooks/useAuth";
 
 function App() {
-  const navigate = useNavigate();
-
   return (
     <AuthProvider>
       <div>
