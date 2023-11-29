@@ -10,11 +10,9 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function ActionsMenu() {
-
   const { isLoggedIn, onLogout, onLogin } = useAuth();
-  const { individualAction, setIndividualAction } = useState([]);
-  const { groupAction, setGroupAction } = useState([]);
-  
+  const [actions, setActions] = useState([]);
+
   const dummyActionsArray = [
     {
       id: 1,
@@ -48,30 +46,32 @@ export default function ActionsMenu() {
 
   const dummyUserLocationsArray = [
     {
-      latitude: 41.571417, 
-      longitude: 2.018030,
+      latitude: 41.571417,
+      longitude: 2.01803,
       street: "Ample",
       number: 50,
-      city: "Terrassa"
+      city: "Terrassa",
     },
     {
-      latitude: 41.572108, 
+      latitude: 41.572108,
       longitude: 2.017086,
       street: "Ample",
       number: 128,
-      city: "Terrassa"
+      city: "Terrassa",
     },
     {
-      latitude: 41.569009, 
+      latitude: 41.569009,
       longitude: 2.017235,
       street: "Ample",
       number: 91,
-      city: "Terrassa"
-    }
-  ]
-  // useEffect(() => {
-  //   getActionsOfTheWeek();
-  // }, []);
+      city: "Terrassa",
+    },
+  ];
+
+  useEffect(() => {
+    getLocation();
+    getActionsOfTheWeek();
+  }, []);
 
   const dummyRequirementsArray = [
     {
@@ -88,14 +88,13 @@ export default function ActionsMenu() {
 
   const center = {
     lat: 41.571417,
-    lng: 2.018030,
-  }
+    lng: 2.01803,
+  };
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "YOUR_API_KEY",
   });
-
 
   //state:
   const [locationMarker, setLocationMarker] = useState();
@@ -115,48 +114,44 @@ export default function ActionsMenu() {
   }, []);
   function handleLogout() {
     console.log("Logged out");
-    // onLogout();
+    onLogout();
     navigate("/");
   }
 
-  useEffect(() => {getLocation()}, [])
-
   const getLocation = async (street, number, city) => {
-    
-    try{
-
-      const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`)
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
+      );
       const responseToJson = await response.json();
-      
+
       setLocationMarker(responseToJson);
       // console.log(responseToJson.results[0].geometry.location)
       // return responseToJson.results[0].geometry.location
     } catch (error) {
       console.log(error.message);
-      }
+    }
+  };
+
+  function markerClick(markerIndex) {
+    console.log(`marker ${markerIndex} clicked`);
   }
 
-  function markerClick(markerIndex){
-    console.log(`marker ${markerIndex} clicked`)
+  async function getActionsOfTheWeek() {
+    try {
+      const response = await fetch(`api/actions`);
+      const data = await response.json();
+      setActions(data);
+      console.log(actions);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  //WAITING FOR ACTIONS ENDPOINTS TO BE FINISHED TO DO THIS PART - carol
-  // async function getActionsOfTheWeek() {
-  //   try {
-  //     const response = await fetch(`/actions/`);
-  //     const data = await response.json();
-  //need some kind of if statement to check if its a group or a individual action
-  //     setIndividualAction(dataOfIndividualAction);
-  //     setGroupAction(dataOfGroupAction);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-// I need to show all the actions markers on the map.
-// the actions come with an address, so we need to grab them with the getLocation (maybe?) for each one.
-// how do I fetch multiple actions in REACT omg
-// should I do it when we MAP to instantiate the markers?
+  // I need to show all the actions markers on the map.
+  // the actions come with an address, so we need to grab them with the getLocation (maybe?) for each one.
+  // how do I fetch multiple actions in REACT omg
+  // should I do it when we MAP to instantiate the markers?
 
   return (
     // maybe show the actions in a 2 columns format: |group| |individual|
@@ -192,50 +187,87 @@ export default function ActionsMenu() {
         <div className="row">
           <div className="col-sm">
             <h3>Group Actions</h3>
-            {dummyActionsArray.map((action, index) => (
-              <div key={index} className="card">
-                <div>
-                  <b>{action.name}</b>
-                </div>
-                <div>{action.description}</div>
-                <div>Start time: {action.start_time}</div>
-                <div>End time: {action.end_time}</div>
-                <div>
-                  place: lat:{action.latitude}long:{action.longitude} we'll see
-                  how we display this
-                </div>
-                <div>we need to display the requirements here</div>
-              </div>
-            ))}
+            {actions.map(
+              (action, index) =>
+                action.is_group && (
+                  <div>
+                    <div key={index} className="card">
+                      <div>
+                        <b>{action.name}</b>
+                      </div>
+                      <div>{action.description}</div>
+                      <div>Start time: {action.start_time}</div>
+                      <div>End time: {action.end_time}</div>
+                      <div>
+                        place: lat:{action.latitude}long:{action.longitude}{" "}
+                        we'll see how we display this
+                      </div>
+                      <div>we need to display the requirements here</div>
+                    </div>
+                  </div>
+                )
+            )}
           </div>
 
           <div className="col-sm">
             <h3>Individual Actions</h3>
+            {actions.map(
+              (action, index) =>
+                !action.is_group && (
+                  <div>
+                    <div key={index} className="card">
+                      <div>
+                        <b>{action.name}</b>
+                      </div>
+                      <div>{action.description}</div>
+                      <div>Start time: {action.start_time}</div>
+                      <div>End time: {action.end_time}</div>
+                      <div>
+                        place: lat:{action.latitude}long:{action.longitude}{" "}
+                        we'll see how we display this
+                      </div>
+                      <div>we need to display the requirements here</div>
+                    </div>
+                  </div>
+                )
+            )}
           </div>
 
           <div className="col-sm">
-          <div>
-            <h3>a decent looking map</h3>
-              {isLoaded && <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}
-                onLoad={onLoad}
-                onUnmount={onUnmount}>
-                {dummyUserLocationsArray.map((location, i) => <Marker onClick={() => markerClick(i)} key={i} position={{lat: location.latitude, lng: location.longitude}}/>)}
-                {/* // dummyUserLocationsArray.map((location, i) => <Marker onClick={markerClick} key={i} position={() => getLocation(location.street, location.number, location.city )}/>)} */}
-              </GoogleMap>}
+            <div>
+              <h3>a decent looking map</h3>
+              {isLoaded && (
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={center}
+                  zoom={10}
+                  onLoad={onLoad}
+                  onUnmount={onUnmount}
+                >
+                  {dummyUserLocationsArray.map((location, i) => (
+                    <Marker
+                      onClick={() => markerClick(i)}
+                      key={i}
+                      position={{
+                        lat: location.latitude,
+                        lng: location.longitude,
+                      }}
+                    />
+                  ))}
+                  {/* // dummyUserLocationsArray.map((location, i) => <Marker onClick={markerClick} key={i} position={() => getLocation(location.street, location.number, location.city )}/>)} */}
+                </GoogleMap>
+              )}
+            </div>
           </div>
         </div>
+        <footer className="footer">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <Link to="/Home" className="btn btn-success">
+              Homepage
+            </Link>
+          </nav>
+        </footer>
       </div>
-      <footer className="footer">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <Link to="/Home" className="btn btn-success">
-            Homepage
-          </Link>
-        </nav>
-      </footer>
-    </div>
     </div>
   );
 }
