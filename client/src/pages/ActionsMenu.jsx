@@ -13,7 +13,7 @@ export default function ActionsMenu() {
 
   const { isLoggedIn, onLogout, onLogin } = useAuth();
   const { individualAction, setIndividualAction } = useState([]);
-  const {
+  
   const dummyActionsArray = [
     {
       id: 1,
