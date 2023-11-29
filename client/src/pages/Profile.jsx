@@ -11,10 +11,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const [user, setUser] = useState([]);
+  const [preferences, setPreferences] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     getUsers();
+    getPreferences();
   }, []);
 
   async function getUsers() {
@@ -26,9 +28,16 @@ export default function Profile() {
       });
       const data = await response.json();
       setUser(data);
+      // getPreferences();
+      console.log(user);
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function getPreferences() {
+    setPreferences(user.Keywords);
+    console.log(preferences);
   }
 
   return (
@@ -48,9 +57,14 @@ export default function Profile() {
       <h1>User profile</h1>
       <h3>Hello {user.username}!</h3>
       <div>These are your preferences:</div>
-      {/* <div>{user.Keywords}</div> */}
+
+      {/* <div>
+        {preferences?.map((e) => (
+          <div>{e.keyword}</div>
+        ))}
+      </div> */}
       <div>
-        You have been a memeber since:{" "}
+        You have been a member since:
         {
           <div className="dateAtEntry">
             {new Date(user.createdAt).toLocaleDateString("en-UK", {
