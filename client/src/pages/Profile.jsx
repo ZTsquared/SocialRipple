@@ -57,6 +57,7 @@ export default function Profile() {
       <h1>User profile</h1>
       <h3>Hello {user.username}!</h3>
       <div>These are your preferences:</div>
+
       {/* <div>
         {preferences?.map((e) => (
           <div>{e.keyword}</div>
