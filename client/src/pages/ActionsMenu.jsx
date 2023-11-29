@@ -4,6 +4,7 @@ import { GoogleMap, useLoadScript, useJsApiLoader, Marker } from '@react-google-
 
 export default function ActionsMenu() {
 
+
   const dummyActionsArray = [
     {
       id: 1,
@@ -43,22 +44,29 @@ export default function ActionsMenu() {
     }
   ]
 
-  const containerStyle = {
-    width: '400px',
-    height: '400px'
-  };
-  
-  const center = {
-    lat: -3.745,
-    lng: -38.523
-  };
-
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: "YOUR_API_KEY"
-  })
-
-  const [map, setMap] = useState(null)
+  const dummyUserLocationsArray = [
+    {
+      latitude: 41.571417, 
+      longitude: 2.018030,
+      street: "Ample",
+      number: 50,
+      city: "Terrassa"
+    },
+    {
+      latitude: 41.572108, 
+      longitude: 2.017086,
+      street: "Ample",
+      number: 128,
+      city: "Terrassa"
+    },
+    {
+      latitude: 41.569009, 
+      longitude: 2.017235,
+      street: "Ample",
+      number: 91,
+      city: "Terrassa"
+    }
+  ]
 
   const onLoad = useCallback(function callback(map) {
     // This is just an example of getting and using the map instance!!! don't just blindly copy!
@@ -71,6 +79,54 @@ export default function ActionsMenu() {
   const onUnmount = useCallback(function callback(map) {
     setMap(null)
   }, [])
+
+  const containerStyle = {
+    width: '400px',
+    height: '600px'
+  };
+  
+  const center = {
+    lat: 41.571417,
+    lng: 2.018030,
+  }
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: "AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs"
+  })
+
+  //state:
+  const [locationMarker, setLocationMarker] = useState();
+  const [map, setMap] = useState(null)
+  const [actionMarkers, setActionMarkers] = useState();
+
+
+
+  useEffect(() => {getLocation()}, [])
+
+  const getLocation = async (street, number, city) => {
+    
+    try{
+
+      const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`)
+      const responseToJson = await response.json();
+      
+      setLocationMarker(responseToJson);
+      // console.log(responseToJson.results[0].geometry.location)
+      // return responseToJson.results[0].geometry.location
+    } catch (error) {
+      console.log(error.message);
+      }
+  }
+
+// I need to show all the actions markers on the map.
+// the actions come with an address, so we need to grab them with the getLocation (maybe?) for each one.
+// how do I fetch multiple actions in REACT omg
+// should I do it when we MAP to instantiate the markers?
+
+function markerClick(markerIndex){
+  console.log(`marker ${markerIndex} clicked`)
+}
 
   return (
     // maybe show the actions in a 2 columns format: |group| |individual|
@@ -105,8 +161,8 @@ export default function ActionsMenu() {
                 zoom={10}
                 onLoad={onLoad}
                 onUnmount={onUnmount}>
-                { /* Child components, such as markers, info windows, etc. */ 
-                <Marker position={center}/>}
+                {dummyUserLocationsArray.map((location, i) => <Marker onClick={() => markerClick(i)} key={i} position={{lat: location.latitude, lng: location.longitude}}/>)}
+                {/* // dummyUserLocationsArray.map((location, i) => <Marker onClick={markerClick} key={i} position={() => getLocation(location.street, location.number, location.city )}/>)} */}
               </GoogleMap>}
           </div>
          
