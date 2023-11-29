@@ -18,47 +18,32 @@ router.post("/", async (req, res) => {
 			online_link,
 			latitude,
 			longitude,
-			// keywords,
-			//requirements,
 		} = req.body;
 
-		const newAction = await models.Action.create(
-			{
-				online,
-				in_person,
-				start_time,
-				end_time,
-				is_group,
-				name,
-				description,
-				organiserId,
-				online_link,
-				latitude,
-				longitude,
-			// 	keywords: [
-			// 		{
-			// 			keywordId: 9,
-			// 			Actions_Keywords: {
-			// 				selfGranted: true,
-			// 			},
-			// 		},
-			// 	],
-			// },
-			// {
-			// 	include: models.Keyword,
-			}
-		);
+		const newAction = await models.Action.create({
+			online,
+			in_person,
+			start_time,
+			end_time,
+			is_group,
+			name,
+			description,
+			organiserId,
+			online_link,
+			latitude,
+			longitude,
+		});
 
-		const actionId = newAction.id;
+		await newAction.addKeywords(req.body.Keywords); // to leave it open and general..?
 
-		// console.log(keywords);
+		const requirements = [
+			{ description: "hello", capacity: 2 },
+			{ description: "bye", capacity: 1 },
+		];
 
-		// for (let keywordId of keywords) {
-		// 	await models.Keywords.create({
-		// 		include: [],
-		// 	});
-		// }
-		// keywordId, actionId
+		for (const requirement of requirements) {
+			await newAction.createRequirement(requirement);
+		}
 
 		res.status(201).send(newAction);
 	} catch (error) {
@@ -67,12 +52,10 @@ router.post("/", async (req, res) => {
 	}
 });
 
-// { message: "Action created successfully", actionId: newAction.id }
-
 // get all actions
 router.get("/", async (req, res) => {
 	try {
-		const action = await models.Action.findAll({
+		const actions = await models.Action.findAll({
 			include: [
 				{
 					model: models.Keyword,
@@ -99,7 +82,7 @@ router.get("/", async (req, res) => {
 				},
 			],
 		});
-		res.send(action);
+		res.send(actions);
 	} catch (error) {
 		console.error(error);
 		res.status(500).send(error);
