@@ -33,6 +33,18 @@ export default function Profile() {
 
   return (
     <div>
+      <header className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav>
+          Nav bar of our awesome app{" "}
+          <div>
+            <Link to="/MainMenu" className="btn btn-success">
+              Calls to action
+            </Link>
+
+            <button className="btn btn-success">Logout</button>
+          </div>
+        </nav>
+      </header>
       <h1>User profile</h1>
       <h3>Hello {user.username}!</h3>
       <div>These are your preferences:</div>

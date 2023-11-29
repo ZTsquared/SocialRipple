@@ -9,13 +9,13 @@ export default function AuthProvider({ children }) {
 
   function onLogin() {
     setIsLoggedIn(true);
-    navigate("/"); //carol: this is where we dicide where we want the user to navigate to once they've logged IN
+    navigate("/MainMenu"); //carol: this is where we dicide where we want the user to navigate to once they've logged IN
   }
 
   function onLogout() {
     setIsLoggedIn(false);
     localStorage.removeItem("token");
-    navigate("/"); //carol: this is where we dicide where we want the user to navigate to once they've logged OUT
+    navigate("/MainMenu"); //carol: this is where we dicide where we want the user to navigate to once they've logged OUT
   }
 
   const authObject = {

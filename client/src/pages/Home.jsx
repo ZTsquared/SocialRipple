@@ -6,6 +6,12 @@ import useAuth from "../hooks/useAuth";
 export default function Home() {
   const navigate = useNavigate();
   const { isLoggedIn, onLogout, onLogin } = useAuth();
+
+  function handleLogout() {
+    console.log("Logged out");
+    // onLogout();
+    navigate("/");
+  }
   return (
     // info
     // introduction
@@ -18,10 +24,10 @@ export default function Home() {
           Nav bar of our awesome app{" "}
           {isLoggedIn ? (
             <div>
-              <Link to="./Action/Create" className="btn btn-success">
+              <Link to="/Action/Create" className="btn btn-success">
                 Create Action
               </Link>
-              <Link to="./Profile" className="btn btn-success">
+              <Link to="/Profile" className="btn btn-success">
                 Profile
               </Link>
               <button className="btn btn-success" onClick={handleLogout}>
@@ -30,10 +36,10 @@ export default function Home() {
             </div>
           ) : (
             <div>
-              <Link to="./Login" className="btn btn-success">
+              <Link to="/Login" className="btn btn-success">
                 Login
               </Link>
-              <Link to="./Register" className="btn btn-success">
+              <Link to="/Register" className="btn btn-success">
                 Sign In
               </Link>
             </div>
@@ -46,7 +52,7 @@ export default function Home() {
       <footer className="footer">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link to="/MainMenu" className="btn btn-success">
-            Home
+            Calls to action
           </Link>
         </nav>
       </footer>

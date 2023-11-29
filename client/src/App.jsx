@@ -18,12 +18,6 @@ import useAuth from "./hooks/useAuth";
 function App() {
   const navigate = useNavigate();
 
-  function handleLogout() {
-    console.log("Logged out");
-    // onLogout();
-    navigate("/");
-  }
-
   return (
     <AuthProvider>
       <div>

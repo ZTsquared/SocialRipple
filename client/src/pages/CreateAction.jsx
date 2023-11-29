@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateAction() {
   return (
@@ -17,6 +19,20 @@ export default function CreateAction() {
     //    · the user has to specify the amount of "volunteer users" needed for each requirement
 
     <div>
+      <header className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav>
+          Nav bar of our awesome app{" "}
+          <div>
+            <Link to="/MainMenu" className="btn btn-success">
+              Calls to action
+            </Link>
+            <Link to="/Profile" className="btn btn-success">
+              Profile
+            </Link>
+            <button className="btn btn-success">Logout</button>
+          </div>
+        </nav>
+      </header>
       <h3>CreateAction</h3>
       <form action="">
         <label htmlFor="name">

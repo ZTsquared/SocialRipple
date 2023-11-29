@@ -5,8 +5,12 @@ import {
   useJsApiLoader,
   Marker,
 } from "@react-google-maps/api";
+import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function ActionsMenu() {
+  const { isLoggedIn, onLogout, onLogin } = useAuth();
   const dummyActionsArray = [
     {
       id: 1,
@@ -74,55 +78,95 @@ export default function ActionsMenu() {
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
+  function handleLogout() {
+    console.log("Logged out");
+    // onLogout();
+    navigate("/");
+  }
 
   return (
     // maybe show the actions in a 2 columns format: |group| |individual|
-
-    <div className="container">
-      <div className="row">
-        <div className="col-sm">
-          <h3>Group Actions</h3>
-          {dummyActionsArray.map((action, index) => (
-            <div key={index} className="card">
-              <div>
-                <b>{action.name}</b>
-              </div>
-              <div>{action.description}</div>
-              <div>Start time: {action.start_time}</div>
-              <div>End time: {action.end_time}</div>
-              <div>
-                place: lat:{action.latitude}long:{action.longitude} we'll see
-                how we display this
-              </div>
-              <div>we need to display the requirements here</div>
+    <div>
+      <header className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav>
+          Nav bar of our awesome app{" "}
+          {isLoggedIn ? (
+            <div>
+              <Link to="/Action/Create" className="btn btn-success">
+                Create Action
+              </Link>
+              <Link to="/Profile" className="btn btn-success">
+                Profile
+              </Link>
+              <button className="btn btn-success" onClick={handleLogout}>
+                Logout
+              </button>
             </div>
-          ))}
-        </div>
+          ) : (
+            <div>
+              <Link to="/Login" className="btn btn-success">
+                Login
+              </Link>
+              <Link to="/Register" className="btn btn-success">
+                Sign In
+              </Link>
+            </div>
+          )}
+        </nav>
+      </header>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm">
+            <h3>Group Actions</h3>
+            {dummyActionsArray.map((action, index) => (
+              <div key={index} className="card">
+                <div>
+                  <b>{action.name}</b>
+                </div>
+                <div>{action.description}</div>
+                <div>Start time: {action.start_time}</div>
+                <div>End time: {action.end_time}</div>
+                <div>
+                  place: lat:{action.latitude}long:{action.longitude} we'll see
+                  how we display this
+                </div>
+                <div>we need to display the requirements here</div>
+              </div>
+            ))}
+          </div>
 
-        <div className="col-sm">
-          <h3>Individual Actions</h3>
-        </div>
+          <div className="col-sm">
+            <h3>Individual Actions</h3>
+          </div>
 
-        <div className="col-sm">
-          <div>
-            <h3>a decent looking map</h3>
-            {isLoaded && (
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-              >
-                {
-                  /* Child components, such as markers, info windows, etc. */
-                  <Marker position={center} />
-                }
-              </GoogleMap>
-            )}
+          <div className="col-sm">
+            <div>
+              <h3>a decent looking map</h3>
+              {isLoaded && (
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={center}
+                  zoom={10}
+                  onLoad={onLoad}
+                  onUnmount={onUnmount}
+                >
+                  {
+                    /* Child components, such as markers, info windows, etc. */
+                    <Marker position={center} />
+                  }
+                </GoogleMap>
+              )}
+            </div>
           </div>
         </div>
       </div>
+      <footer className="footer">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <Link to="/Home" className="btn btn-success">
+            Homepage
+          </Link>
+        </nav>
+      </footer>
     </div>
   );
 }
