@@ -70,30 +70,30 @@ router.post("/", async (req, res) => {
 // { message: "Action created successfully", actionId: newAction.id }
 
 // get all actions by a specific keyword_id
-router.get("/", async (req, res) => {
-	try {
-		const keyword_id = req.query.keyword_id; // get keyword from req
+// router.get("/", async (req, res) => {
+// 	try {
+// 		const keyword_id = req.query.keyword_id; // get keyword from req
 
-		const actions = await models.Action.findAll({
-			where: {
-				Keyword: keyword_id,
-			},
-			// include: [
-			// 	{
-			// 		model: models.Keyword,
-			// 		where: {
-			// 			id: keyword_id,
-			// 		},
-			// 	},
-			// ],
-		});
+// 		const actions = await models.Action.findAll({
+// 			where: {
+// 				Keyword: keyword_id,
+// 			},
+// 			// include: [
+// 			// 	{
+// 			// 		model: models.Keyword,
+// 			// 		where: {
+// 			// 			id: keyword_id,
+// 			// 		},
+// 			// 	},
+// 			// ],
+// 		});
 
-		res.send(actions);
-	} catch (error) {
-		console.error(error);
-		res.status(500).send(error);
-	}
-});
+// 		res.send(actions);
+// 	} catch (error) {
+// 		console.error(error);
+// 		res.status(500).send(error);
+// 	}
+// });
 
 // get all info of action by action_id
 router.get("/:action_id", async (req, res) => {
@@ -128,6 +128,7 @@ router.get("/:action_id", async (req, res) => {
 					],
 				},
 			],
+
 		});
 		res.send(action);
 	} catch (error) {
@@ -135,5 +136,6 @@ router.get("/:action_id", async (req, res) => {
 		res.status(500).send(error);
 	}
 });
+
 
 module.exports = router;

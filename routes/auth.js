@@ -20,13 +20,11 @@ router.post("/register", async function (req, res, next) {
       organisation,
       longitude,
       latitude,
-    });
 
-    await models.Preference.create({
-      Keywords,
-    });
+    // await models.Preference.create({
+    //   Keywords,
+    // });
     res.send("Register succesful");
-
   } catch (error) {
     res.status(500).send(error);
   }
@@ -34,7 +32,7 @@ router.post("/register", async function (req, res, next) {
 
 router.post("/login", async function (req, res, next) {
   const { username, password } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     // console.log(username);
     const user = await models.User.findOne({
@@ -42,15 +40,10 @@ router.post("/login", async function (req, res, next) {
     });
 
     if (user) {
-      console.log(user);
-
+      // console.log(user);
       const correctPassword = await bcrypt.compare(password, user.password);
-
-
       if (!correctPassword) throw new Error("Incorrect password");
-
       var token = jwt.sign({ user_id: user.id }, supersecret);
-
       res.send({
         message: "Login successful, here is your token",
         token,
@@ -62,4 +55,3 @@ router.post("/login", async function (req, res, next) {
 });
 
 module.exports = router;
-
