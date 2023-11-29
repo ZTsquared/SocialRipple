@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const models = require("../models");
-const { Op } = require("sequelize");
+const { Op, Association } = require("sequelize");
 
 // create an action
 router.post("/", async (req, res) => {
@@ -18,27 +18,56 @@ router.post("/", async (req, res) => {
 			online_link,
 			latitude,
 			longitude,
+			// keywords,
+			//requirements,
 		} = req.body;
 
-		const newAction = await models.Action.create({
-			online,
-			in_person,
-			start_time,
-			end_time,
-			is_group,
-			name,
-			description,
-			organiserId,
-			online_link,
-			latitude,
-			longitude,
-		});
-		res.status(201).send({ message: "Action created successfully" });
+		const newAction = await models.Action.create(
+			{
+				online,
+				in_person,
+				start_time,
+				end_time,
+				is_group,
+				name,
+				description,
+				organiserId,
+				online_link,
+				latitude,
+				longitude,
+				keywords: [
+					{
+						keywordId: 9,
+						Actions_Keywords: {
+							selfGranted: true,
+						},
+					},
+				],
+			},
+			{
+				include: models.Keyword,
+			}
+		);
+
+		const actionId = newAction.id;
+
+		// console.log(keywords);
+
+		// for (let keywordId of keywords) {
+		// 	await models.Keywords.create({
+		// 		include: [],
+		// 	});
+		// }
+		// keywordId, actionId
+
+		res.status(201).send(newAction);
 	} catch (error) {
 		console.error(error);
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
+
+// { message: "Action created successfully", actionId: newAction.id }
 
 // get all actions by a specific keyword_id
 router.get("/", async (req, res) => {
@@ -70,16 +99,35 @@ router.get("/", async (req, res) => {
 router.get("/:action_id", async (req, res) => {
 	const action_id = req.params.action_id;
 	try {
-		const action = await models.Action.findAll({
+		const action = await models.Action.findOne({
 			where: {
 				id: action_id,
 			},
-			// include: {
-			// 	model: models.Keyword,
-			// 	where: {
-			// 		id: keyword_id,
-			// 	},
-			// },
+			include: [
+				{
+					model: models.Keyword,
+					attributes: ["id", "keyword"],
+					through: {
+						attributes: [],
+					},
+				},
+
+				{
+					model: models.Requirement,
+					include: [
+						{
+							model: models.Volunteership,
+							attributes: ["id", "completed"],
+							include: [
+								{
+									model: models.User,
+									attributes: ["id", "username"],
+								},
+							],
+						},
+					],
+				},
+			],
 		});
 		res.send(action);
 	} catch (error) {

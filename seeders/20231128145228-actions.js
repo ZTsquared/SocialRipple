@@ -11,7 +11,7 @@ module.exports = {
 				end_time: "2024-01-01T17:00:00",
 				is_group: 1,
 				name: "BBQ",
-				description: "BBQ in the parl",
+				description: "BBQ in the park",
 				organiserId: 2,
 				online_link: null,
 				latitude: 41.38090587280174,
