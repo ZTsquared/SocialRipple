@@ -18,6 +18,8 @@ router.post("/", async (req, res) => {
 			online_link,
 			latitude,
 			longitude,
+			Keywords,
+			Requirements,
 		} = req.body;
 
 		const newAction = await models.Action.create({
@@ -34,14 +36,9 @@ router.post("/", async (req, res) => {
 			longitude,
 		});
 
-		await newAction.addKeywords(req.body.Keywords); // to leave it open and general..?
+		await newAction.addKeywords(Keywords);
 
-		const requirements = [
-			{ description: "hello", capacity: 2 },
-			{ description: "bye", capacity: 1 },
-		];
-
-		for (const requirement of requirements) {
+		for (const requirement of Requirements) {
 			await newAction.createRequirement(requirement);
 		}
 
