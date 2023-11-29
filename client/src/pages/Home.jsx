@@ -12,6 +12,21 @@ export default function Home() {
     // onLogout();
     navigate("/");
   }
+
+  //WAITING FOR ACTIONS ENDPOINTS TO BE FINISHED TO DO THIS PART - carol
+  //also id want this one to only get the 10 last added actions, and then idk if we divide them into individual/group actions or not tbd
+  // async function getActionsOfTheWeek() {
+  //   try {
+  //     const response = await fetch(`/actions/`);
+  //     const data = await response.json();
+  //need some kind of if statement to check if its a group or a individual action
+  //     setIndividualAction(dataOfIndividualAction);
+  //     setGroupAction(dataOfGroupAction);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
   return (
     // info
     // introduction

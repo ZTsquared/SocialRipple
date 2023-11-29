@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function ActionsMenu() {
   const { isLoggedIn, onLogout, onLogin } = useAuth();
+  const { individualAction, setIndividualAction } = useState([]);
+  const { groupAction, setGroupAction } = useState([]);
   const dummyActionsArray = [
     {
       id: 1,
@@ -41,6 +43,10 @@ export default function ActionsMenu() {
       longitude: "999",
     },
   ];
+
+  // useEffect(() => {
+  //   getActionsOfTheWeek();
+  // }, []);
 
   const dummyRequirementsArray = [
     {
@@ -83,6 +89,19 @@ export default function ActionsMenu() {
     // onLogout();
     navigate("/");
   }
+
+  //WAITING FOR ACTIONS ENDPOINTS TO BE FINISHED TO DO THIS PART - carol
+  // async function getActionsOfTheWeek() {
+  //   try {
+  //     const response = await fetch(`/actions/`);
+  //     const data = await response.json();
+  //need some kind of if statement to check if its a group or a individual action
+  //     setIndividualAction(dataOfIndividualAction);
+  //     setGroupAction(dataOfGroupAction);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   return (
     // maybe show the actions in a 2 columns format: |group| |individual|
