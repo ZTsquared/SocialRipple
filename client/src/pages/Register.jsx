@@ -66,7 +66,7 @@ export default function Register() {
       <div>
         <h2> Register:</h2>
         <form onSubmit={() => handleSubmit(event)} action="">
-          <label htmlFor="username_input">
+          <label htmlFor="username_input" className="form-label">
             username: <br />
             <input
               value={username}
@@ -74,11 +74,12 @@ export default function Register() {
               onChange={handleChange}
               id="username"
               type="text"
+              className="form-control"
             />
           </label>
           <br />
           <br />
-          <label htmlFor="password_input">
+          <label htmlFor="password_input" className="form-label">
             password: <br />
             <input
               value={password}
@@ -86,25 +87,27 @@ export default function Register() {
               onChange={handleChange}
               id="password"
               type="password"
+              className="form-control"
             />
             <br />
             <br />
           </label>{" "}
           <br />
-          <label htmlFor="organisation_input">
-            organisation: <br />
+          <label htmlFor="organisation_input" className="form-label">
+            are you an organisation: <br />
             <input
               value={organisation}
               name="organisation"
               onChange={handleChange}
               id="organisation"
               type="organisation"
+              className="form-control"
             />
             <br />
             <br />
           </label>{" "}
           <br />
-          <label htmlFor="zipcode_input">
+          <label htmlFor="zipcode_input" className="form-label">
             zipcode: <br />
             <input
               value={zipcode}
@@ -112,26 +115,35 @@ export default function Register() {
               onChange={handleChange}
               id="zipcode"
               type="zipcode"
+              className="form-control"
             />
             <br />
             <br />
           </label>{" "}
           <br />
+          <label className="form-label">
+            what type of actions are you looking for?
+          </label>
           {keywords.map((keyword, index) => (
-            <div key={keyword.id}>
+            <div key={keyword.id} className="preferencesInRegisterPage">
               <input
                 id={keyword.id}
                 value={keyword.id}
                 type="checkbox"
-                name="preferences" //do i need this?
+                name="preferences"
                 onChange={handleKeywordChange}
                 checked={preferences.includes(keyword.id) ? "checked" : null}
+                className="btn-check"
+                checkedautocomplete="off"
               />
-              {keyword.keyword}
+              <label className="btn" htmlFor={keyword.id}>
+                {keyword.keyword}
+              </label>
             </div>
           ))}
-          <button>Sign in</button>
+          <button className="sigInButton">Sign in</button>
         </form>
+        <br />
       </div>
     </div>
   );
