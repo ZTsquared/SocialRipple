@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
 			organiserId,
 			online_link,
 			latitude,
-			longitude,
+			longitude, 
 		});
 
 		await newAction.addKeywords(Keywords);
