@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
-  GoogleMap,
-  useLoadScript,
-  useJsApiLoader,
-  Marker,
+	GoogleMap,
+	useLoadScript,
+	useJsApiLoader,
+	Marker,
 } from "@react-google-maps/api";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
@@ -11,9 +11,11 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function ActionsMenu() {
+
   const { isLoggedIn, onLogout, onLogin } = useAuth();
   const [actions, setActions] = useState([]);
   const [recommendedActions, setRecommendedActions] = useState([])
+  const navigate = useNavigate();
 
   useEffect(() => {
     getLocation();
@@ -202,4 +204,5 @@ export default function ActionsMenu() {
       </div>
     </div>
   );
+
 }

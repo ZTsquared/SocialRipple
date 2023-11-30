@@ -35,7 +35,7 @@ function App() {
           <Route path="/MainMenu" element={<ActionsMenu />} />
           <Route path="/MainMenu/Individual" element={<ActionsIndividual />} />
           <Route path="/MainMenu/Group" element={<ActionsGroup />} />
-          <Route path="/Action/View" element={<Action />} />
+          <Route path="/Action/View/:ActionId" element={<Action />} />
           <Route path="/Action/Create" element={<CreateAction />} />
           <Route path="/Action/Join" element={<JoinAction />} />
         </Routes>
