@@ -4,15 +4,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Register() {
+  const [preferences, setPreferences] = useState([]);
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
+    organisation: "",
+    zipcode: "",
   });
-
   const [keywords, setKeywords] = useState([]);
-  const [preferences, setPreferences] = useState([]);
+  let { username, password, organisation, zipcode } = credentials;
   const navigate = useNavigate();
-  const { username, password, organisation, zipcode } = credentials;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,42 +41,36 @@ export default function Register() {
       console.log("trying...");
       const { data } = await axios("/api/auth/register", {
         method: "POST",
-        data: credentials,
+        data: { credentials, preferences },
       });
-
-      // await axios("/api/preferences", {
-      //   method: "POST",
-      //   data: data.id,
-      // })
       console.log(data);
-
-      navigate({ pathname: "/Login" });
+      navigate("/Login");
     } catch (error) {
       console.log(error);
     }
   };
+
+  function handleKeywordChange(e) {
+    if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
+    else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
+    console.log(preferences);
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
     register();
   }
 
-  function handleKeywordChange(e) {
-    if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
-    else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
-  }
-
-  // i'm sending the keywords the user picked in the form.
-  // I should be able to grab them and send them to the preferences table with the user_id and the
-  // keyword id.
-
   return (
     <div className="mainMenu">
       <div>
-        <h2> Register:</h2>
+        <div className="registerTitle">
+          {" "}
+          <h2> Register:</h2>
+        </div>
 
         <form onSubmit={() => handleSubmit(event)} action="">
-          <label htmlFor="username_input">
+          <label htmlFor="username_input" className="form-label">
             username: <br />
             <input
               value={username}
@@ -83,11 +78,12 @@ export default function Register() {
               onChange={handleChange}
               id="username"
               type="text"
+              className="form-control"
             />
           </label>
           <br />
           <br />
-          <label htmlFor="password_input">
+          <label htmlFor="password_input" className="form-label">
             password: <br />
             <input
               value={password}
@@ -95,25 +91,27 @@ export default function Register() {
               onChange={handleChange}
               id="password"
               type="password"
+              className="form-control"
             />
             <br />
             <br />
           </label>{" "}
           <br />
-          <label htmlFor="organisation_input">
-            organisation: <br />
+          <label htmlFor="organisation_input" className="form-label">
+            are you an organisation: <br />
             <input
               value={organisation}
               name="organisation"
               onChange={handleChange}
               id="organisation"
               type="organisation"
+              className="form-control"
             />
             <br />
             <br />
           </label>{" "}
           <br />
-          <label htmlFor="zipcode_input">
+          <label htmlFor="zipcode_input" className="form-label">
             zipcode: <br />
             <input
               value={zipcode}
@@ -121,25 +119,35 @@ export default function Register() {
               onChange={handleChange}
               id="zipcode"
               type="zipcode"
+              className="form-control"
             />
             <br />
             <br />
           </label>{" "}
           <br />
+          <label className="form-label">
+            what type of actions are you looking for?
+          </label>
           {keywords.map((keyword, index) => (
-            <div key={keyword.id}>
+            <div key={keyword.id} className="preferencesInRegisterPage">
               <input
                 id={keyword.id}
                 value={keyword.id}
                 type="checkbox"
+                name="preferences"
                 onChange={handleKeywordChange}
                 checked={preferences.includes(keyword.id) ? "checked" : null}
+                className="btn-check"
+                checkedautocomplete="off"
               />
-              {keyword.keyword}
+              <label className="btn" htmlFor={keyword.id}>
+                {keyword.keyword}
+              </label>
             </div>
           ))}
-          <button>Sign in</button>
+          <button className="sigInButton">Sign in</button>
         </form>
+        <br />
       </div>
     </div>
   );
