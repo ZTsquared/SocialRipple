@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 export default function ActionsMenu() {
   const { isLoggedIn, onLogout, onLogin } = useAuth();
   const [actions, setActions] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getLocation();

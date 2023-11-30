@@ -4,15 +4,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Register() {
+  const [preferences, setPreferences] = useState([]);
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
+    organisation: "",
+    zipcode: "",
   });
-
   const [keywords, setKeywords] = useState([]);
-  const [preferences, setPreferences] = useState([]);
+  let { username, password, organisation, zipcode } = credentials;
   const navigate = useNavigate();
-  const { username, password, organisation, zipcode } = credentials;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,21 +36,21 @@ export default function Register() {
     }
   };
 
+  function handleKeywordChange(e) {
+    if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
+    else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
+    console.log(preferences);
+  }
+
   const register = async () => {
     try {
       console.log("trying...");
       const { data } = await axios("/api/auth/register", {
         method: "POST",
-        data: credentials,
+        data: { credentials, preferences },
       });
-
-      // await axios("/api/preferences", {
-      //   method: "POST",
-      //   data: data.id,
-      // })
       console.log(data);
-
-      navigate({ pathname: "/Login" });
+      // navigate({ pathname: "/Login" });
     } catch (error) {
       console.log(error);
     }
@@ -60,20 +61,10 @@ export default function Register() {
     register();
   }
 
-  function handleKeywordChange(e) {
-    if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
-    else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
-  }
-
-  // i'm sending the keywords the user picked in the form.
-  // I should be able to grab them and send them to the preferences table with the user_id and the
-  // keyword id.
-
   return (
     <div className="mainMenu">
       <div>
         <h2> Register:</h2>
-
         <form onSubmit={() => handleSubmit(event)} action="">
           <label htmlFor="username_input">
             username: <br />
@@ -132,6 +123,7 @@ export default function Register() {
                 id={keyword.id}
                 value={keyword.id}
                 type="checkbox"
+                name="preferences" //do i need this?
                 onChange={handleKeywordChange}
                 checked={preferences.includes(keyword.id) ? "checked" : null}
               />
