@@ -79,7 +79,6 @@ export default function ActionsGroup() {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
       setActions(data);
-      console.log(actions);
     } catch (error) {
       console.log(error);
     }
@@ -120,15 +119,22 @@ export default function ActionsGroup() {
           )}
         </nav>
       </header>
+      <div>
+        <Link to="/MainMenu/Individual" className="btn btn-success">
+          Individual actions
+        </Link>
+        <Link to="/MainMenu/Group" className="btn btn-success">
+          Group actions
+        </Link>
+      </div>
       <div className="container">
         <div className="row">
-          <div className="col-sm">
             <h3>Group Actions</h3>
             {actions.map(
               (action, index) =>
                 action.is_group && (
-                  <div>
-                    <div key={index} className="card">
+                  <div key={index} className="col-sm">
+                    <div className="card">
                       <div>
                         <b>{action.name}</b>
                       </div>
@@ -141,10 +147,9 @@ export default function ActionsGroup() {
                       </div>
                       <div>we need to display the requirements here</div>
                     </div>
-                  </div>
+                </div>
                 )
             )}
-          </div>
         </div>
         <footer className="footer">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">

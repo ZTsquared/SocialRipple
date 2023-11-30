@@ -23,8 +23,14 @@ export default function ActionsMenu() {
   }, []);
 
   useEffect(() => {
-    setRecommendedActions([actions.filter((e,i) => i < 3)]);
+    setRecommendedActions(actions.filter((e,i) => i < 3));
   }, [actions]);
+
+  useEffect(() => {
+    // console.log(recommendedActions, actions);
+    // console.log(new Date(recommendedActions[0]?.start_time).getDay())
+
+  }, [recommendedActions]);
 
   const containerStyle = {
     width: "400px",
@@ -131,67 +137,42 @@ export default function ActionsMenu() {
       </header>
       <div className="container">
         <div className="row">
-          <div className="col-sm">
-            <h3>Group Actions</h3>
-            {actions.map(
-              (action, index) =>
-                action.is_group && (
+          <h3>Recommended for you</h3>
+          {recommendedActions.map(
+            (action, index) =>(
+              <div key={index} className="col-sm">
+                <div className="card">
                   <div>
-                    <div key={index} className="card">
-                      <div>
-                        <b>{action.name}</b>
-                      </div>
-                      <div>{action.description}</div>
-                      <div>Start time: {action.start_time}</div>
-                      <div>End time: {action.end_time}</div>
-                      <div>
-                        place: lat:{action.latitude}long:{action.longitude}{" "}
-                        we'll see how we display this
-                      </div>
-                      <div>we need to display the requirements here</div>
-                    </div>
+                    <b>{action.name}</b>
                   </div>
-                )
-            )}
-          </div>
-
-          <div className="col-sm">
-            <h3>Individual Actions</h3>
-            {actions.map(
-              (action, index) =>
-                !action.is_group && (
+                  <div>{action.description}</div>
+                  {/* <div>Starting {Date.createFromMysql()}</div> */}
+                  <div>Starting {new Date(action.start_time).getMonth() + 1}/{new Date(action.start_time).getDay()}/{new Date(action.start_time).getFullYear()}</div>
                   <div>
-                    <div key={index} className="card">
-                      <div>
-                        <b>{action.name}</b>
-                      </div>
-                      <div>{action.description}</div>
-                      <div>Start time: {action.start_time}</div>
-                      <div>End time: {action.end_time}</div>
-                      <div>
-                        place: lat:{action.latitude}long:{action.longitude}{" "}
-                        we'll see how we display this
-                      </div>
-                      <div>we need to display the requirements here</div>
-                    </div>
+                    place: {action.in_person && "Barcelona"} {action.in_person && action.online && " & "} {action.online && "Online"}
                   </div>
-                )
+                </div>
+              </div>
+            )
+          )}
+        </div>
+        <div className="row">
+          <Link to="Individual" className="btn btn-success">
+            Check out all upcomming actions
+          </Link>
+        </div>
+        <div className="row">
+          <div>
+            <h3>Explore actions in your area</h3>
+            {isLoaded && (
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={10}
+                onLoad={onLoad}
+                onUnmount={onUnmount}
+              ></GoogleMap>
             )}
-          </div>
-
-          <div className="col-sm">
-            <div>
-              <h3>a decent looking map</h3>
-              {isLoaded && (
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={center}
-                  zoom={10}
-                  onLoad={onLoad}
-                  onUnmount={onUnmount}
-                ></GoogleMap>
-              )}
-            </div>
           </div>
         </div>
         <footer className="footer">

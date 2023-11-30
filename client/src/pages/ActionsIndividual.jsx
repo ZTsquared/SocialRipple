@@ -79,7 +79,6 @@ export default function ActionsIndividual() {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
       setActions(data);
-      console.log(actions);
     } catch (error) {
       console.log(error);
     }
@@ -120,31 +119,37 @@ export default function ActionsIndividual() {
           )}
         </nav>
       </header>
+      <div>
+        <Link to="/MainMenu/Individual" className="btn btn-success">
+          Individual actions
+        </Link>
+        <Link to="/MainMenu/Group" className="btn btn-success">
+          Group actions
+        </Link>
+      </div>
       <div className="container">
         <div className="row">
-          <div className="col-sm">
-            <h3>Individual Actions</h3>
-            {actions.map(
-              (action, index) =>
-                !action.is_group && (
-                  <div>
-                    <div key={index} className="card">
-                      <div>
-                        <b>{action.name}</b>
-                      </div>
-                      <div>{action.description}</div>
-                      <div>Start time: {action.start_time}</div>
-                      <div>End time: {action.end_time}</div>
-                      <div>
-                        place: lat:{action.latitude}long:{action.longitude}{" "}
-                        we'll see how we display this
-                      </div>
-                      <div>we need to display the requirements here</div>
+          <h3>Individual Actions</h3>
+          {actions.map(
+            (action, index) =>
+              !action.is_group && (
+                <div key={index} className="col-sm">
+                  <div className="card">
+                    <div>
+                      <b>{action.name}</b>
                     </div>
+                    <div>{action.description}</div>
+                    <div>Start time: {action.start_time}</div>
+                    <div>End time: {action.end_time}</div>
+                    <div>
+                      place: lat:{action.latitude}long:{action.longitude}{" "}
+                      we'll see how we display this
+                    </div>
+                    <div>we need to display the requirements here</div>
                   </div>
-                )
-            )}
-          </div>
+                </div>
+              )
+          )}
 
         </div>
         <footer className="footer">
