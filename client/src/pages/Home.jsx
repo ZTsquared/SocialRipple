@@ -13,20 +13,6 @@ export default function Home() {
     navigate("/MainMenu");
   }
 
-  //WAITING FOR ACTIONS ENDPOINTS TO BE FINISHED TO DO THIS PART - carol
-  //also id want this one to only get the 10 last added actions, and then idk if we divide them into individual/group actions or not tbd
-  // async function getActionsOfTheWeek() {
-  //   try {
-  //     const response = await fetch(`/actions/`);
-  //     const data = await response.json();
-  //need some kind of if statement to check if its a group or a individual action
-  //     setIndividualAction(dataOfIndividualAction);
-  //     setGroupAction(dataOfGroupAction);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   return (
     // info
     // introduction
@@ -36,7 +22,6 @@ export default function Home() {
     <div>
       <header className="navbar navbar-expand-lg navbar-light bg-light">
         <nav>
-          Nav bar of our awesome app{" "}
           {isLoggedIn ? (
             <div>
               <Link to="/Action/Create" className="btn btn-success">
@@ -54,15 +39,17 @@ export default function Home() {
               <Link to="/Login" className="btn btn-success">
                 Login
               </Link>
+              or
               <Link to="/Register" className="btn btn-success">
-                Sign In
+                Sign Up
               </Link>
             </div>
           )}
         </nav>
       </header>
-      <div>hello this is our homepage</div>
-      <div>we need info and kind of an introduction to our app</div>
+      <h2>Our apps name </h2>
+      <h4>hello this is our homepage</h4>
+      <p>we need info and kind of an introduction to our app</p>
       <div>also need calls to actions of the week</div>
       <footer className="footer">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
