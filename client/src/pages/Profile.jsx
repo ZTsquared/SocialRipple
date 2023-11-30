@@ -16,8 +16,11 @@ export default function Profile() {
 
   useEffect(() => {
     getUsers();
-    getPreferences();
   }, []);
+
+  useEffect(() => {
+    getPreferences();
+  }, [user]);
 
   async function getUsers() {
     try {
@@ -28,8 +31,6 @@ export default function Profile() {
       });
       const data = await response.json();
       setUser(data);
-      // getPreferences();
-      console.log(user);
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +38,6 @@ export default function Profile() {
 
   function getPreferences() {
     setPreferences(user.Keywords);
-    console.log(preferences);
   }
 
   return (
@@ -57,11 +57,11 @@ export default function Profile() {
       <h1>User profile</h1>
       <h3>Hello {user.username}!</h3>
       <div>These are your preferences:</div>
-      {/* <div>
+      <div>
         {preferences?.map((e) => (
           <div>{e.keyword}</div>
         ))}
-      </div> */}
+      </div>
       <div>
         You have been a member since:
         {
