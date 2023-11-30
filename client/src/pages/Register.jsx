@@ -50,7 +50,7 @@ export default function Register() {
         data: { credentials, preferences },
       });
       console.log(data);
-      // navigate({ pathname: "/Login" });
+      navigate("/Login");
     } catch (error) {
       console.log(error);
     }
