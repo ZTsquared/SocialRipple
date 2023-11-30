@@ -23,7 +23,7 @@ export default function ActionsMenu() {
   }, []);
 
   useEffect(() => {
-    setRecommendedActions([]);
+    setRecommendedActions([actions.filter((e,i) => i < 3)]);
   }, [actions]);
 
   const containerStyle = {
