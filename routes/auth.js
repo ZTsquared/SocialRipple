@@ -9,7 +9,7 @@ const supersecret = process.env.SUPER_SECRET;
 require("dotenv").config();
 
 router.post("/register", async function (req, res, next) {
-  console.log(req.body);
+
   const { username, password, organisation, latitude, longitude } =
     req.body.credentials;
   const { preferences } = req.body;
