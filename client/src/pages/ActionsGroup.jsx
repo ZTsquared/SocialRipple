@@ -1,30 +1,22 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
-	GoogleMap,
-	useLoadScript,
-	useJsApiLoader,
-	Marker,
+  GoogleMap,
+  useLoadScript,
+  useJsApiLoader,
+  Marker,
 } from "@react-google-maps/api";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
-export default function ActionsMenu() {
-
+export default function ActionsGroup() {
   const { isLoggedIn, onLogout, onLogin } = useAuth();
   const [actions, setActions] = useState([]);
-  const [recommendedActions, setRecommendedActions] = useState([])
-  const navigate = useNavigate();
 
   useEffect(() => {
     getLocation();
     getActions();
   }, []);
-
-  useEffect(() => {
-    setRecommendedActions([]);
-  }, [actions]);
 
   const containerStyle = {
     width: "400px",
@@ -63,8 +55,6 @@ export default function ActionsMenu() {
     navigate("/");
   }
 
-  // const concoctRecomendations = actions.filter()
-
   const getLocation = async (street, number, city) => {
     try {
       const response = await fetch(
@@ -89,6 +79,7 @@ export default function ActionsMenu() {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
       setActions(data);
+      console.log(actions);
     } catch (error) {
       console.log(error);
     }
@@ -154,45 +145,6 @@ export default function ActionsMenu() {
                 )
             )}
           </div>
-
-          <div className="col-sm">
-            <h3>Individual Actions</h3>
-            {actions.map(
-              (action, index) =>
-                !action.is_group && (
-                  <div>
-                    <div key={index} className="card">
-                      <div>
-                        <b>{action.name}</b>
-                      </div>
-                      <div>{action.description}</div>
-                      <div>Start time: {action.start_time}</div>
-                      <div>End time: {action.end_time}</div>
-                      <div>
-                        place: lat:{action.latitude}long:{action.longitude}{" "}
-                        we'll see how we display this
-                      </div>
-                      <div>we need to display the requirements here</div>
-                    </div>
-                  </div>
-                )
-            )}
-          </div>
-
-          <div className="col-sm">
-            <div>
-              <h3>a decent looking map</h3>
-              {isLoaded && (
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={center}
-                  zoom={10}
-                  onLoad={onLoad}
-                  onUnmount={onUnmount}
-                ></GoogleMap>
-              )}
-            </div>
-          </div>
         </div>
         <footer className="footer">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -204,5 +156,4 @@ export default function ActionsMenu() {
       </div>
     </div>
   );
-
 }

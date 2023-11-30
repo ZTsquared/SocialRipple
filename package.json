@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "migrate": "npx sequelize-cli db:migrate"
+    "migrate": "npx sequelize-cli db:migrate", 
+    "migrate:undo": "npx sequelize-cli db:migrate:undo", 
+    "seed": "npx sequelize-cli db:seed:all",
+    "seed:undo": "npx sequelize-cli db:seed:undo" 
   },
   "dependencies": {
     "@googlemaps/react-wrapper": "^1.1.35",

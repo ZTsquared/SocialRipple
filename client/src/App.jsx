@@ -10,34 +10,38 @@ import Register from "./pages/Register";
 import CreateAction from "./pages/CreateAction";
 import JoinAction from "./pages/JoinAction";
 import Profile from "./pages/Profile";
+import ActionsGroup from "./pages/ActionsGroup"
+import ActionsIndividual from "./pages/ActionsIndividual"
 //auth stuff
 import AuthProvider from "./components/AuthProvider";
 import RequireAuth from "./components/RequireAuth";
 
 function App() {
-	return (
-		<AuthProvider>
-			<div>
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/Login" element={<Login />} />
-					<Route path="/Register" element={<Register />} />
-					<Route
-						path="/Profile"
-						element={
-							<RequireAuth>
-								<Profile />
-							</RequireAuth>
-						}
-					/>
-					<Route path="/MainMenu" element={<ActionsMenu />} />
-					<Route path="/Action/View/:ActionId" element={<Action />} />
-					<Route path="/Action/Create" element={<CreateAction />} />
-					<Route path="/Action/Join" element={<JoinAction />} />
-				</Routes>
-			</div>
-		</AuthProvider>
-	);
+  return (
+    <AuthProvider>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+          <Route
+            path="/Profile"
+            element={
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            }
+          />
+          <Route path="/MainMenu" element={<ActionsMenu />} />
+          <Route path="/MainMenu/Individual" element={<ActionsIndividual />} />
+          <Route path="/MainMenu/Group" element={<ActionsGroup />} />
+          <Route path="/Action/View/:ActionId" element={<Action />} />
+          <Route path="/Action/Create" element={<CreateAction />} />
+          <Route path="/Action/Join" element={<JoinAction />} />
+        </Routes>
+      </div>
+    </AuthProvider>
+  );
 }
 
 export default App;
