@@ -36,12 +36,6 @@ export default function Register() {
     }
   };
 
-  function handleKeywordChange(e) {
-    if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
-    else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
-    console.log(preferences);
-  }
-
   const register = async () => {
     try {
       console.log("trying...");
@@ -56,6 +50,12 @@ export default function Register() {
     }
   };
 
+  function handleKeywordChange(e) {
+    if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
+    else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
+    console.log(preferences);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     register();
@@ -64,7 +64,11 @@ export default function Register() {
   return (
     <div className="mainMenu">
       <div>
-        <h2> Register:</h2>
+        <div className="registerTitle">
+          {" "}
+          <h2> Register:</h2>
+        </div>
+
         <form onSubmit={() => handleSubmit(event)} action="">
           <label htmlFor="username_input" className="form-label">
             username: <br />
