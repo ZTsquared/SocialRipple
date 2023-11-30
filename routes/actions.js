@@ -5,60 +5,42 @@ const { Op, Association } = require("sequelize");
 
 // create an action
 router.post("/", async (req, res) => {
-  try {
-    const {
-      online,
-      in_person,
-      start_time,
-      end_time,
-      is_group,
-      name,
-      description,
-      organiserId,
-      online_link,
-      latitude,
-      longitude,
-      // keywords,
-      //requirements,
-    } = req.body;
+	try {
+		const {
+			online,
+			in_person,
+			start_time,
+			end_time,
+			is_group,
+			name,
+			description,
+			organiserId,
+			online_link,
+			latitude,
+			longitude,
+			Keywords,
+			Requirements,
+		} = req.body;
 
-    const newAction = await models.Action.create(
-      {
-        online,
-        in_person,
-        start_time,
-        end_time,
-        is_group,
-        name,
-        description,
-        organiserId,
-        online_link,
-        latitude,
-        longitude,
-        // keywords: [
-        // 	{
-        // 		keywordId: 9,
-        // 		Actions_Keywords: {
-        // 			selfGranted: true,
-        // 		},
-        // 	},
-        // ],
-      }
-      // {
-      // 	include: models.Keyword,
-      // }
-    );
+		const newAction = await models.Action.create({
+			online,
+			in_person,
+			start_time,
+			end_time,
+			is_group,
+			name,
+			description,
+			organiserId,
+			online_link,
+			latitude,
+			longitude,
+		});
 
-    const actionId = newAction.id;
+		await newAction.addKeywords(Keywords);
 
-    // console.log(keywords);
-
-    // for (let keywordId of keywords) {
-    // 	await models.Keywords.create({
-    // 		include: [],
-    // 	});
-    // }
-    // keywordId, actionId
+		for (const requirement of Requirements) {
+			await newAction.createRequirement(requirement);
+		}
 
     res.status(201).send(newAction);
   } catch (error) {
@@ -67,43 +49,41 @@ router.post("/", async (req, res) => {
   }
 });
 
-// { message: "Action created successfully", actionId: newAction.id }
-
 // get all actions
 router.get("/", async (req, res) => {
-  try {
-    const action = await models.Action.findAll({
-      include: [
-        {
-          model: models.Keyword,
-          attributes: ["id", "keyword"],
-          through: {
-            attributes: [],
-          },
-        },
+	try {
+		const actions = await models.Action.findAll({
+			include: [
+				{
+					model: models.Keyword,
+					attributes: ["id", "keyword"],
+					through: {
+						attributes: [],
+					},
+				},
 
-        {
-          model: models.Requirement,
-          include: [
-            {
-              model: models.Volunteership,
-              attributes: ["id", "completed"],
-              include: [
-                {
-                  model: models.User,
-                  attributes: ["id", "username"],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    });
-    res.send(action);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send(error);
-  }
+				{
+					model: models.Requirement,
+					include: [
+						{
+							model: models.Volunteership,
+							attributes: ["id", "completed"],
+							include: [
+								{
+									model: models.User,
+									attributes: ["id", "username"],
+								},
+							],
+						},
+					],
+				},
+			],
+		});
+		res.send(actions);
+	} catch (error) {
+		console.error(error);
+		res.status(500).send(error);
+	}
 });
 
 // get all info of action by action_id
