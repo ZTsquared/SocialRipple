@@ -5,14 +5,22 @@ import axios from "axios";
 
 export default function Register() {
   const [preferences, setPreferences] = useState([]);
+  // const [userBody, setUserBody] = useState();
+
+  const [userCoordinates, setUserCoordinates] = useState();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
     organisation: "",
-    zipcode: "",
+    // zipcode: "",
+    // latitude: userCoordinates?.lat,
+    // longitude: userCoordinates?.lng,
+    street: "",
+    house_number: "",
+    city: "",
   });
   const [keywords, setKeywords] = useState([]);
-  let { username, password, organisation, zipcode } = credentials;
+  let { username, password, organisation, latitude, longitude } = credentials;
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -36,15 +44,16 @@ export default function Register() {
     }
   };
 
-  const register = async () => {
+  const register = async (user) => {
+    console.log(user);
     try {
       console.log("trying...");
       const { data } = await axios("/api/auth/register", {
         method: "POST",
-        data: { credentials, preferences },
+        data: { user, preferences },
       });
       console.log(data);
-      navigate("/Login");
+      // navigate("/Login");
     } catch (error) {
       console.log(error);
     }
@@ -54,12 +63,41 @@ export default function Register() {
     if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
     else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
     console.log(preferences);
+    console.log(credentials);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    register();
+
+    await setCoordinates(
+      credentials.street,
+      credentials.number,
+      credentials.city
+    );
+
+    register({
+      username: credentials.username,
+      password: credentials.password,
+      organisation: credentials.organisation,
+      latitude: userCoordinates?.lat,
+      longitude: userCoordinates?.lng,
+    });
   }
+
+  const setCoordinates = async (street, number, city) => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
+      );
+      const responseToJson = await response.json();
+
+      console.log(responseToJson);
+      setUserCoordinates(responseToJson.results[0].geometry.location);
+      return responseToJson.results[0].geometry.location;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className="mainMenu">
@@ -110,7 +148,7 @@ export default function Register() {
             <br />
           </label>{" "}
           <br />
-          <label htmlFor="zipcode_input" className="form-label">
+          {/* <label htmlFor="zipcode_input" className="form-label">
             zipcode: <br />
             <input
               value={zipcode}
@@ -122,6 +160,29 @@ export default function Register() {
             />
             <br />
             <br />
+          </label>{" "} */}
+          <div>Address</div>
+          <label htmlFor="street">
+            Street:
+            <input
+              onChange={handleChange}
+              type="text"
+              name="street"
+              id="street"
+            />
+          </label>
+          <label htmlFor="house_number">
+            Number:
+            <input
+              onChange={handleChange}
+              type="text"
+              name="house_number"
+              id="house_number"
+            />
+          </label>{" "}
+          <label htmlFor="city">
+            City:
+            <input onChange={handleChange} type="text" name="city" id="city" />
           </label>{" "}
           <br />
           <label className="form-label">
