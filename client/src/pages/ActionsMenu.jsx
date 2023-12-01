@@ -100,6 +100,11 @@ export default function ActionsMenu() {
     }
   }
 
+  function handleActionClick(e){
+    const action_id = e.target.name
+    console.log(e.target)
+  }
+
   // I need to show all the actions markers on the map.
   // the actions come with an address, so we need to grab them with the getLocation (maybe?) for each one.
   // how do I fetch multiple actions in REACT omg
@@ -141,7 +146,7 @@ export default function ActionsMenu() {
           {recommendedActions.map(
             (action, index) =>(
               <div key={index} className="col-sm">
-                <div className="card">
+                <div name={action.id} className="card" onClick={handleActionClick}>
                   <div>
                     <b>{action.name}</b>
                   </div>
