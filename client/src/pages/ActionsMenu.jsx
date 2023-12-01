@@ -181,7 +181,6 @@ export default function ActionsMenu() {
           </Link>
         </div>
         <div className="row">
-
           <div className="col-sm">
             <div>
               <h3>a decent looking map</h3>
@@ -197,7 +196,6 @@ export default function ActionsMenu() {
               </GoogleMap>}
             </div>
           </div>
-
         </div>
         <footer className="footer">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
