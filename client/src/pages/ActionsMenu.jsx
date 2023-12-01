@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
   GoogleMap,
-  useLoadScript,
   useJsApiLoader,
   Marker,
   InfoWindow
@@ -11,14 +10,17 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function ActionsMenu() {
-  const { isLoggedIn, onLogout, onLogin } = useAuth();
-  const [actions, setActions] = useState([]);
-  const [center, setCenter] = useState();
-  const [recommendedActions, setRecommendedActions] = useState([]);
+  const { isLoggedIn, onLogout, onLogin } = useAuth();                                  // we all know these guys
+  const [actions, setActions] = useState([]);                                           // an array with ALL the actions
+  const [center, setCenter] = useState();                                               // lat & lng the map takes as its center
+  const [currentMarkerAction, setCurrentMarkerAction] = useState();                     // all the info of the action corresponding to the marker clicked
+  const [recommendedActions, setRecommendedActions] = useState([]);                     // the 3 recommended actions on top
+  const [showInfoWindow, setShowInfoWindow] = useState({visible: false, position: {}}); // the dinamically updated popup for the marker clicked
+  const [map, setMap] = useState(null);                                                 // the map in all its joy and glory                                           
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    getLocation();
     getActions();
   }, []);
 
@@ -27,53 +29,22 @@ export default function ActionsMenu() {
     setCenter({ lat: actions[1]?.latitude, lng: actions[1]?.longitude})
   }, [actions]);
 
-  useEffect(() => {
-    // console.log(recommendedActions, actions);
-    // console.log(new Date(recommendedActions[0]?.start_time).getDay())
-
-  }, [recommendedActions]);
-
   const containerStyle = {
-    width: "400px",
-    height: "400px",
+    width: "1000px",
+    height: "500px",
   };
-
-  // const center = {
-  //   lat: actions[1].latitude,
-  //   lng: actions[1].longitude
-  // };
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "YOUR_API_KEY",
   });
 
-  //state:
-  const [locationMarker, setLocationMarker] = useState();
-  const [actionMarkers, setActionMarkers] = useState();
-  const [showInfoWindow, setShowInfoWindow] = useState({visible: false, position: {}});
-  const [map, setMap] = useState(null);
-
   const onLoad = useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
+    
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
-
     setMap(map);
   }, []);
-
-  // useEffect(() => {
-  //   if (map) {
-  //     const bounds = new window.google.maps.LatLngBounds(center);
-  //     actions.map(action => {
-  //       bounds.extend({
-  //         lat: action.latitude,
-  //         lng: action.longitude,
-  //       });
-  //     });
-  //     map.fitBounds(bounds);
-  //   }
-  // }, [map, actions]);
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
@@ -84,26 +55,12 @@ export default function ActionsMenu() {
     navigate("/");
   }
 
-  // const concoctRecomendations = actions.filter()
-
-  const getLocation = async (street, number, city) => {
-    try {
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
-      );
-      const responseToJson = await response.json();
-
-      setLocationMarker(responseToJson);
-
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   function markerClick(action) {
     console.log(`action ${action.name} clicked`);
     setCenter({ lat: action.latitude, lng: action.longitude})
     setShowInfoWindow({visible: true, position: { lat: action.latitude, lng: action.longitude}})
+    setCurrentMarkerAction(action)
   }
 
   async function getActions() {
@@ -121,8 +78,6 @@ export default function ActionsMenu() {
     const action_id = e.target.name
     console.log(e.target)
   }
-
-
 
   return (
 
@@ -196,10 +151,11 @@ export default function ActionsMenu() {
                                             </div>)}
                                             {showInfoWindow.visible === true &&
                                                                 
-                                            <InfoWindow position={center} >
+                                            <InfoWindow position={center}>
                                               <div>
-                                                <p>hola</p>
-                                                <Link to="/">learn more </Link>
+                                                <p>{currentMarkerAction.name}</p>
+                                                <p>{currentMarkerAction.description}</p>
+                                                <Link to={`/Action/View/${currentMarkerAction.id}`}>learn more </Link>
                                               </div>
                                             </InfoWindow>
                                             }

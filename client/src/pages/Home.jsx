@@ -35,7 +35,7 @@ export default function Home() {
     // no filters
     // calls to action of the week
     // login button
-    <div>
+    <div className="body">
       <header className="navbar navbar-expand-lg navbar-light bg-light">
         <nav>
           {isLoggedIn ? (
