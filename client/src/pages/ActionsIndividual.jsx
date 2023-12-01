@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
-import ActionCard from "../components/ActionCard"
-
-
-
+import ActionCard from "../components/ActionCard";
 
 export default function ActionsIndividual() {
   const { isLoggedIn, onLogout, onLogin } = useAuth();
@@ -16,7 +13,6 @@ export default function ActionsIndividual() {
     getActions();
   }, []);
 
-  
   function handleLogout() {
     console.log("Logged out");
     onLogout();
@@ -34,7 +30,7 @@ export default function ActionsIndividual() {
   }
 
   return (
-    <div>
+    <div className="body">
       <header className="navbar navbar-expand-lg navbar-light bg-light">
         <nav>
           Nav bar of our awesome app{" "}
@@ -73,12 +69,10 @@ export default function ActionsIndividual() {
       <div className="container">
         <div className="row">
           <h3>Individual Actions</h3>
-           {actions.map(
+          {actions.map(
             (action, index) =>
-              !action.is_group && (
-                <ActionCard action = {action} index = {index}/>
-              )
-            )}
+              !action.is_group && <ActionCard action={action} index={index} />
+          )}
         </div>
         <footer className="footer">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">

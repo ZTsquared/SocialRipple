@@ -53,7 +53,7 @@ export default function Register() {
         data: { user, preferences },
       });
       console.log(data);
-      // navigate("/Login");
+      navigate("/Login");
     } catch (error) {
       console.log(error);
     }
@@ -98,8 +98,9 @@ export default function Register() {
   };
 
   return (
-    <div className="mainMenu">
+    <div className="body">
       <div>
+        <br />
         <div className="registerTitle-css">
           <h2> Sign up:</h2>
         </div>

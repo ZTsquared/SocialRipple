@@ -36,7 +36,7 @@ export default function Login() {
   };
 
   return (
-    <div className="mainMenu">
+    <div className="body">
       <div>
         <h2> Login:</h2>
         <label htmlFor="username_input">
