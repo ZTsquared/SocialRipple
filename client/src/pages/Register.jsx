@@ -5,14 +5,22 @@ import axios from "axios";
 
 export default function Register() {
   const [preferences, setPreferences] = useState([]);
+  // const [userBody, setUserBody] = useState();
+
+  const [userCoordinates, setUserCoordinates] = useState();
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
     organisation: "",
-    zipcode: "",
+    // zipcode: "",
+    // latitude: userCoordinates?.lat,
+    // longitude: userCoordinates?.lng,
+    street: "",
+    house_number: "",
+    city: "",
   });
   const [keywords, setKeywords] = useState([]);
-  let { username, password, organisation, zipcode } = credentials;
+  let { username, password, organisation, latitude, longitude } = credentials;
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -36,15 +44,16 @@ export default function Register() {
     }
   };
 
-  const register = async () => {
+  const register = async (user) => {
+    console.log(user);
     try {
       console.log("trying...");
       const { data } = await axios("/api/auth/register", {
         method: "POST",
-        data: { credentials, preferences },
+        data: { user, preferences },
       });
       console.log(data);
-      navigate("/Login");
+      // navigate("/Login");
     } catch (error) {
       console.log(error);
     }
@@ -53,24 +62,50 @@ export default function Register() {
   function handleKeywordChange(e) {
     if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
     else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
-    console.log(preferences);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    register();
+
+    await setCoordinates(
+      credentials.street,
+      credentials.number,
+      credentials.city
+    );
+
+    register({
+      username: credentials.username,
+      password: credentials.password,
+      organisation: credentials.organisation,
+      latitude: userCoordinates?.lat,
+      longitude: userCoordinates?.lng,
+    });
   }
+
+  const setCoordinates = async (street, number, city) => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
+      );
+      const responseToJson = await response.json();
+
+      console.log(responseToJson);
+      setUserCoordinates(responseToJson.results[0].geometry.location);
+      return responseToJson.results[0].geometry.location;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className="mainMenu">
       <div>
         <div className="registerTitle-css">
-          <h2> Register:</h2>
+          <h2> Sign up:</h2>
         </div>
-
         <form onSubmit={() => handleSubmit(event)} action="">
           <label htmlFor="username_input" className="form-label">
-            username: <br />
+            Username: <br />
             <input
               value={username}
               name="username"
@@ -83,7 +118,7 @@ export default function Register() {
           <br />
           <br />
           <label htmlFor="password_input" className="form-label">
-            password: <br />
+            Password: <br />
             <input
               value={password}
               name="password"
@@ -92,12 +127,10 @@ export default function Register() {
               type="password"
               className="form-control"
             />
-            <br />
-            <br />
-          </label>{" "}
-          <br />
+          </label>
+          <br /> <br />
           <label htmlFor="organisation_input" className="form-label">
-            are you an organisation: <br />
+            Are you an organisation: <br />
             <input
               value={organisation}
               name="organisation"
@@ -108,24 +141,42 @@ export default function Register() {
             />
             <br />
             <br />
-          </label>{" "}
-          <br />
-          <label htmlFor="zipcode_input" className="form-label">
-            zipcode: <br />
+          </label>
+          <div>Address</div>
+          <label htmlFor="street" className="form-label">
             <input
-              value={zipcode}
-              name="zipcode"
+              placeholder="Street Name"
               onChange={handleChange}
-              id="zipcode"
-              type="zipcode"
+              type="text"
+              name="street"
+              id="street"
               className="form-control"
             />
-            <br />
-            <br />
+          </label>
+          <label htmlFor="house_number" className="form-label">
+            <input
+              placeholder="Number"
+              onChange={handleChange}
+              type="text"
+              name="house_number"
+              id="house_number"
+              className="form-control"
+            />
+          </label>{" "}
+          <label htmlFor="city" className="form-label">
+            <input
+              placeholder="City"
+              onChange={handleChange}
+              type="text"
+              name="city"
+              id="city"
+              className="form-control"
+            />
           </label>{" "}
           <br />
+          <br />
           <label className="form-label">
-            what type of actions are you looking for?
+            What type of actions are you looking for?
           </label>
           <br />
           <div className="preferencesInRegisterPage-css row justify-content-center">
