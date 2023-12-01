@@ -19,27 +19,27 @@ body {
   height: 2.5rem; /* Footer height */
 }
 
-.preferencesInRegisterPage {
+.preferencesInRegisterPage-css {
   margin: 6px;
 }
 
-.sigInButton {
+.sigInButton-css {
   border-radius: 6px;
   border: 0px;
-  padding: 7px 15px;
+  padding: 9px 19px;
   color: rgb(248, 242, 242);
   background-color: rgb(108, 187, 226);
   margin: 3px;
 }
 
-.registerTitle {
+.registerTitle-css {
   border: 2px solid rgb(108, 187, 226);
   background-color: rgb(108, 187, 226);
   color: rgb(248, 242, 242);
-  margin: 10px 355px;
+  margin: 10px 590px;
   border-radius: 7px;
 }
 
-.homepageParagraph {
+.homepageParagraph-css {
   margin: 5px 170px;
 }

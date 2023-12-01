@@ -64,8 +64,7 @@ export default function Register() {
   return (
     <div className="mainMenu">
       <div>
-        <div className="registerTitle">
-          {" "}
+        <div className="registerTitle-css">
           <h2> Register:</h2>
         </div>
 
@@ -128,24 +127,40 @@ export default function Register() {
           <label className="form-label">
             what type of actions are you looking for?
           </label>
-          {keywords.map((keyword, index) => (
-            <div key={keyword.id} className="preferencesInRegisterPage">
-              <input
-                id={keyword.id}
-                value={keyword.id}
-                type="checkbox"
-                name="preferences"
-                onChange={handleKeywordChange}
-                checked={preferences.includes(keyword.id) ? "checked" : null}
-                className="btn-check"
-                checkedautocomplete="off"
-              />
-              <label className="btn" htmlFor={keyword.id}>
-                {keyword.keyword}
-              </label>
-            </div>
-          ))}
-          <button className="sigInButton">Sign in</button>
+          <br />
+          <div className="preferencesInRegisterPage-css row justify-content-center">
+            {keywords.map((keyword, index) => (
+              <div
+                key={keyword.id}
+                className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
+                style={{ margin: index % 3 === 2 ? "5px" : "10px" }}
+              >
+                <div className="d-inline-flex" style={{ gap: "67px" }}>
+                  <input
+                    id={keyword.id}
+                    value={keyword.id}
+                    type="checkbox"
+                    name="preferences"
+                    onChange={handleKeywordChange}
+                    checked={
+                      preferences.includes(keyword.id) ? "checked" : null
+                    }
+                    className="btn-check"
+                    autoComplete="off"
+                  />
+                  <label
+                    className="btn"
+                    htmlFor={keyword.id}
+                    style={{ backgroundColor: "#e4f1fe" }}
+                  >
+                    {keyword.keyword}
+                  </label>
+                </div>
+              </div>
+            ))}
+          </div>
+          <br />
+          <button className="sigInButton-css">Sign in</button>
         </form>
         <br />
       </div>
