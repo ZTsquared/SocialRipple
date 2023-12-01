@@ -55,8 +55,6 @@ export default function ActionsMenu() {
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
 
-
-
     setMap(map);
   }, []);
 
