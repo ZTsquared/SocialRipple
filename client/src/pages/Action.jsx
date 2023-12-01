@@ -126,8 +126,9 @@ export default function Action() {
 							<div>Countdown is over!</div>
 						) : (
 							<div>
-								Remaining time: {days} days, {hours} hours, {minutes} minutes,{" "}
-								{seconds} seconds
+								Time until action!
+								<br></br>
+								{days} days, {hours} hours, {minutes} minutes, {seconds} seconds
 							</div>
 						)}
 					</div>
