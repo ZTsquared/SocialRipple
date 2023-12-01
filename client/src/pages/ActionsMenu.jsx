@@ -4,6 +4,7 @@ import {
   useLoadScript,
   useJsApiLoader,
   Marker,
+  InfoWindow
 } from "@react-google-maps/api";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
@@ -12,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 export default function ActionsMenu() {
   const { isLoggedIn, onLogout, onLogin } = useAuth();
   const [actions, setActions] = useState([]);
+  const [center, setCenter] = useState();
   const [recommendedActions, setRecommendedActions] = useState([]);
   const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ export default function ActionsMenu() {
 
   useEffect(() => {
     setRecommendedActions(actions.filter((e,i) => i < 3));
+    setCenter({ lat: actions[1]?.latitude, lng: actions[1]?.longitude})
   }, [actions]);
 
   useEffect(() => {
@@ -35,10 +38,10 @@ export default function ActionsMenu() {
     height: "400px",
   };
 
-  const center = {
-    lat: 41.571417,
-    lng: 2.01803,
-  };
+  // const center = {
+  //   lat: actions[1].latitude,
+  //   lng: actions[1].longitude
+  // };
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -48,6 +51,7 @@ export default function ActionsMenu() {
   //state:
   const [locationMarker, setLocationMarker] = useState();
   const [actionMarkers, setActionMarkers] = useState();
+  const [showInfoWindow, setShowInfoWindow] = useState({visible: false, position: {}});
   const [map, setMap] = useState(null);
 
   const onLoad = useCallback(function callback(map) {
@@ -90,16 +94,16 @@ export default function ActionsMenu() {
       const responseToJson = await response.json();
 
       setLocationMarker(responseToJson);
-      // console.log(responseToJson.results[0].geometry.location)
-      // return responseToJson.results[0].geometry.location
+
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  function markerClick(markerIndex) {
-    console.log(`marker ${markerIndex} clicked`);
-    console.log(actions)
+  function markerClick(action) {
+    console.log(`action ${action.name} clicked`);
+    setCenter({ lat: action.latitude, lng: action.longitude})
+    setShowInfoWindow({visible: true, position: { lat: action.latitude, lng: action.longitude}})
   }
 
   async function getActions() {
@@ -107,6 +111,7 @@ export default function ActionsMenu() {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
       setActions(data);
+      
     } catch (error) {
       console.log(error);
     }
@@ -117,13 +122,10 @@ export default function ActionsMenu() {
     console.log(e.target)
   }
 
-  // I need to show all the actions markers on the map.
-  // the actions come with an address, so we need to grab them with the getLocation (maybe?) for each one.
-  // how do I fetch multiple actions in REACT omg
-  // should I do it when we MAP to instantiate the markers?
+
 
   return (
-    // maybe show the actions in a 2 columns format: |group| |individual|
+
     <div>
       <header className="navbar navbar-expand-lg navbar-light bg-light">
         <nav>
@@ -185,12 +187,23 @@ export default function ActionsMenu() {
               {isLoaded && <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
-                zoom={10}
+                zoom={15}
                 onLoad={onLoad}
                 onUnmount={onUnmount}>
                 
-                <Marker onClick={markerClick} label="A" title="Hello World!" position={center}/>
-                {actions.map((action, i) => <Marker onClick={markerClick} key={i} position={{lat: action.latitude, lng: action.longitude}}/>)}
+                {actions.map((action, i) => <div key={i}><Marker onClick={() => markerClick(action)} key={i} position={{lat: action.latitude, lng: action.longitude}}/>
+                                                             
+                                            </div>)}
+                                            {showInfoWindow.visible === true &&
+                                                                
+                                            <InfoWindow position={center} >
+                                              <div>
+                                                <p>hola</p>
+                                                <Link to="/">learn more </Link>
+                                              </div>
+                                            </InfoWindow>
+                                            }
+                
               </GoogleMap>}
             </div>
           </div>
