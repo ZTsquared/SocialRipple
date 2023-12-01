@@ -105,13 +105,17 @@ export default function Action() {
 																</div>
 															)}
 													</div>
+													<button
+														type="button"
+														className="btn btn-primary btn-sm">
+														Join
+													</button>
 												</div>
 											</div>
 										</div>
 									))}
 								</div>
 							)}
-							<button>Sign up!</button>
 						</Tab>
 					</Tabs>
 				</div>
