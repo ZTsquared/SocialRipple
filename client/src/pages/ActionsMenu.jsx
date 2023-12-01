@@ -11,16 +11,15 @@ import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function ActionsMenu() {
+import NavBar from "../components/NavBar"
 
-  const { isLoggedIn, onLogout, onLogin } = useAuth();                                  // we all know these guys
+export default function ActionsMenu() {
   const [actions, setActions] = useState([]);                                           // an array with ALL the actions
   const [center, setCenter] = useState();                                               // lat & lng the map takes as its center
   const [currentMarkerAction, setCurrentMarkerAction] = useState();                     // all the info of the action corresponding to the marker clicked
   const [recommendedActions, setRecommendedActions] = useState([]);                     // the 3 recommended actions on top
   const [showInfoWindow, setShowInfoWindow] = useState({visible: false, position: {}}); // the dinamically updated popup for the marker clicked
   const [map, setMap] = useState(null);                                                 // the map in all its joy and glory                                           
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,11 +69,7 @@ export default function ActionsMenu() {
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
-  function handleLogout() {
-    console.log("Logged out");
-    onLogout();
-    navigate("/");
-  }
+
 
 
   // const concoctRecomendations = actions.filter()
@@ -118,34 +113,8 @@ export default function ActionsMenu() {
   }
 
   return (
-    <div className="body">
-      <header className="navbar navbar-expand-lg navbar-light bg-light">
-        <nav>
-          Nav bar of our awesome app{" "}
-          {isLoggedIn ? (
-            <div>
-              <Link to="/Action/Create" className="btn btn-success">
-                Create Action
-              </Link>
-              <Link to="/Profile" className="btn btn-success">
-                Profile
-              </Link>
-              <button className="btn btn-success" onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
-          ) : (
-            <div>
-              <Link to="/Login" className="btn btn-success">
-                Login
-              </Link>
-              <Link to="/Register" className="btn btn-success">
-                Sign In
-              </Link>
-            </div>
-          )}
-        </nav>
-      </header>
+    <div>
+      <NavBar/>
       <div className="container">
         <div className="row">
           <h3>Recommended for you</h3>

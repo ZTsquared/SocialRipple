@@ -1,13 +1,25 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import useAuth from "../hooks/useAuth";
+
 export default function NavBar() {
+    const { isLoggedIn, onLogout, onLogin } = useAuth();
+
+    function handleLogout() {
+        console.log("Logged out");
+        onLogout();
+        navigate("/");
+      }
+
   return (
     <header className="navbar navbar-expand-lg navbar-light bg-light">
         <nav>
-        Nav bar of our awesome app{" "}
         {isLoggedIn ? (
             <div>
+            <Link to="/MainMenu" className="btn btn-success">
+              Calls to action
+            </Link>
             <Link to="/Action/Create" className="btn btn-success">
                 Create Action
             </Link>
@@ -15,7 +27,7 @@ export default function NavBar() {
                 Profile
             </Link>
             {/* <button className="btn btn-success" onClick={handleLogout}> */}
-            <button className="btn btn-success">
+            <button className="btn btn-success" onClick={handleLogout}>
                 Logout
             </button>
             </div>
@@ -23,9 +35,6 @@ export default function NavBar() {
             <div>
             <Link to="/Login" className="btn btn-success">
                 Login
-            </Link>
-            <Link to="/Register" className="btn btn-success">
-                Sign In
             </Link>
             </div>
         )}

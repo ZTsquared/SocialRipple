@@ -4,6 +4,9 @@ import "../Action.css";
 import { useCountdown } from "../hooks/useCountdown";
 import { Tabs, Tab } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import NavBar from "../components/NavBar"
+
 export default function Action() {
   
 	const [oneAction, setOneAction] = useState([]);
@@ -49,6 +52,7 @@ export default function Action() {
 
 	return (
 		<div>
+			<NavBar/>
 			{/* <div className="left-side"> */}
 			<div className="actioncontainer-css">
 				<h1> {oneAction.name} </h1>

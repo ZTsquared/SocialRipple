@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import NavBar from "../components/NavBar"
+
 // shows the profile of the logged user.
 // it shows the user basic info (i'm thinking name, age, interests, profile pic, etc...)
 // and also the events the user is registered as a volunteer or as taking a challenge.
@@ -43,19 +45,7 @@ export default function Profile() {
 
   return (
     <div className="body">
-      <header className="navbar navbar-expand-lg navbar-light bg-light">
-        <nav>
-          Nav bar of our awesome app{" "}
-          <div>
-            <Link to="/MainMenu" className="btn btn-success">
-              Calls to action
-            </Link>
-
-
-						<button className="btn btn-success">Logout</button>
-					</div>
-				</nav>
-			</header>
+      <NavBar/>
 			<h1>User profile</h1>
 			<h3>Hello {user.username}!</h3>
 			<div>These are your preferences:</div>
