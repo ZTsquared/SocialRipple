@@ -120,7 +120,7 @@ export default function Action() {
 					</Tabs>
 				</div>
 
-				<div className="actionBottomContainer-css">
+				<div className="container">
 					<div className="countdown">
 						{days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
 							<div>Countdown is over!</div>
@@ -131,13 +131,13 @@ export default function Action() {
 							</div>
 						)}
 					</div>
+				</div>
 
-					{/* back to actionsmenu page */}
-					<div className="buttonSection" id="singleButton">
-						<button className="backButton" onClick={() => navigate(-1)}>
-							Back
-						</button>
-					</div>
+				{/* back to actionsmenu page */}
+				<div className="buttonSection" id="singleButton">
+					<button className="backButton" onClick={() => navigate(-1)}>
+						Back
+					</button>
 				</div>
 			</div>
 		</div>

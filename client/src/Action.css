@@ -10,10 +10,20 @@
 	margin-top: 20px;
 }
 
-.actionBottomContainer-css {
-	display: flex;
+.countdown {
+	margin-top: 40px;
+	padding: 10%;
+	width: 450px;
+	height: 200px;
+	border: 1px solid grey;
+	border-radius: 40px;
+	box-shadow: 1px 3px 3px 3px rgb(194, 194, 194);
+}
+
+/* .actionBottomContainer-css {
+	/* display: flex;
 	flex-direction: column;
 	align-self: flex-end;
 	margin-top: auto;
 	align-items: left;
-}
+} */
