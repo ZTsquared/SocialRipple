@@ -1,6 +1,8 @@
 .body {
+
 	background-color: lavender;
 	text-align: center;
+
 }
 
 #page-container {
@@ -33,12 +35,13 @@
 }
 
 .registerTitle-css {
-	border: 2px solid rgb(108, 187, 226);
-	background-color: rgb(108, 187, 226);
-	color: rgb(248, 242, 242);
-	margin: 10px 260px;
-	padding: 2px;
-	border-radius: 7px;
+  border: 2px solid rgb(108, 187, 226);
+  background-color: rgb(108, 187, 226);
+  color: rgb(248, 242, 242);
+  margin: 10px 500px;
+  padding: 2px;
+  border-radius: 7px;
+
 }
 
 .homepageParagraph-css {

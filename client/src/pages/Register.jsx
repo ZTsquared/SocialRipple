@@ -44,20 +44,21 @@ export default function Register() {
 		}
 	};
 
-	const register = async (user) => {
-		console.log(user);
-		try {
-			console.log("trying...");
-			const { data } = await axios("/api/auth/register", {
-				method: "POST",
-				data: { user, preferences },
-			});
-			console.log(data);
-			// navigate("/Login");
-		} catch (error) {
-			console.log(error);
-		}
-	};
+
+  const register = async (user) => {
+    console.log(user);
+    try {
+      console.log("trying...");
+      const { data } = await axios("/api/auth/register", {
+        method: "POST",
+        data: { user, preferences },
+      });
+      console.log(data);
+      navigate("/Login");
+    } catch (error) {
+      console.log(error);
+    }
+
 
 	function handleKeywordChange(e) {
 		if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
@@ -97,122 +98,128 @@ export default function Register() {
 		}
 	};
 
-	return (
-		<div className="body">
-			<div>
-				<div className="registerTitle-css">
-					<h2> Sign up:</h2>
-				</div>
-				<form onSubmit={() => handleSubmit(event)} action="">
-					<label htmlFor="username_input" className="form-label">
-						Username: <br />
-						<input
-							value={username}
-							name="username"
-							onChange={handleChange}
-							id="username"
-							type="text"
-							className="form-control"
-						/>
-					</label>
-					<br />
-					<br />
-					<label htmlFor="password_input" className="form-label">
-						Password: <br />
-						<input
-							value={password}
-							name="password"
-							onChange={handleChange}
-							id="password"
-							type="password"
-							className="form-control"
-						/>
-					</label>
-					<br /> <br />
-					<label htmlFor="organisation_input" className="form-label">
-						Are you an organisation: <br />
-						<input
-							value={organisation}
-							name="organisation"
-							onChange={handleChange}
-							id="organisation"
-							type="organisation"
-							className="form-control"
-						/>
-						<br />
-						<br />
-					</label>
-					<div>Address</div>
-					<label htmlFor="street" className="form-label">
-						<input
-							placeholder="Street Name"
-							onChange={handleChange}
-							type="text"
-							name="street"
-							id="street"
-							className="form-control"
-						/>
-					</label>
-					<label htmlFor="house_number" className="form-label">
-						<input
-							placeholder="Number"
-							onChange={handleChange}
-							type="text"
-							name="house_number"
-							id="house_number"
-							className="form-control"
-						/>
-					</label>{" "}
-					<label htmlFor="city" className="form-label">
-						<input
-							placeholder="City"
-							onChange={handleChange}
-							type="text"
-							name="city"
-							id="city"
-							className="form-control"
-						/>
-					</label>{" "}
-					<br />
-					<br />
-					<label className="form-label">
-						What type of actions are you looking for?
-					</label>
-					<br />
-					<div className="preferencesInRegisterPage-css row justify-content-center">
-						{keywords.map((keyword, index) => (
-							<div
-								key={keyword.id}
-								className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
-								style={{ margin: index % 3 === 2 ? "5px" : "10px" }}>
-								<div className="d-inline-flex" style={{ gap: "67px" }}>
-									<input
-										id={keyword.id}
-										value={keyword.id}
-										type="checkbox"
-										name="preferences"
-										onChange={handleKeywordChange}
-										checked={
-											preferences.includes(keyword.id) ? "checked" : null
-										}
-										className="btn-check"
-										autoComplete="off"
-									/>
-									<label
-										className="btn"
-										htmlFor={keyword.id}
-										style={{ backgroundColor: "#e4f1fe" }}>
-										{keyword.keyword}
-									</label>
-								</div>
-							</div>
-						))}
-					</div>
-					<br />
-					<button className="sigInButton-css">Sign in</button>
-				</form>
-				<br />
-			</div>
-		</div>
-	);
+
+
+  return (
+    <div className="body">
+      <div>
+        <br />
+        <div className="registerTitle-css">
+          <h2> Sign up:</h2>
+        </div>
+        <form onSubmit={() => handleSubmit(event)} action="">
+          <label htmlFor="username_input" className="form-label">
+            Username: <br />
+            <input
+              value={username}
+              name="username"
+              onChange={handleChange}
+              id="username"
+              type="text"
+              className="form-control"
+            />
+          </label>
+          <br />
+          <br />
+          <label htmlFor="password_input" className="form-label">
+            Password: <br />
+            <input
+              value={password}
+              name="password"
+              onChange={handleChange}
+              id="password"
+              type="password"
+              className="form-control"
+            />
+          </label>
+          <br /> <br />
+          <label htmlFor="organisation_input" className="form-label">
+            Are you an organisation: <br />
+            <input
+              value={organisation}
+              name="organisation"
+              onChange={handleChange}
+              id="organisation"
+              type="organisation"
+              className="form-control"
+            />
+            <br />
+            <br />
+          </label>
+          <div>Address</div>
+          <label htmlFor="street" className="form-label">
+            <input
+              placeholder="Street Name"
+              onChange={handleChange}
+              type="text"
+              name="street"
+              id="street"
+              className="form-control"
+            />
+          </label>
+          <label htmlFor="house_number" className="form-label">
+            <input
+              placeholder="Number"
+              onChange={handleChange}
+              type="text"
+              name="house_number"
+              id="house_number"
+              className="form-control"
+            />
+          </label>{" "}
+          <label htmlFor="city" className="form-label">
+            <input
+              placeholder="City"
+              onChange={handleChange}
+              type="text"
+              name="city"
+              id="city"
+              className="form-control"
+            />
+          </label>{" "}
+          <br />
+          <br />
+          <label className="form-label">
+            What type of actions are you looking for?
+          </label>
+          <br />
+          <div className="preferencesInRegisterPage-css row justify-content-center">
+            {keywords.map((keyword, index) => (
+              <div
+                key={keyword.id}
+                className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
+                style={{ margin: index % 3 === 2 ? "5px" : "10px" }}
+              >
+                <div className="d-inline-flex" style={{ gap: "67px" }}>
+                  <input
+                    id={keyword.id}
+                    value={keyword.id}
+                    type="checkbox"
+                    name="preferences"
+                    onChange={handleKeywordChange}
+                    checked={
+                      preferences.includes(keyword.id) ? "checked" : null
+                    }
+                    className="btn-check"
+                    autoComplete="off"
+                  />
+                  <label
+                    className="btn"
+                    htmlFor={keyword.id}
+                    style={{ backgroundColor: "#e4f1fe" }}
+                  >
+                    {keyword.keyword}
+                  </label>
+                </div>
+              </div>
+            ))}
+          </div>
+          <br />
+          <button className="sigInButton-css">Sign in</button>
+        </form>
+        <br />
+      </div>
+    </div>
+  );
+
 }

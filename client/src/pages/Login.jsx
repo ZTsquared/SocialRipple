@@ -33,39 +33,38 @@ export default function Login() {
 		} catch (error) {
 			console.log(error);
 		}
-	};
-
-	return (
-		<div className="body">
-			<div>
-				<h2> Login:</h2>
-				<label htmlFor="username_input">
-					username: <br />
-					<input
-						value={username}
-						name="username"
-						onChange={handleChange}
-						id="username"
-						type="text"
-					/>
-				</label>
-				<br />
-				<br />
-				<label htmlFor="password_input">
-					password: <br />
-					<input
-						value={password}
-						name="password"
-						onChange={handleChange}
-						id="password"
-						type="password"
-					/>
-					<br />
-					<br />
-				</label>{" "}
-				<br />
-				<button onClick={login}>login</button>
-			</div>
-		</div>
-	);
+	
+  return (
+    <div className="body">
+      <div>
+        <h2> Login:</h2>
+        <label htmlFor="username_input">
+          username: <br />
+          <input
+            value={username}
+            name="username"
+            onChange={handleChange}
+            id="username"
+            type="text"
+          />
+        </label>
+        <br />
+        <br />
+        <label htmlFor="password_input">
+          password: <br />
+          <input
+            value={password}
+            name="password"
+            onChange={handleChange}
+            id="password"
+            type="password"
+          />
+          <br />
+          <br />
+        </label>{" "}
+        <br />
+        <button onClick={login}>login</button>
+      </div>
+    </div>
+  );
 }

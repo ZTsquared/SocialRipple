@@ -4,8 +4,8 @@ import "../Action.css";
 import { useCountdown } from "../hooks/useCountdown";
 import { Tabs, Tab } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 export default function Action() {
+  
 	const [oneAction, setOneAction] = useState([]);
 	const { ActionId } = useParams();
 	let navigate = useNavigate();
@@ -159,4 +159,5 @@ export default function Action() {
 			</div>
 		</div>
 	);
+
 }

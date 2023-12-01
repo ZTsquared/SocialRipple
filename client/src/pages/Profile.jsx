@@ -40,15 +40,17 @@ export default function Profile() {
 		setPreferences(user.Keywords);
 	}
 
-	return (
-		<div className="body">
-			<header className="navbar navbar-expand-lg navbar-light bg-light">
-				<nav>
-					Nav bar of our awesome app{" "}
-					<div>
-						<Link to="/MainMenu" className="btn btn-success">
-							Calls to action
-						</Link>
+
+  return (
+    <div className="body">
+      <header className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav>
+          Nav bar of our awesome app{" "}
+          <div>
+            <Link to="/MainMenu" className="btn btn-success">
+              Calls to action
+            </Link>
+
 
 						<button className="btn btn-success">Logout</button>
 					</div>
