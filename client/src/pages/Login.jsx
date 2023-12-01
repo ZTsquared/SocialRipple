@@ -1,7 +1,10 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import useAuth from "../hooks/useAuth";
+import NavBar from "../components/NavBar"
 
 export default function Login() {
   const { isLoggedIn, onLogin } = useAuth();
@@ -64,7 +67,10 @@ export default function Login() {
           <br />
         </label>{" "}
         <br />
-        <button onClick={login}>login</button>
+        <button onClick={login}>login</button> <br/><br/>
+        <Link to="/Register" className="btn btn-success">
+                Sign Up
+        </Link>
       </div>
     </div>
   );

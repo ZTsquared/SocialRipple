@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import NavBar from "../components/NavBar"
+
 export default function Register() {
   const [preferences, setPreferences] = useState([]);
   // const [userBody, setUserBody] = useState();
@@ -98,6 +100,8 @@ export default function Register() {
   };
 
   return (
+    <div>
+      <NavBar/>
     <div className="mainMenu">
       <div>
         <div className="registerTitle-css">
@@ -113,7 +117,7 @@ export default function Register() {
               id="username"
               type="text"
               className="form-control"
-            />
+              />
           </label>
           <br />
           <br />
@@ -126,7 +130,7 @@ export default function Register() {
               id="password"
               type="password"
               className="form-control"
-            />
+              />
           </label>
           <br /> <br />
           <label htmlFor="organisation_input" className="form-label">
@@ -138,7 +142,7 @@ export default function Register() {
               id="organisation"
               type="organisation"
               className="form-control"
-            />
+              />
             <br />
             <br />
           </label>
@@ -151,7 +155,7 @@ export default function Register() {
               name="street"
               id="street"
               className="form-control"
-            />
+              />
           </label>
           <label htmlFor="house_number" className="form-label">
             <input
@@ -171,7 +175,7 @@ export default function Register() {
               name="city"
               id="city"
               className="form-control"
-            />
+              />
           </label>{" "}
           <br />
           <br />
@@ -182,9 +186,9 @@ export default function Register() {
           <div className="preferencesInRegisterPage-css row justify-content-center">
             {keywords.map((keyword, index) => (
               <div
-                key={keyword.id}
-                className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
-                style={{ margin: index % 3 === 2 ? "5px" : "10px" }}
+              key={keyword.id}
+              className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
+              style={{ margin: index % 3 === 2 ? "5px" : "10px" }}
               >
                 <div className="d-inline-flex" style={{ gap: "67px" }}>
                   <input
@@ -198,7 +202,7 @@ export default function Register() {
                     }
                     className="btn-check"
                     autoComplete="off"
-                  />
+                    />
                   <label
                     className="btn"
                     htmlFor={keyword.id}
@@ -216,5 +220,6 @@ export default function Register() {
         <br />
       </div>
     </div>
+  </div>
   );
 }
