@@ -177,6 +177,24 @@ export default function ActionsMenu() {
               ></GoogleMap>
             )}
           </div>
+
+          <div className="col-sm">
+            <div>
+              <h3>a decent looking map</h3>
+              {isLoaded && <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={10}
+                onLoad={onLoad}
+                onUnmount={onUnmount}>
+                { /* Child components, such as markers, info windows, etc. */ 
+                <Marker onClick={markerClick} position={center}/>}
+                
+                {/* // dummyUserLocationsArray.map((location, i) => <Marker onClick={markerClick} key={i} position={() => getLocation(location.street, location.number, location.city )}/>)} */}
+              </GoogleMap>}
+            </div>
+          </div>
+
         </div>
         <footer className="footer">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
