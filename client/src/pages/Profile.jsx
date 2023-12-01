@@ -41,7 +41,7 @@ export default function Profile() {
   }
 
   return (
-    <div>
+    <div className="body">
       <header className="navbar navbar-expand-lg navbar-light bg-light">
         <nav>
           Nav bar of our awesome app{" "}

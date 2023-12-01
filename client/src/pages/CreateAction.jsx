@@ -5,7 +5,6 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function CreateAction() {
-
   const [actionBody, setActionBody] = useState();
   const [actionCoordinates, setActionCoordinates] = useState();
   const [requirements, setRequirements] = useState();
@@ -16,7 +15,7 @@ export default function CreateAction() {
   useEffect(() => {
     getUsers();
     getKeywords();
-  }, [])
+  }, []);
 
   async function getUsers() {
     try {
@@ -47,33 +46,36 @@ export default function CreateAction() {
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
 
-    if(name === "online" || name === "inperson" || name === "is_group"){
-      checked ? setActionBody({ ...actionBody, [name]: true}) : setActionBody({ ...actionBody, [name]: false})
-    }
-    else{
+    if (name === "online" || name === "inperson" || name === "is_group") {
+      checked
+        ? setActionBody({ ...actionBody, [name]: true })
+        : setActionBody({ ...actionBody, [name]: false });
+    } else {
       setActionBody({ ...actionBody, [name]: value });
     }
   };
 
   const handleRequirementChange = (e) => {
     const { name, value } = e.target;
-    name === "req_capacity" ? setRequirements({...requirements, capacity: value}) : setRequirements({...requirements, description: value})
-  }
+    name === "req_capacity"
+      ? setRequirements({ ...requirements, capacity: value })
+      : setRequirements({ ...requirements, description: value });
+  };
 
   function handleKeywordChange(e) {
     if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
     else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
   }
 
-  async function handleSubmit(){
-    event.preventDefault()
+  async function handleSubmit() {
+    event.preventDefault();
 
-    await setCoordinates(actionBody.street, actionBody.number, actionBody.city)
+    await setCoordinates(actionBody.street, actionBody.number, actionBody.city);
 
     //to be refactored. doing it like this now because the actionBody has the street, house number and city
     //instead of coordinates and it made sense to me passing the whole thing with the coordinates instead
     //of an address
-    
+
     createNewAction({
       online: actionBody.online,
       inperson: actionBody.inperson,
@@ -86,12 +88,12 @@ export default function CreateAction() {
       latitude: actionCoordinates?.lat,
       longitude: actionCoordinates?.lng,
       organiser_id: user.id,
-      Keywords: preferences,          // placeholder for now
-      Requirements: [ requirements ]  // placeholder for now
+      Keywords: preferences, // placeholder for now
+      Requirements: [requirements], // placeholder for now
     });
   }
 
-  const setCoordinates  = async (street, number, city) => {
+  const setCoordinates = async (street, number, city) => {
     try {
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
@@ -99,8 +101,8 @@ export default function CreateAction() {
       const responseToJson = await response.json();
 
       // console.log(responseToJson)
-      setActionCoordinates(responseToJson.results[0].geometry.location)
-      return responseToJson.results[0].geometry.location
+      setActionCoordinates(responseToJson.results[0].geometry.location);
+      return responseToJson.results[0].geometry.location;
     } catch (error) {
       console.log(error.message);
     }
@@ -115,8 +117,6 @@ export default function CreateAction() {
       });
 
       console.log(data);
-
-      
     } catch (error) {
       console.log(error);
     }
@@ -141,7 +141,7 @@ export default function CreateAction() {
     // description
     // capacity
 
-    <div>
+    <div className="body">
       <header className="navbar navbar-expand-lg navbar-light bg-light">
         <nav>
           Nav bar of our awesome app{" "}
@@ -175,81 +175,127 @@ export default function CreateAction() {
           ></textarea>
         </label>{" "}
         <br />
-
         <label htmlFor="online">
           {" "}
           on-line?
-          <input onChange={handleChange} type="checkbox"name="online" id="online" />
+          <input
+            onChange={handleChange}
+            type="checkbox"
+            name="online"
+            id="online"
+          />
         </label>{" "}
-            <br />
+        <br />
         <label htmlFor="inperson">
           {" "}
           in-person?
-          <input onChange={handleChange} type="checkbox"name="inperson" id="inperson" />
+          <input
+            onChange={handleChange}
+            type="checkbox"
+            name="inperson"
+            id="inperson"
+          />
         </label>{" "}
         <br />
-
         <label htmlFor="start_time">
           starting date:
-          <input onChange={handleChange} name="start_time" id="start_time" type="date" />
+          <input
+            onChange={handleChange}
+            name="start_time"
+            id="start_time"
+            type="date"
+          />
         </label>{" "}
         <br />
-
         <label htmlFor="end_time">
           finishing date:
-          <input onChange={handleChange} name="end_time" id="end_time" type="date" />
+          <input
+            onChange={handleChange}
+            name="end_time"
+            id="end_time"
+            type="date"
+          />
         </label>{" "}
         <br />
-
         <label htmlFor="is_group">
           {" "}
           is it a group action?
-          <input onChange={handleChange} type="checkbox" name="is_group" id="is_group" />
+          <input
+            onChange={handleChange}
+            type="checkbox"
+            name="is_group"
+            id="is_group"
+          />
         </label>{" "}
         <br />
-
         <label htmlFor="online_link">
           on-line action link:
-          <input onChange={handleChange} type="text" id="online_link" name="online_link" />
+          <input
+            onChange={handleChange}
+            type="text"
+            id="online_link"
+            name="online_link"
+          />
         </label>{" "}
         <br />
-          <h5>Address</h5>
+        <h5>Address</h5>
         <label htmlFor="street">
           Street:
-          <input onChange={handleChange} type="text" name="street" id="street" />
+          <input
+            onChange={handleChange}
+            type="text"
+            name="street"
+            id="street"
+          />
         </label>{" "}
         <label htmlFor="house_number">
           Number:
-          <input onChange={handleChange} type="text" name="house_number" id="house_number" />
+          <input
+            onChange={handleChange}
+            type="text"
+            name="house_number"
+            id="house_number"
+          />
         </label>{" "}
         <label htmlFor="city">
           City:
           <input onChange={handleChange} type="text" name="city" id="city" />
         </label>{" "}
         <br />
-
         Choose the keywords that fit better:
-
         {keywords?.map((keyword, index) => (
-            <div key={keyword.id}>
-              <input
-                id={keyword.id}
-                value={keyword.id}
-                type="checkbox"
-                onChange={handleKeywordChange}
-                checked={preferences.includes(keyword.id) ? "checked" : null}
-              />
-              {keyword.keyword}
-            </div>
-          ))}
-
+          <div key={keyword.id}>
+            <input
+              id={keyword.id}
+              value={keyword.id}
+              type="checkbox"
+              onChange={handleKeywordChange}
+              checked={preferences.includes(keyword.id) ? "checked" : null}
+            />
+            {keyword.keyword}
+          </div>
+        ))}
         <label htmlFor="requirements">
-         
-          <br /><br />
+          <br />
+          <br />
           Requirements: <br />
-            capacity: <input onChange={handleRequirementChange} name="req_capacity" type="number" /> <br />
-            description: <br />
-            <label htmlFor=""><textarea onChange={handleRequirementChange} name="req_description" id="req_description" cols="30" rows="10"></textarea></label> 
+          capacity:{" "}
+          <input
+            onChange={handleRequirementChange}
+            name="req_capacity"
+            type="number"
+          />{" "}
+          <br />
+          description: <br />
+          <label htmlFor="">
+            <textarea
+              onChange={handleRequirementChange}
+              name="req_description"
+              id="req_description"
+              cols="30"
+              rows="10"
+            ></textarea>
+          </label>
         </label>{" "}
         <br />
         <button>Create!</button>
