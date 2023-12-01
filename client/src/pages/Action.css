@@ -1,0 +1,19 @@
+.container {
+	display: flex;
+	justify-content: space-between;
+}
+
+/* Style for the left side */
+.left-side {
+	flex-basis: 60%; /* Adjust the percentage based on your preference */
+}
+
+/* Style for the right side */
+.right-side {
+	flex-basis: 35%; /* Adjust the percentage based on your preference */
+}
+
+/* Optional: Add some margin for better spacing */
+.left-side {
+	margin-right: 20px;
+}

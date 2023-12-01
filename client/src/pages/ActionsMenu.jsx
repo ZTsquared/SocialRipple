@@ -1,20 +1,18 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
-	GoogleMap,
-	useLoadScript,
-	useJsApiLoader,
-	Marker,
+  GoogleMap,
+  useLoadScript,
+  useJsApiLoader,
+  Marker,
 } from "@react-google-maps/api";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 export default function ActionsMenu() {
-
   const { isLoggedIn, onLogout, onLogin } = useAuth();
   const [actions, setActions] = useState([]);
-  const [recommendedActions, setRecommendedActions] = useState([])
+  const [recommendedActions, setRecommendedActions] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,8 +21,14 @@ export default function ActionsMenu() {
   }, []);
 
   useEffect(() => {
-    setRecommendedActions([]);
+    setRecommendedActions(actions.filter((e,i) => i < 3));
   }, [actions]);
+
+  useEffect(() => {
+    // console.log(recommendedActions, actions);
+    // console.log(new Date(recommendedActions[0]?.start_time).getDay())
+
+  }, [recommendedActions]);
 
   const containerStyle = {
     width: "400px",
@@ -94,6 +98,11 @@ export default function ActionsMenu() {
     }
   }
 
+  function handleActionClick(e){
+    const action_id = e.target.name
+    console.log(e.target)
+  }
+
   // I need to show all the actions markers on the map.
   // the actions come with an address, so we need to grab them with the getLocation (maybe?) for each one.
   // how do I fetch multiple actions in REACT omg
@@ -131,51 +140,41 @@ export default function ActionsMenu() {
       </header>
       <div className="container">
         <div className="row">
-          <div className="col-sm">
-            <h3>Group Actions</h3>
-            {actions.map(
-              (action, index) =>
-                action.is_group && (
+          <h3>Recommended for you</h3>
+          {recommendedActions.map(
+            (action, index) =>(
+              <div key={index} className="col-sm">
+                <div name={action.id} className="card" onClick={handleActionClick}>
                   <div>
-                    <div key={index} className="card">
-                      <div>
-                        <b>{action.name}</b>
-                      </div>
-                      <div>{action.description}</div>
-                      <div>Start time: {action.start_time}</div>
-                      <div>End time: {action.end_time}</div>
-                      <div>
-                        place: lat:{action.latitude}long:{action.longitude}{" "}
-                        we'll see how we display this
-                      </div>
-                      <div>we need to display the requirements here</div>
-                    </div>
+                    <b>{action.name}</b>
                   </div>
-                )
-            )}
-          </div>
-
-          <div className="col-sm">
-            <h3>Individual Actions</h3>
-            {actions.map(
-              (action, index) =>
-                !action.is_group && (
+                  <div>{action.description}</div>
+                  {/* <div>Starting {Date.createFromMysql()}</div> */}
+                  <div>Starting {new Date(action.start_time).getMonth() + 1}/{new Date(action.start_time).getDay()}/{new Date(action.start_time).getFullYear()}</div>
                   <div>
-                    <div key={index} className="card">
-                      <div>
-                        <b>{action.name}</b>
-                      </div>
-                      <div>{action.description}</div>
-                      <div>Start time: {action.start_time}</div>
-                      <div>End time: {action.end_time}</div>
-                      <div>
-                        place: lat:{action.latitude}long:{action.longitude}{" "}
-                        we'll see how we display this
-                      </div>
-                      <div>we need to display the requirements here</div>
-                    </div>
+                    place: {action.in_person && "Barcelona"} {action.in_person && action.online && " & "} {action.online && "Online"}
                   </div>
-                )
+                </div>
+              </div>
+            )
+          )}
+        </div>
+        <div className="row">
+          <Link to="Individual" className="btn btn-success">
+            Check out all upcomming actions
+          </Link>
+        </div>
+        <div className="row">
+          <div>
+            <h3>Explore actions in your area</h3>
+            {isLoaded && (
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={10}
+                onLoad={onLoad}
+                onUnmount={onUnmount}
+              ></GoogleMap>
             )}
           </div>
 
@@ -195,10 +194,11 @@ export default function ActionsMenu() {
               </GoogleMap>}
             </div>
           </div>
+
         </div>
         <footer className="footer">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to="/Home" className="btn btn-success">
+            <Link to="/" className="btn btn-success">
               Homepage
             </Link>
           </nav>
@@ -206,5 +206,4 @@ export default function ActionsMenu() {
       </div>
     </div>
   );
-
 }
