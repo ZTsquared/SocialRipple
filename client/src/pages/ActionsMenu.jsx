@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
+
   GoogleMap,
   useJsApiLoader,
   Marker,
   InfoWindow,
+
 } from "@react-google-maps/api";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function ActionsMenu() {
+
   const { isLoggedIn, onLogout, onLogin } = useAuth();                                  // we all know these guys
   const [actions, setActions] = useState([]);                                           // an array with ALL the actions
   const [center, setCenter] = useState();                                               // lat & lng the map takes as its center
@@ -226,4 +229,5 @@ export default function ActionsMenu() {
       </div>
     </div>
   );
+
 }

@@ -6,12 +6,14 @@ import useAuth from "../hooks/useAuth";
 import ActionCard from "../components/ActionCard";
 
 export default function ActionsIndividual() {
-  const { isLoggedIn, onLogout, onLogin } = useAuth();
-  const [actions, setActions] = useState([]);
+	const { isLoggedIn, onLogout, onLogin } = useAuth();
+	const [actions, setActions] = useState([]);
 
-  useEffect(() => {
-    getActions();
-  }, []);
+	useEffect(() => {
+		getActions();
+	}, []);
+
+
 
   function handleLogout() {
     console.log("Logged out");
@@ -19,15 +21,18 @@ export default function ActionsIndividual() {
     navigate("/");
   }
 
-  async function getActions() {
-    try {
-      const response = await fetch(`/api/actions`);
-      const data = await response.json();
-      setActions(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
+	async function getActions() {
+		try {
+			const response = await fetch(`/api/actions`);
+			const data = await response.json();
+			setActions(data);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+
 
   return (
     <div className="body">
@@ -84,4 +89,5 @@ export default function ActionsIndividual() {
       </div>
     </div>
   );
+
 }

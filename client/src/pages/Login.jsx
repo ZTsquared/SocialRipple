@@ -4,37 +4,36 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 export default function Login() {
-  const { isLoggedIn, onLogin } = useAuth();
+	const { isLoggedIn, onLogin } = useAuth();
 
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-  });
+	const [credentials, setCredentials] = useState({
+		username: "",
+		password: "",
+	});
 
-  const navigate = useNavigate();
-  const { username, password } = credentials;
+	const navigate = useNavigate();
+	const { username, password } = credentials;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials({ ...credentials, [name]: value });
-  };
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setCredentials({ ...credentials, [name]: value });
+	};
 
-  const login = async () => {
-    try {
-      console.log("trying...");
-      const { data } = await axios("/api/auth/login", {
-        method: "POST",
-        data: credentials,
-      });
-      //store it locally
-      localStorage.setItem("token", data.token);
-      onLogin();
-      navigate("/MainMenu");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+	const login = async () => {
+		try {
+			console.log("trying...");
+			const { data } = await axios("/api/auth/login", {
+				method: "POST",
+				data: credentials,
+			});
+			//store it locally
+			localStorage.setItem("token", data.token);
+			onLogin();
+			navigate("/MainMenu");
+		} catch (error) {
+			console.log(error);
+		}
+	
   return (
     <div className="body">
       <div>

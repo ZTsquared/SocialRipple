@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function CreateAction() {
+
   const [actionBody, setActionBody] = useState();
   const [actionCoordinates, setActionCoordinates] = useState();
   const [requirements, setRequirements] = useState();
@@ -302,4 +303,5 @@ export default function CreateAction() {
       </form>
     </div>
   );
+
 }

@@ -4,30 +4,30 @@ import useAuth from "../hooks/useAuth";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 
 export default function Home() {
-  const navigate = useNavigate();
-  const { isLoggedIn, onLogout, onLogin } = useAuth();
-  const [actions, setActions] = useState([]);
+	const navigate = useNavigate();
+	const { isLoggedIn, onLogout, onLogin } = useAuth();
+	const [actions, setActions] = useState([]);
 
-  useEffect(() => {
-    getActions();
-  }, []);
+	useEffect(() => {
+		getActions();
+	}, []);
 
-  function handleLogout() {
-    console.log("Logged out");
-    onLogout();
-    navigate("/MainMenu");
-  }
+	function handleLogout() {
+		console.log("Logged out");
+		onLogout();
+		navigate("/MainMenu");
+	}
 
-  async function getActions() {
-    try {
-      const response = await fetch(`/api/actions`);
-      const data = await response.json();
-      setActions(data);
-      console.log(actions);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+	async function getActions() {
+		try {
+			const response = await fetch(`/api/actions`);
+			const data = await response.json();
+			setActions(data);
+			console.log(actions);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
   return (
     // info
@@ -139,4 +139,5 @@ export default function Home() {
       <br />
     </div>
   );
+
 }
