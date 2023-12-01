@@ -6,45 +6,46 @@ import axios from "axios";
 import NavBar from "../components/NavBar"
 
 export default function Register() {
-  const [preferences, setPreferences] = useState([]);
-  // const [userBody, setUserBody] = useState();
+	const [preferences, setPreferences] = useState([]);
+	// const [userBody, setUserBody] = useState();
 
-  const [userCoordinates, setUserCoordinates] = useState();
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-    organisation: "",
-    // zipcode: "",
-    // latitude: userCoordinates?.lat,
-    // longitude: userCoordinates?.lng,
-    street: "",
-    house_number: "",
-    city: "",
-  });
-  const [keywords, setKeywords] = useState([]);
-  let { username, password, organisation, latitude, longitude } = credentials;
-  const navigate = useNavigate();
+	const [userCoordinates, setUserCoordinates] = useState();
+	const [credentials, setCredentials] = useState({
+		username: "",
+		password: "",
+		organisation: "",
+		// zipcode: "",
+		// latitude: userCoordinates?.lat,
+		// longitude: userCoordinates?.lng,
+		street: "",
+		house_number: "",
+		city: "",
+	});
+	const [keywords, setKeywords] = useState([]);
+	let { username, password, organisation, latitude, longitude } = credentials;
+	const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials({ ...credentials, [name]: value });
-  };
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setCredentials({ ...credentials, [name]: value });
+	};
 
-  useEffect(() => {
-    getKeywords();
-  }, []);
+	useEffect(() => {
+		getKeywords();
+	}, []);
 
-  const getKeywords = async function () {
-    try {
-      const res = await fetch(`/api/keywords/`);
-      if (!res.ok) throw new Error(`Oops!`);
+	const getKeywords = async function () {
+		try {
+			const res = await fetch(`/api/keywords/`);
+			if (!res.ok) throw new Error(`Oops!`);
 
-      const data = await res.json();
-      setKeywords(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+			const data = await res.json();
+			setKeywords(data);
+		} catch (error) {
+			setError(error.message);
+		}
+	};
+
 
   const register = async (user) => {
     console.log(user);
@@ -55,55 +56,58 @@ export default function Register() {
         data: { user, preferences },
       });
       console.log(data);
-      // navigate("/Login");
+      navigate("/Login");
     } catch (error) {
       console.log(error);
     }
-  };
 
-  function handleKeywordChange(e) {
-    if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
-    else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
-  }
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+	function handleKeywordChange(e) {
+		if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
+		else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
+	}
 
-    await setCoordinates(
-      credentials.street,
-      credentials.number,
-      credentials.city
-    );
+	async function handleSubmit(event) {
+		event.preventDefault();
 
-    register({
-      username: credentials.username,
-      password: credentials.password,
-      organisation: credentials.organisation,
-      latitude: userCoordinates?.lat,
-      longitude: userCoordinates?.lng,
-    });
-  }
+		await setCoordinates(
+			credentials.street,
+			credentials.number,
+			credentials.city
+		);
 
-  const setCoordinates = async (street, number, city) => {
-    try {
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
-      );
-      const responseToJson = await response.json();
+		register({
+			username: credentials.username,
+			password: credentials.password,
+			organisation: credentials.organisation,
+			latitude: userCoordinates?.lat,
+			longitude: userCoordinates?.lng,
+		});
+	}
 
-      console.log(responseToJson);
-      setUserCoordinates(responseToJson.results[0].geometry.location);
-      return responseToJson.results[0].geometry.location;
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+	const setCoordinates = async (street, number, city) => {
+		try {
+			const response = await fetch(
+				`https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
+			);
+			const responseToJson = await response.json();
+
+			console.log(responseToJson);
+			setUserCoordinates(responseToJson.results[0].geometry.location);
+			return responseToJson.results[0].geometry.location;
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+
+
 
   return (
     <div>
       <NavBar/>
     <div className="mainMenu">
       <div>
+        <br />
         <div className="registerTitle-css">
           <h2> Sign up:</h2>
         </div>
@@ -222,4 +226,5 @@ export default function Register() {
     </div>
   </div>
   );
+
 }

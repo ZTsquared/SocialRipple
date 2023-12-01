@@ -6,12 +6,14 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import NavBar from "../components/NavBar"
 
 export default function Home() {
+
   const navigate = useNavigate();
   const [actions, setActions] = useState([]);
 
-  useEffect(() => {
-    getActions();
-  }, []);
+	useEffect(() => {
+		getActions();
+	}, []);
+
 
   async function getActions() {
     try {
@@ -108,4 +110,5 @@ export default function Home() {
       <br />
     </div>
   );
+
 }

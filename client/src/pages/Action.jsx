@@ -7,9 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import NavBar from "../components/NavBar"
 
-
-
 export default function Action() {
+  
 	const [oneAction, setOneAction] = useState([]);
 	const { ActionId } = useParams();
 	let navigate = useNavigate();
@@ -35,6 +34,22 @@ export default function Action() {
 
 	const { days, hours, minutes, seconds } = useCountdown(targetDate);
 
+	const startTime = new Date(oneAction.start_time).toLocaleDateString("en-UK", {
+		day: "numeric",
+		month: "long",
+		year: "numeric",
+		hour: "numeric",
+		minute: "numeric",
+	});
+
+	const endTime = new Date(oneAction.end_time).toLocaleDateString("en-UK", {
+		day: "numeric",
+		month: "long",
+		year: "numeric",
+		hour: "numeric",
+		minute: "numeric",
+	});
+
 	return (
 		<div>
 			<NavBar/>
@@ -49,7 +64,7 @@ export default function Action() {
 							className="actionTabContent-css ">
 							<p>{oneAction.description}</p>
 							{oneAction.Keywords && (
-								<div>
+								<div className="keywordBadges">
 									<ul>
 										{oneAction.Keywords.map((keyword) => (
 											<li className="badge bg-primary" key={keyword.id}>
@@ -65,21 +80,21 @@ export default function Action() {
 							eventKey="location"
 							title="Location"
 							className="actionTabContent-css ">
-							{oneAction.online
-								? `Follow this link: ${oneAction.online_link} `
-								: `Location: ${oneAction.longitude} ${oneAction.latitude}`}{" "}
+							<div>
+								<div className="container">
+									{oneAction.online
+										? `Follow this link: ${oneAction.online_link} `
+										: `Location: ${oneAction.longitude} ${oneAction.latitude}`}{" "}
+								</div>
+								<div>
+									{oneAction.start_time
+										? `Start time: ${startTime}`
+										: "Take as long as you want!"}{" "}
+									{oneAction.end_time ? `End time: ${endTime}` : ""}{" "}
+								</div>
+							</div>
 							{/* // {oneAction.online && `Follow this link: ${oneAction.online_link} `} :{" "}
 				// {oneAction.in_person && `${oneAction.longitude} ${oneAction.latitude}`} */}
-						</Tab>
-
-						<Tab
-							eventKey="when"
-							title="When?"
-							className="actionTabContent-css ">
-							{oneAction.start_time
-								? `Start time: ${oneAction.start_time}`
-								: "Take as long as you want!"}{" "}
-							{oneAction.end_time ? `End time: ${oneAction.end_time}` : ""}{" "}
 						</Tab>
 
 						<Tab
@@ -110,11 +125,13 @@ export default function Action() {
 																</div>
 															)}
 													</div>
-													<button
-														type="button"
-														className="btn btn-primary btn-sm">
-														Join
-													</button>
+													<div className="joinButton">
+														<button
+															type="button"
+															className="btn btn-primary btn-sm">
+															Join
+														</button>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -125,18 +142,16 @@ export default function Action() {
 					</Tabs>
 				</div>
 
-				<div className="container">
-					<div className="countdown">
-						{days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
-							<div>Countdown is over!</div>
-						) : (
-							<div>
-								Time until action!
-								<br></br>
-								{days} days, {hours} hours, {minutes} minutes, {seconds} seconds
-							</div>
-						)}
-					</div>
+				<div className="countdown">
+					{days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
+						<div>Countdown is over!</div>
+					) : (
+						<div>
+							Time until action!
+							<br></br>
+							{days} days, {hours} hours, {minutes} minutes, {seconds} seconds
+						</div>
+					)}
 				</div>
 
 				{/* back to actionsmenu page */}
@@ -148,4 +163,5 @@ export default function Action() {
 			</div>
 		</div>
 	);
+
 }

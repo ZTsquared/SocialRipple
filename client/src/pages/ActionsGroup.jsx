@@ -8,9 +8,9 @@ import NavBar from "../components/NavBar"
 export default function ActionsIndividual() {
   const [actions, setActions] = useState([]);
 
-  useEffect(() => {
-    getActions();
-  }, []);
+	useEffect(() => {
+		getActions();
+	}, []);
 
   async function getActions() {
     try {
@@ -35,13 +35,11 @@ export default function ActionsIndividual() {
       </div>
       <div className="container">
         <div className="row">
-            <h3>Group Actions</h3>
-            {actions.map(
+          <h3>Group Actions</h3>
+          {actions.map(
             (action, index) =>
-              action.is_group && (
-                <ActionCard action = {action} index = {index}/>
-              )
-            )}
+              action.is_group && <ActionCard action={action} index={index} />
+          )}
         </div>
         <footer className="footer">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -53,4 +51,5 @@ export default function ActionsIndividual() {
       </div>
     </div>
   );
+
 }
