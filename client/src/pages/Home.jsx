@@ -1,16 +1,32 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 
 export default function Home() {
   const navigate = useNavigate();
   const { isLoggedIn, onLogout, onLogin } = useAuth();
+  const [actions, setActions] = useState([]);
+
+  useEffect(() => {
+    getActions();
+  }, []);
 
   function handleLogout() {
     console.log("Logged out");
     onLogout();
     navigate("/MainMenu");
+  }
+
+  async function getActions() {
+    try {
+      const response = await fetch(`/api/actions`);
+      const data = await response.json();
+      setActions(data);
+      console.log(actions);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -49,7 +65,7 @@ export default function Home() {
       </header>
       <br />
       <h2>Our apps name </h2>
-      <div className="homepageParagraph">
+      <div className="homepageParagraph-css">
         <p>
           Welcome to (we need a name asap), a platform designed to foster
           connections through meaningful social change. Our mission is to
@@ -65,15 +81,63 @@ export default function Home() {
           of social change.
         </p>
       </div>
-
-      <div>also need calls to actions of the week</div>
-      <footer className="footer">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <Link to="/MainMenu" className="btn btn-success">
-            Calls to action
-          </Link>
-        </nav>
-      </footer>
+      <h4>This is what is going on this week:</h4>
+      <div className="d-flex justify-content-center align-items-center">
+        <div className="row">
+          {actions
+            .filter((act, i) => i < 4)
+            .map((action) => (
+              <div
+                className="card"
+                style={{
+                  width: "18rem",
+                  backgroundColor: "#c4c1e0",
+                  color: "white",
+                  margin: "8px",
+                }}
+                key={action.id}
+              >
+                <img
+                  src="https://www.teameacc.org/wp-content/uploads/sites/8/2022/04/events.jpg"
+                  className="card-img-top"
+                  alt="..."
+                  style={{ marginTop: "10px" }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{action.name}</h5>
+                  <p className="card-text">{action.description}</p>
+                  {action.Keywords.length > 0 && (
+                    <div>
+                      <div>This action is related to:</div>
+                      <div>
+                        {action.Keywords.map((k) => (
+                          <div key={k.id}>{k.keyword}</div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <button
+                  style={{
+                    backgroundColor: "#c4c1e0",
+                    color: "white",
+                    margin: "10px",
+                    borderRadius: "10px",
+                    border: "2px solid white",
+                  }}
+                >
+                  Access this action
+                </button>
+              </div>
+            ))}
+        </div>
+      </div>
+      <br />
+      <Link to="/MainMenu" className="btn btn-success">
+        Calls to action
+      </Link>
+      <br />
+      <br />
     </div>
   );
 }
