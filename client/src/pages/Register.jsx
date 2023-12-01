@@ -60,7 +60,7 @@ export default function Register() {
     } catch (error) {
       console.log(error);
     }
-
+  }
 
 	function handleKeywordChange(e) {
 		if (e.target.checked) setPreferences((p) => [...p, e.target.value]);

@@ -21,6 +21,9 @@ export default function ActionsMenu() {
   const [showInfoWindow, setShowInfoWindow] = useState({visible: false, position: {}}); // the dinamically updated popup for the marker clicked
   const [map, setMap] = useState(null);                                                 // the map in all its joy and glory                                           
   const navigate = useNavigate();
+    //state:
+  const [locationMarker, setLocationMarker] = useState();
+  const [actionMarkers, setActionMarkers] = useState();
 
   useEffect(() => {
     getActions();
@@ -48,15 +51,6 @@ export default function ActionsMenu() {
     googleMapsApiKey: "YOUR_API_KEY",
   });
 
-
-  //state:
-  const [locationMarker, setLocationMarker] = useState();
-  const [actionMarkers, setActionMarkers] = useState();
-  const [showInfoWindow, setShowInfoWindow] = useState({
-    visible: false,
-    position: {},
-  });
-  const [map, setMap] = useState(null);
 
 
   const onLoad = useCallback(function callback(map) {
