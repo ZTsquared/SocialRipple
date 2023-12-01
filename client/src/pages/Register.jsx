@@ -62,8 +62,6 @@ export default function Register() {
   function handleKeywordChange(e) {
     if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
     else setPreferences((p) => p.filter((pref) => pref !== e.target.value));
-    console.log(preferences);
-    console.log(credentials);
   }
 
   async function handleSubmit(event) {
@@ -103,12 +101,11 @@ export default function Register() {
     <div className="mainMenu">
       <div>
         <div className="registerTitle-css">
-          <h2> Register:</h2>
+          <h2> Sign up:</h2>
         </div>
-
         <form onSubmit={() => handleSubmit(event)} action="">
           <label htmlFor="username_input" className="form-label">
-            username: <br />
+            Username: <br />
             <input
               value={username}
               name="username"
@@ -121,7 +118,7 @@ export default function Register() {
           <br />
           <br />
           <label htmlFor="password_input" className="form-label">
-            password: <br />
+            Password: <br />
             <input
               value={password}
               name="password"
@@ -130,12 +127,10 @@ export default function Register() {
               type="password"
               className="form-control"
             />
-            <br />
-            <br />
-          </label>{" "}
-          <br />
+          </label>
+          <br /> <br />
           <label htmlFor="organisation_input" className="form-label">
-            are you an organisation: <br />
+            Are you an organisation: <br />
             <input
               value={organisation}
               name="organisation"
@@ -146,47 +141,42 @@ export default function Register() {
             />
             <br />
             <br />
-          </label>{" "}
-          <br />
-          {/* <label htmlFor="zipcode_input" className="form-label">
-            zipcode: <br />
-            <input
-              value={zipcode}
-              name="zipcode"
-              onChange={handleChange}
-              id="zipcode"
-              type="zipcode"
-              className="form-control"
-            />
-            <br />
-            <br />
-          </label>{" "} */}
+          </label>
           <div>Address</div>
-          <label htmlFor="street">
-            Street:
+          <label htmlFor="street" className="form-label">
             <input
+              placeholder="Street Name"
               onChange={handleChange}
               type="text"
               name="street"
               id="street"
+              className="form-control"
             />
           </label>
-          <label htmlFor="house_number">
-            Number:
+          <label htmlFor="house_number" className="form-label">
             <input
+              placeholder="Number"
               onChange={handleChange}
               type="text"
               name="house_number"
               id="house_number"
+              className="form-control"
             />
           </label>{" "}
-          <label htmlFor="city">
-            City:
-            <input onChange={handleChange} type="text" name="city" id="city" />
+          <label htmlFor="city" className="form-label">
+            <input
+              placeholder="City"
+              onChange={handleChange}
+              type="text"
+              name="city"
+              id="city"
+              className="form-control"
+            />
           </label>{" "}
           <br />
+          <br />
           <label className="form-label">
-            what type of actions are you looking for?
+            What type of actions are you looking for?
           </label>
           <br />
           <div className="preferencesInRegisterPage-css row justify-content-center">
