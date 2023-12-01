@@ -64,21 +64,20 @@ export default function Home() {
         </nav>
       </header>
       <br />
-      <h2>Our apps name </h2>
+      <h2>SocialRipple</h2>
       <div className="homepageParagraph-css">
         <p>
-          Welcome to (we need a name asap), a platform designed to foster
-          connections through meaningful social change. Our mission is to
-          provide a space where individuals can engage in transformative Calls
-          to Actions—events and challenges that transcend the ordinary. Whether
-          you prefer the camaraderie of group activities or the personal
-          challenge of individual pursuits, our platform offers diverse
-          opportunities, both online and in person. At the core of our vision is
-          the belief that creating positive societal impact can also be a
-          catalyst for building lasting friendships and combating isolation
-          within communities. Join us in our commitment to make a difference
-          while forging meaningful connections that extend beyond the boundaries
-          of social change.
+          Welcome to SocialRipple, a platform designed to foster connections
+          through meaningful social change. Our mission is to provide a space
+          where individuals can engage in transformative Calls to Actions—events
+          and challenges that transcend the ordinary. Whether you prefer the
+          camaraderie of group activities or the personal challenge of
+          individual pursuits, our platform offers diverse opportunities, both
+          online and in person. At the core of our vision is the belief that
+          creating positive societal impact can also be a catalyst for building
+          lasting friendships and combating isolation within communities. Join
+          us in our commitment to make a difference while forging meaningful
+          connections that extend beyond the boundaries of social change.
         </p>
       </div>
       <h4>This is what is going on this week:</h4>

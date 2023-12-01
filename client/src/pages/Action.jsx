@@ -105,35 +105,40 @@ export default function Action() {
 																</div>
 															)}
 													</div>
+													<button
+														type="button"
+														className="btn btn-primary btn-sm">
+														Join
+													</button>
 												</div>
 											</div>
 										</div>
 									))}
 								</div>
 							)}
-							<button>Sign up!</button>
 						</Tab>
 					</Tabs>
 				</div>
 
-				<div className="actionBottomContainer-css">
+				<div className="container">
 					<div className="countdown">
 						{days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
 							<div>Countdown is over!</div>
 						) : (
 							<div>
-								Remaining time: {days} days, {hours} hours, {minutes} minutes,{" "}
-								{seconds} seconds
+								Time until action!
+								<br></br>
+								{days} days, {hours} hours, {minutes} minutes, {seconds} seconds
 							</div>
 						)}
 					</div>
+				</div>
 
-					{/* back to actionsmenu page */}
-					<div className="buttonSection" id="singleButton">
-						<button className="backButton" onClick={() => navigate(-1)}>
-							Back
-						</button>
-					</div>
+				{/* back to actionsmenu page */}
+				<div className="buttonSection" id="singleButton">
+					<button className="backButton" onClick={() => navigate(-1)}>
+						Back
+					</button>
 				</div>
 			</div>
 		</div>
