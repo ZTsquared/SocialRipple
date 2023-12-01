@@ -55,8 +55,23 @@ export default function ActionsMenu() {
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
 
+
+
     setMap(map);
   }, []);
+
+  // useEffect(() => {
+  //   if (map) {
+  //     const bounds = new window.google.maps.LatLngBounds(center);
+  //     actions.map(action => {
+  //       bounds.extend({
+  //         lat: action.latitude,
+  //         lng: action.longitude,
+  //       });
+  //     });
+  //     map.fitBounds(bounds);
+  //   }
+  // }, [map, actions]);
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
@@ -86,6 +101,7 @@ export default function ActionsMenu() {
 
   function markerClick(markerIndex) {
     console.log(`marker ${markerIndex} clicked`);
+    console.log(actions)
   }
 
   async function getActions() {
@@ -165,18 +181,6 @@ export default function ActionsMenu() {
           </Link>
         </div>
         <div className="row">
-          <div>
-            <h3>Explore actions in your area</h3>
-            {isLoaded && (
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-              ></GoogleMap>
-            )}
-          </div>
 
           <div className="col-sm">
             <div>
@@ -187,10 +191,9 @@ export default function ActionsMenu() {
                 zoom={10}
                 onLoad={onLoad}
                 onUnmount={onUnmount}>
-                { /* Child components, such as markers, info windows, etc. */ 
-                <Marker onClick={markerClick} position={center}/>}
                 
-                {/* // dummyUserLocationsArray.map((location, i) => <Marker onClick={markerClick} key={i} position={() => getLocation(location.street, location.number, location.city )}/>)} */}
+                <Marker onClick={markerClick} label="A" title="Hello World!" position={center}/>
+                {actions.map((action, i) => <Marker onClick={markerClick} key={i} position={{lat: action.latitude, lng: action.longitude}}/>)}
               </GoogleMap>}
             </div>
           </div>
