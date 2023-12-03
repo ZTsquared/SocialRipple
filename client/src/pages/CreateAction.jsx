@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
 
 export default function CreateAction() {
 
@@ -289,6 +290,7 @@ export default function CreateAction() {
         <br />
         <button>Create!</button>
       </form>
+      <FootBar/>
     </div>
   );
 

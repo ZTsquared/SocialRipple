@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
 
 // shows the profile of the logged user.
 // it shows the user basic info (i'm thinking name, age, interests, profile pic, etc...)
@@ -45,30 +46,31 @@ export default function Profile() {
 
   return (
     <div className="body">
-      <NavBar/>
-			<h1>User profile</h1>
-			<h3>Hello {user.username}!</h3>
-			<div>These are your preferences:</div>
-			<div>
-				{preferences?.map((e) => (
-					<div>{e.keyword}</div>
-				))}
-			</div>
-			<div>
-				You have been a member since:
-				{
-					<div className="dateAtEntry">
-						{new Date(user.createdAt).toLocaleDateString("en-UK", {
-							day: "numeric",
-							month: "long",
-							year: "numeric",
-						})}
-					</div>
-				}
-			</div>
-			<Link to="/Action/Create">
-				<button className="btn btn-success">Create a new action!</button>
-			</Link>
+    	<NavBar/>
+		<h1>User profile</h1>
+		<h3>Hello {user.username}!</h3>
+		<div>These are your preferences:</div>
+		<div>
+			{preferences?.map((e, i) => (
+				<div key = {i}>{e.keyword}</div>
+			))}
+		</div>
+		<div>
+			You have been a member since:
+			{
+				<div className="dateAtEntry">
+					{new Date(user.createdAt).toLocaleDateString("en-UK", {
+						day: "numeric",
+						month: "long",
+						year: "numeric",
+					})}
+				</div>
+			}
+		</div>
+		<Link to="/Action/Create">
+			<button className="btn btn-success">Create a new action!</button>
+		</Link>
+		<FootBar/>
 		</div>
 	);
 }

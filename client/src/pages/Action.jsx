@@ -161,6 +161,7 @@ export default function Action() {
 					</button>
 				</div>
 			</div>
+			<FootBar/>
 		</div>
 	);
 

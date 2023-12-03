@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import useAuth from "../hooks/useAuth";
 import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
 
 export default function Login() {
 	const { isLoggedIn, onLogin } = useAuth();
@@ -72,6 +73,7 @@ export default function Login() {
                 Sign Up
         </Link>
       </div>
+      <FootBar/>
     </div>
   );
 }
