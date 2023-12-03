@@ -113,7 +113,7 @@ export default function Register() {
           <h2> Sign up:</h2>
         </div>
         <form onSubmit={() => handleSubmit(event)} action="">
-          <label htmlFor="username_input" className="form-label">
+          <label htmlFor="username" className="form-label">
             Username: <br />
             <input
               value={username}
@@ -126,7 +126,7 @@ export default function Register() {
           </label>
           <br />
           <br />
-          <label htmlFor="password_input" className="form-label">
+          <label htmlFor="password" className="form-label">
             Password: <br />
             <input
               value={password}
@@ -138,7 +138,7 @@ export default function Register() {
               />
           </label>
           <br /> <br />
-          <label htmlFor="organisation_input" className="form-label">
+          <label htmlFor="organisation" className="form-label">
             Are you an organisation: <br />
             <input
               value={organisation}
@@ -225,7 +225,7 @@ export default function Register() {
         <br />
       </div>
     </div>
-    {/* <FootBar/> */}
+    <FootBar/>
   </div>
   );
 

@@ -6,6 +6,7 @@ import { Tabs, Tab } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
 
 export default function Action() {
   
