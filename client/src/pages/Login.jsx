@@ -68,9 +68,9 @@ export default function Login() {
           <br />
         </label>{" "}
         <br />
-        <button onClick={login}>login</button> <br/><br/>
-        <Link to="/Register" className="btn btn-success">
-                Sign Up
+        <button onClick={login} className="btn btn-success">login</button> <br/><br/>
+        <Link to="/Register">
+          Don't have an account yet?
         </Link>
       </div>
       <FootBar/>

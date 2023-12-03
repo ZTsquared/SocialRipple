@@ -225,7 +225,7 @@ export default function Register() {
         <br />
       </div>
     </div>
-    <FootBar/>
+    {/* <FootBar/> */}
   </div>
   );
 
