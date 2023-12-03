@@ -11,7 +11,9 @@ import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import ActionCard from "../components/ActionCard"
 import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
 
 export default function ActionsMenu() {
   const [actions, setActions] = useState([]);                                           // an array with ALL the actions
@@ -113,28 +115,9 @@ export default function ActionsMenu() {
         <div className="row">
           <h3>Recommended for you</h3>
           {recommendedActions.map((action, index) => (
-            <div key={index} className="col-sm">
-              <div
-                name={action.id}
-                className="card"
-                onClick={handleActionClick}
-              >
-                <div>
-                  <b>{action.name}</b>
-                </div>
-                <div>{action.description}</div>
-                {/* <div>Starting {Date.createFromMysql()}</div> */}
-                <div>
-                  Starting {new Date(action.start_time).getMonth() + 1}/
-                  {new Date(action.start_time).getDay()}/
-                  {new Date(action.start_time).getFullYear()}
-                </div>
-                <div>
-                  place: {action.in_person && "Barcelona"}{" "}
-                  {action.in_person && action.online && " & "}{" "}
-                  {action.online && "Online"}
-                </div>
-              </div>
+            <div key={index}
+            className="col-sm">
+              <ActionCard action={action} />
             </div>
           ))}
         </div>
@@ -182,13 +165,7 @@ export default function ActionsMenu() {
             </div>
           </div>
         </div>
-        <footer className="footer">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to="/" className="btn btn-success">
-              Homepage
-            </Link>
-          </nav>
-        </footer>
+        <FootBar/>
       </div>
     </div>
   );

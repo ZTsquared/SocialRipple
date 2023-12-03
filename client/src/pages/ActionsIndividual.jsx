@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import ActionCard from "../components/ActionCard"
 import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
 
 
 export default function ActionsIndividual() {
@@ -41,18 +42,14 @@ export default function ActionsIndividual() {
       <div className="container">
         <div className="row">
           <h3>Individual Actions</h3>
-          {actions.map(
+          {actions.filter((a) =>(!a.is_group)).map(
             (action, index) =>
-              !action.is_group && <ActionCard action={action} index={index} />
+            <div key={index} className="col-sm">
+              <ActionCard action={action}/>
+            </div>
           )}
         </div>
-        <footer className="footer">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to="/Home" className="btn btn-success">
-              Homepage
-            </Link>
-          </nav>
-        </footer>
+        <FootBar/>
       </div>
     </div>
   );

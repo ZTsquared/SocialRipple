@@ -102,12 +102,6 @@ export default function Home() {
             ))}
         </div>
       </div>
-      <br />
-      <Link to="/MainMenu" className="btn btn-success">
-        Calls to action
-      </Link>
-      <br />
-      <br />
     </div>
   );
 
