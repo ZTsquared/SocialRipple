@@ -20,6 +20,10 @@ export default function CreateAction() {
     getKeywords();
   }, []);
 
+  useEffect(() => {
+      setCoordinates(actionBody?.street, actionBody?.house_number, actionBody?.city);
+  }, [actionBody?.street, actionBody?.house_number, actionBody?.city])
+
   async function getUsers() {
     try {
       const response = await fetch(`/api/users/profile`, {
@@ -53,7 +57,9 @@ export default function CreateAction() {
       checked
         ? setActionBody({ ...actionBody, [name]: true })
         : setActionBody({ ...actionBody, [name]: false });
-    } else {
+    } 
+    
+    else {
       setActionBody({ ...actionBody, [name]: value });
     }
   };
@@ -88,6 +94,7 @@ export default function CreateAction() {
       name: actionBody.name,
       description: actionBody.description,
       online_link: actionBody.online_link,
+      city: actionBody.city,
       latitude: actionCoordinates?.lat,
       longitude: actionCoordinates?.lng,
       organiser_id: user.id,
@@ -98,14 +105,23 @@ export default function CreateAction() {
 
   const setCoordinates = async (street, number, city) => {
     try {
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
-      );
-      const responseToJson = await response.json();
 
-      // console.log(responseToJson)
-      setActionCoordinates(responseToJson.results[0].geometry.location);
-      return responseToJson.results[0].geometry.location;
+      if(street && number && city){
+        const response = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
+        );
+        const responseToJson = await response.json();
+
+        if(responseToJson.results.length > 0){
+          console.log("fetch ok (I guess)")
+          setActionCoordinates(responseToJson.results[0].geometry?.location);
+        }
+
+        else return;
+        
+      }
+      
+
     } catch (error) {
       console.log(error.message);
     }
@@ -289,7 +305,10 @@ export default function CreateAction() {
         <br />
         <button>Create!</button>
       </form>
-      <FootBar />
+      <br />
+      <br />
+      <br />
+      <FootBar/>
     </div>
   );
 }
