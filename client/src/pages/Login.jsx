@@ -1,7 +1,11 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import useAuth from "../hooks/useAuth";
+import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
 
 export default function Login() {
 	const { isLoggedIn, onLogin } = useAuth();
@@ -33,6 +37,7 @@ export default function Login() {
 		} catch (error) {
 			console.log(error);
 		}
+  }
 	
   return (
     <div className="body">
@@ -63,8 +68,12 @@ export default function Login() {
           <br />
         </label>{" "}
         <br />
-        <button onClick={login}>login</button>
+        <button onClick={login} className="btn btn-success">login</button> <br/><br/>
+        <Link to="/Register">
+          Don't have an account yet?
+        </Link>
       </div>
+      <FootBar/>
     </div>
   );
 }

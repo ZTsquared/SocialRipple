@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
+
 export default function Register() {
 	const [preferences, setPreferences] = useState([]);
 	// const [userBody, setUserBody] = useState();
@@ -58,7 +61,7 @@ export default function Register() {
     } catch (error) {
       console.log(error);
     }
-
+  }
 
 	function handleKeywordChange(e) {
 		if (e.target.checked) setPreferences((p) => [...p, e.target.value]);
@@ -101,14 +104,16 @@ export default function Register() {
 
 
   return (
-    <div className="body">
+    <div>
+      <NavBar/>
+    <div className="mainMenu">
       <div>
         <br />
         <div className="registerTitle-css">
           <h2> Sign up:</h2>
         </div>
         <form onSubmit={() => handleSubmit(event)} action="">
-          <label htmlFor="username_input" className="form-label">
+          <label htmlFor="username" className="form-label">
             Username: <br />
             <input
               value={username}
@@ -117,11 +122,11 @@ export default function Register() {
               id="username"
               type="text"
               className="form-control"
-            />
+              />
           </label>
           <br />
           <br />
-          <label htmlFor="password_input" className="form-label">
+          <label htmlFor="password" className="form-label">
             Password: <br />
             <input
               value={password}
@@ -130,10 +135,10 @@ export default function Register() {
               id="password"
               type="password"
               className="form-control"
-            />
+              />
           </label>
           <br /> <br />
-          <label htmlFor="organisation_input" className="form-label">
+          <label htmlFor="organisation" className="form-label">
             Are you an organisation: <br />
             <input
               value={organisation}
@@ -142,7 +147,7 @@ export default function Register() {
               id="organisation"
               type="organisation"
               className="form-control"
-            />
+              />
             <br />
             <br />
           </label>
@@ -155,7 +160,7 @@ export default function Register() {
               name="street"
               id="street"
               className="form-control"
-            />
+              />
           </label>
           <label htmlFor="house_number" className="form-label">
             <input
@@ -175,7 +180,7 @@ export default function Register() {
               name="city"
               id="city"
               className="form-control"
-            />
+              />
           </label>{" "}
           <br />
           <br />
@@ -186,9 +191,9 @@ export default function Register() {
           <div className="preferencesInRegisterPage-css row justify-content-center">
             {keywords.map((keyword, index) => (
               <div
-                key={keyword.id}
-                className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
-                style={{ margin: index % 3 === 2 ? "5px" : "10px" }}
+              key={keyword.id}
+              className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
+              style={{ margin: index % 3 === 2 ? "5px" : "10px" }}
               >
                 <div className="d-inline-flex" style={{ gap: "67px" }}>
                   <input
@@ -202,7 +207,7 @@ export default function Register() {
                     }
                     className="btn-check"
                     autoComplete="off"
-                  />
+                    />
                   <label
                     className="btn"
                     htmlFor={keyword.id}
@@ -220,6 +225,8 @@ export default function Register() {
         <br />
       </div>
     </div>
+    <FootBar/>
+  </div>
   );
 
 }

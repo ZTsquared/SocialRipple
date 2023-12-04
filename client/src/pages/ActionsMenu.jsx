@@ -9,8 +9,11 @@ import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import ActionCard from "../components/ActionCard";
+import NavBar from "../components/NavBar";
+import FootBar from "../components/FootBar";
+
 export default function ActionsMenu() {
-	const { isLoggedIn, onLogout, onLogin } = useAuth(); // we all know these guys
 	const [actions, setActions] = useState([]); // an array with ALL the actions
 	const [center, setCenter] = useState(); // lat & lng the map takes as its center
 	const [currentMarkerAction, setCurrentMarkerAction] = useState(); // all the info of the action corresponding to the marker clicked
@@ -20,8 +23,10 @@ export default function ActionsMenu() {
 		position: {},
 	}); // the dinamically updated popup for the marker clicked
 	const [map, setMap] = useState(null); // the map in all its joy and glory
-
 	const navigate = useNavigate();
+	//state:
+	const [locationMarker, setLocationMarker] = useState();
+	const [actionMarkers, setActionMarkers] = useState();
 
 	useEffect(() => {
 		getActions();
@@ -56,6 +61,7 @@ export default function ActionsMenu() {
 	const onUnmount = useCallback(function callback(map) {
 		setMap(null);
 	}, []);
+
 	function handleLogout() {
 		console.log("Logged out");
 		onLogout();
@@ -102,59 +108,14 @@ export default function ActionsMenu() {
 	}
 
 	return (
-		<div className="body">
-			<header className="navbar navbar-expand-lg navbar-light bg-light">
-				<nav>
-					Nav bar of our awesome app{" "}
-					{isLoggedIn ? (
-						<div>
-							<Link to="/Action/Create" className="btn btn-success">
-								Create Action
-							</Link>
-							<Link to="/Profile" className="btn btn-success">
-								Profile
-							</Link>
-							<button className="btn btn-success" onClick={handleLogout}>
-								Logout
-							</button>
-						</div>
-					) : (
-						<div>
-							<Link to="/Login" className="btn btn-success">
-								Login
-							</Link>
-							<Link to="/Register" className="btn btn-success">
-								Sign In
-							</Link>
-						</div>
-					)}
-				</nav>
-			</header>
+		<div>
+			<NavBar />
 			<div className="container">
 				<div className="row">
 					<h3>Recommended for you</h3>
 					{recommendedActions.map((action, index) => (
 						<div key={index} className="col-sm">
-							<div
-								name={action.id}
-								className="card"
-								onClick={handleActionClick}>
-								<div>
-									<b>{action.name}</b>
-								</div>
-								<div>{action.description}</div>
-								{/* <div>Starting {Date.createFromMysql()}</div> */}
-								<div>
-									Starting {new Date(action.start_time).getMonth() + 1}/
-									{new Date(action.start_time).getDay()}/
-									{new Date(action.start_time).getFullYear()}
-								</div>
-								<div>
-									place: {action.in_person && "Barcelona"}{" "}
-									{action.in_person && action.online && " & "}{" "}
-									{action.online && "Online"}
-								</div>
-							</div>
+							<ActionCard action={action} />
 						</div>
 					))}
 				</div>
@@ -200,13 +161,7 @@ export default function ActionsMenu() {
 						</div>
 					</div>
 				</div>
-				<footer className="footer">
-					<nav className="navbar navbar-expand-lg navbar-light bg-light">
-						<Link to="/" className="btn btn-success">
-							Homepage
-						</Link>
-					</nav>
-				</footer>
+				<FootBar />
 			</div>
 		</div>
 	);

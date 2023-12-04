@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
+import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
+
 export default function CreateAction() {
 
   const [actionBody, setActionBody] = useState();
@@ -142,22 +145,8 @@ export default function CreateAction() {
     // description
     // capacity
 
-    <div className="body">
-      <header className="navbar navbar-expand-lg navbar-light bg-light">
-        <nav>
-          Nav bar of our awesome app{" "}
-          <div>
-            <Link to="/MainMenu" className="btn btn-success">
-              Calls to action
-            </Link>
-            <Link to="/Profile" className="btn btn-success">
-              Profile
-            </Link>
-            <button className="btn btn-success">Logout</button>
-          </div>
-        </nav>
-      </header>
-
+    <div>
+      <NavBar/>
       <h3>CreateAction</h3>
       <form onSubmit={handleSubmit} action="">
         <label htmlFor="name">
@@ -301,6 +290,7 @@ export default function CreateAction() {
         <br />
         <button>Create!</button>
       </form>
+      <FootBar/>
     </div>
   );
 
