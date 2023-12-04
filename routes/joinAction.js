@@ -10,8 +10,8 @@ router.post("/", async function (req, res) {
 		console.log(userId, requirementId);
 
 		const volunteershipInfo = await models.Volunteership.create({
-			userId: userId,
-			requirementId: requirementId,
+			userId,
+			requirementId,
 			completed: 0,
 		});
 

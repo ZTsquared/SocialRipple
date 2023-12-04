@@ -25,6 +25,8 @@ router.post("/register", async function (req, res, next) {
       longitude,
       latitude,
     });
+    console.log("what came back from the await:")
+    console.log(newUserInfo)
     await newUserInfo.addKeywords(preferences);
     res.send("Register succesful");
   } catch (error) {
