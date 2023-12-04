@@ -10,8 +10,8 @@ import NavBar from "../components/NavBar";
 export default function Action() {
   const [oneAction, setOneAction] = useState([]);
   const { ActionId } = useParams();
-  const [checked, setChecked] = useState(false);
-  const [volunteership, setVolunteership] = useState([]);
+  //   const [checked, setChecked] = useState(false);
+  //   const [volunteership, setVolunteership] = useState([]);
 
   let navigate = useNavigate();
 
@@ -52,14 +52,22 @@ export default function Action() {
     minute: "numeric",
   });
 
-  const handleChange = (e) => {
-    setChecked(!checked);
-    if (checked) {
-      setVolunteership((v) => [...v, e.target.value]);
-    } else setVolunteership((vol) => vol !== e.target.value);
+  //trying things
+
+  const volunteership = async () => {
+    try {
+      const response = await fetch(`/api/joinAction`, {
+        method: "POST",
+        data: { userId, requirementId },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // adds user to volunteership array (nested inside requirement array) when box is checked
+  const onClick = (e) => {
+    volunteership;
+  };
 
   return (
     <div>

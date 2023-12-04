@@ -6,21 +6,41 @@ import ActionCard from "../components/ActionCard";
 import NavBar from "../components/NavBar";
 
 export default function ActionsIndividual() {
+  const [allActions, setAllActions] = useState([]);
   const [actions, setActions] = useState([]);
+  const [allKeywords, setAllKeywords] = useState([]);
+  const [selectedKeywords, setSelectedKeywords] = useState([]);
 
   useEffect(() => {
-    getActions();
+    getAllActions();
+    getAllKeywords();
   }, []);
 
-  async function getActions() {
+  useEffect(() => {
+    setActions(allActions);
+  }, [allActions]);
+
+  async function getAllActions() {
     try {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
-      setActions(data);
+      setAllActions(data);
     } catch (error) {
       console.log(error);
     }
   }
+
+  async function getAllKeywords() {
+    try {
+      const response = await fetch(`/api/keywords`);
+      const data = await response.json();
+      setAllKeywords(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function filterActions() {}
 
   return (
     <div>
@@ -32,6 +52,11 @@ export default function ActionsIndividual() {
         <Link to="/MainMenu/Group" className="btn btn-success">
           Group actions
         </Link>
+        <div>
+          {allKeywords.map((k) => (
+            <div>{k.keyword}</div>
+          ))}
+        </div>
       </div>
       <div className="container">
         <div className="row">
