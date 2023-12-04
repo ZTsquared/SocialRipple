@@ -13,6 +13,7 @@ router.post("/register", async function (req, res, next) {
   console.log(req.body);
   const { username, password, organisation, city, latitude, longitude } =
     req.body.user;
+  console.log(req.body.user);
   const { preferences } = req.body;
   try {
     console.log("Request Body:", req.body);
