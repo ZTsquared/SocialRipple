@@ -15,8 +15,9 @@ module.exports = (sequelize, DataTypes) => {
 	}
 	Requirement.init(
 		{
-			description: DataTypes.STRING,
+			description: DataTypes.TEXT,
 			capacity: DataTypes.INTEGER,
+			name: DataTypes.STRING
 		},
 		{
 			sequelize,

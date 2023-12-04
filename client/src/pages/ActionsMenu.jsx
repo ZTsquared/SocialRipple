@@ -18,7 +18,7 @@ import FootBar from "../components/FootBar"
 export default function ActionsMenu() {
   const [actions, setActions] = useState([]);                                           // an array with ALL the actions
   const [center, setCenter] = useState();                                               // lat & lng the map takes as its center
-  const [currentMarkerAction, setCurrentMarkerAction] = useState();                     // all the info of the action corresponding to the marker clicked
+  const [currentMarkerAction, setCurrentMarkerAction] = useState({});                     // all the info of the action corresponding to the marker clicked
   const [recommendedActions, setRecommendedActions] = useState([]);                     // the 3 recommended actions on top
   const [showInfoWindow, setShowInfoWindow] = useState({visible: false, position: {}}); // the dinamically updated popup for the marker clicked
   const [map, setMap] = useState(null);                                                 // the map in all its joy and glory                                           
@@ -33,7 +33,8 @@ export default function ActionsMenu() {
 
   useEffect(() => {
     setRecommendedActions(actions.filter((e, i) => i < 3));
-    setCenter({ lat: actions[1]?.latitude, lng: actions[1]?.longitude });
+    console.log(actions)
+    if(actions.length) setCenter({ lat: actions[1]?.latitude, lng: actions[1]?.longitude });
   }, [actions]);
 
 
@@ -85,6 +86,7 @@ export default function ActionsMenu() {
 
   function markerClick(action) {
     console.log(`action ${action.name} clicked`);
+    setCurrentMarkerAction(action)
     setCenter({ lat: action.latitude, lng: action.longitude });
     setShowInfoWindow({
       visible: true,
@@ -141,24 +143,27 @@ export default function ActionsMenu() {
                 onLoad={onLoad}
                 onUnmount={onUnmount}>
                 
-                {actions.map((action, i) => <div key={i}><Marker onClick={() => markerClick(action)} key={i} position={{lat: action.latitude, lng: action.longitude}}/>
+                {actions.filter(a => a.latitude && a.longitude).map((action, i) => 
+                <div key={i}>
+                  <Marker onClick={() => markerClick(action)} key={i} position={{lat: action.latitude, lng: action.longitude}}/>
                                                              
-                                            </div>)}
-                                            {showInfoWindow.visible === true &&
-                                                                
-                                            <InfoWindow onCloseClick={console.log("this")} position={center}>
-                                              <div>
-                                                <p>{currentMarkerAction.name}</p>
-                                                <p>{currentMarkerAction.description}</p>
-                                                <Link to={`/Action/View/${currentMarkerAction.id}`}>learn more </Link>
-                                              </div>
-                                            </InfoWindow>
-                                            }
+                    </div>)}
+                    {showInfoWindow.visible === true &&
+                                        
+                    <InfoWindow onCloseClick={() => console.log("this")} position={center}>
+                      <div>
+                        <p>{currentMarkerAction.name}</p>
+                        <p>{currentMarkerAction.description}</p>
+                        <Link to={`/Action/View/${currentMarkerAction.id}`}>learn more </Link>
+                      </div>
+                    </InfoWindow>
+                    }
               </GoogleMap>}
 
             </div>
           </div>
         </div>
+        <br /><br /><br />
         <FootBar/>
       </div>
     </div>
