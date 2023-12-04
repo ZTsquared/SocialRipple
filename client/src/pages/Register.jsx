@@ -23,10 +23,13 @@ export default function Register() {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCredentials({ ...credentials, [name]: value });
-
-    console.log(e.target.name);
+    const { name, value, checked } = e.target;
+    if (name === "organisation") {
+      setCredentials({ ...credentials, [name]: checked });
+    } else setCredentials({ ...credentials, [name]: value });
+    console.log(credentials);
+    console.log(checked);
+    // console.log(name);
   };
 
   useEffect(() => {
@@ -141,8 +144,9 @@ export default function Register() {
                 name="organisation"
                 onChange={handleChange}
                 id="organisation"
-                type="organisation"
-                className="form-control"
+                type="checkbox"
+
+                // className="form-control"
               />
               <br />
               <br />
@@ -180,9 +184,7 @@ export default function Register() {
             </label>{" "}
             <br />
             <br />
-            <label className="form-label">
-              What type of actions are you looking for?
-            </label>
+            <label className="form-label">What are your interests?</label>
             <br />
             <div className="preferencesInRegisterPage-css row justify-content-center">
               {keywords.map((keyword, index) => (
