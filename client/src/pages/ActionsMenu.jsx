@@ -26,7 +26,6 @@ export default function ActionsMenu() {
 
   useEffect(() => {
     setRecommendedActions(actions.filter((e,i) => i < 3));
-    setCenter({ lat: actions[1]?.latitude, lng: actions[1]?.longitude})
   }, [actions]);
 
   const containerStyle = {
@@ -68,6 +67,8 @@ export default function ActionsMenu() {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
       setActions(data);
+      console.log(data)
+      setCenter({ lat: data[1]?.latitude, lng: data[1]?.longitude})
       
     } catch (error) {
       console.log(error);
@@ -151,7 +152,7 @@ export default function ActionsMenu() {
                                             </div>)}
                                             {showInfoWindow.visible === true &&
                                                                 
-                                            <InfoWindow position={center}>
+                                            <InfoWindow onCloseClick={console.log("this")} position={center}>
                                               <div>
                                                 <p>{currentMarkerAction.name}</p>
                                                 <p>{currentMarkerAction.description}</p>
