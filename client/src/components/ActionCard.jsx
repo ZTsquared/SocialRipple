@@ -56,27 +56,32 @@ export default function ActionCard({action}) {
                 </div>
                 <hr />
                 <div className="card-text fw-light">
-                    {action.is_group ? <div>
-                        <div className="row">
-                            <div className="col-3">{`When: `} </div>
-                            <div className="col">{eventDate} </div>
-                        </div> 
-                        <div className="row">
-                        <div className="col-3"></div>
-                            <div className="col">{`${eventStartTime} - ${eventEndTime}`} </div>
-                        </div> 
-                    </div> : <div>
-                        {days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
-                            <div>Happening Now!</div>
-                        ) : (
-                            <div>
-                                {(days >=3) ? <div>Starting in: {days} days</div> : <div>Starting in: {days*24 + hours} hours, {minutes} minutes, {seconds} seconds</div>}
-                            </div>
-                        )}
-                    </div>}
+                    <div  style={{ height: "3rem",}}>
+                        {action.is_group ? <div>
+                            <div className="row">
+                                <div className="col-3">{`When: `} </div>
+                                <div className="col">{eventDate} </div>
+                            </div> 
+                            <div className="row">
+                            <div className="col-3"></div>
+                                <div className="col">{`${eventStartTime} - ${eventEndTime}`} </div>
+                            </div> 
+                        </div> : <div>
+                            {days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
+                                <div>
+                                    <div className="fs-3">Happening Now!</div>
+                                    <br />
+                                </div>
+                            ) : (
+                                <div>
+                                    {(days >=3) ? <div>Starting in: {days} days</div> : <div>Starting in: {days*24 + hours} hours, {minutes} min, {seconds} sec</div>}
+                                </div>
+                            )}
+                        </div>}
+                    </div>
                     <div className="row">
                         <div className="col-3">{`Where: `} </div>
-                        <div className="col">{!action.in_person && !action.online && "Anywhere!"} {action.in_person && "Barcelona"} {action.in_person && action.online && " & "} {action.online && "Online"}</div>
+                        <div className="col">{!action.in_person && !action.online && "Anywhere!"} {action.in_person && action.city} {action.in_person && action.online && " & "} {action.online && "Online"}</div>
                     </div> 
                 </div>
             </div>

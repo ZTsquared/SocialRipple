@@ -9,22 +9,46 @@ import FootBar from "../components/FootBar"
 
 
 export default function ActionsIndividual() {
+  const [allActions, setAllActions] = useState([]);
 	const [actions, setActions] = useState([]);
+  const [allKeywords, setAllKeywords] = useState([]);
+  const [selectedKeywords, setSelectedKeywords] = useState([]);
 
 	useEffect(() => {
-		getActions();
+		getAllActions();
+    getAllKeywords();
 	}, []);
 
+  useEffect(() => {
+		setActions(allActions);
+	}, [allActions]);
 
-	async function getActions() {
+
+	async function getAllActions() {
 		try {
 			const response = await fetch(`/api/actions`);
 			const data = await response.json();
-			setActions(data);
+			setAllActions(data);
 		} catch (error) {
 			console.log(error);
 		}
 	}
+
+  async function getAllKeywords(){
+    try {
+			const response = await fetch(`/api/keywords`);
+			const data = await response.json();
+			setAllKeywords(data);
+		} catch (error) {
+			console.log(error);
+		}
+  }
+  
+  function filterActions (){
+
+  }
+
+
 
 
 
@@ -38,6 +62,9 @@ export default function ActionsIndividual() {
         <Link to="/MainMenu/Group" className="btn btn-success">
           Group actions
         </Link>
+        <div>
+          {allKeywords.map((k) => (<div>{k.keyword}</div>))}
+        </div>
       </div>
       <div className="container">
         <div className="row">
