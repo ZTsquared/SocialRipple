@@ -98,6 +98,9 @@ export default function ActionsMenu() {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
       setActions(data);
+      console.log(data)
+      setCenter({ lat: data[1]?.latitude, lng: data[1]?.longitude})
+
     } catch (error) {
       console.log(error);
     }
@@ -131,36 +134,27 @@ export default function ActionsMenu() {
             <div>
               <h3>a decent looking map</h3>
 
-              {isLoaded && (
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={center}
-                  zoom={15}
-                  onLoad={onLoad}
-                  onUnmount={onUnmount}
-                >
-                  {actions.map((action, i) => (
-                    <div key={i}>
-                      <Marker
-                        onClick={() => markerClick(action)}
-                        key={i}
-                        position={{
-                          lat: action.latitude,
-                          lng: action.longitude,
-                        }}
-                      />
-                    </div>
-                  ))}
-                  {showInfoWindow.visible === true && (
-                    <InfoWindow position={center}>
-                      <div>
-                        <p>hola</p>
-                        <Link to="/">learn more </Link>
-                      </div>
-                    </InfoWindow>
-                  )}
-                </GoogleMap>
-              )}
+              {isLoaded && <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={15}
+                onLoad={onLoad}
+                onUnmount={onUnmount}>
+                
+                {actions.map((action, i) => <div key={i}><Marker onClick={() => markerClick(action)} key={i} position={{lat: action.latitude, lng: action.longitude}}/>
+                                                             
+                                            </div>)}
+                                            {showInfoWindow.visible === true &&
+                                                                
+                                            <InfoWindow onCloseClick={console.log("this")} position={center}>
+                                              <div>
+                                                <p>{currentMarkerAction.name}</p>
+                                                <p>{currentMarkerAction.description}</p>
+                                                <Link to={`/Action/View/${currentMarkerAction.id}`}>learn more </Link>
+                                              </div>
+                                            </InfoWindow>
+                                            }
+              </GoogleMap>}
 
             </div>
           </div>
