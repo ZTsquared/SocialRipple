@@ -33,24 +33,26 @@ router.get("/", async function (req, res, next) {
 
 //POST
 
-router.post("/post", async function (req, res, next) {
-  const { userId, keywordId } = req.body;
-  try {
-    // const hash = await bcrypt.hash(password, saltRounds);
-    console.log("Request Body:", req.body);
 
-    const preferencesInfo = await models.preferences.create({
-      userId,
-      keywordId
-    });
+//the route below does not work properly
+// router.post("/post", async function (req, res, next) {
+//   const { userId, keywordId } = req.body;
+//   try {
+//     // const hash = await bcrypt.hash(password, saltRounds);
+//     console.log("Request Body:", req.body);
 
-    console.log(preferencesInfo)
-    res.send("Preferences succesful");
+//     const preferencesInfo = await models.preferences.create({
+//       userId,
+//       keywordId
+//     });
 
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+//     console.log(preferencesInfo)
+//     res.send("Preferences succesful");
+
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
 
 
 
