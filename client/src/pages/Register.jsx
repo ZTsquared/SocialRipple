@@ -5,8 +5,10 @@ import axios from "axios";
 
 import NavBar from "../components/NavBar";
 import FootBar from "../components/FootBar";
+import useAuth from "../hooks/useAuth";
 
 export default function Register() {
+  const { onLogin } = useAuth();
   const [preferences, setPreferences] = useState([]);
   const [userCoordinates, setUserCoordinates] = useState();
   const [credentials, setCredentials] = useState({
@@ -59,10 +61,10 @@ export default function Register() {
         data: { user, preferences },
       });
       console.log(data);
-      navigate("/Login");
     } catch (error) {
       console.log(error);
     }
+    login();
   };
 
   const setCoordinates = async (street, number, city) => {
@@ -76,6 +78,22 @@ export default function Register() {
       return responseToJson.results[0].geometry.location;
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const login = async () => {
+    try {
+      console.log("trying...");
+      const { data } = await axios("/api/auth/login", {
+        method: "POST",
+        data: credentials,
+      });
+      //store it locally
+      localStorage.setItem("token", data.token);
+      onLogin();
+      navigate("/Profile");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -99,7 +117,10 @@ export default function Register() {
       organisation: credentials.organisation,
       latitude: userCoordinates?.lat,
       longitude: userCoordinates?.lng,
+      city: credentials.city,
     });
+
+    login();
   }
 
   return (
