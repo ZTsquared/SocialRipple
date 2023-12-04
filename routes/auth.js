@@ -10,7 +10,7 @@ require("dotenv").config();
 
 router.post("/register", async function (req, res, next) {
   console.log(req.body);
-  const { username, password, organisation, latitude, longitude } =
+  const { username, password, organisation, city, latitude, longitude } =
     req.body.user;
   const { preferences } = req.body;
   try {
@@ -20,6 +20,7 @@ router.post("/register", async function (req, res, next) {
       username,
       password,
       organisation,
+      city,
       longitude,
       latitude,
     });
