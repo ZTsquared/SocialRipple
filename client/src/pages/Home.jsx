@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 
 import NavBar from "../components/NavBar"
+import ActionCard from "../components/ActionCard"
 
 export default function Home() {
 
@@ -56,49 +57,10 @@ export default function Home() {
         <div className="row">
           {actions
             .filter((act, i) => i < 4)
-            .map((action) => (
-              <div
-                className="card"
-                style={{
-                  width: "18rem",
-                  backgroundColor: "#c4c1e0",
-                  color: "white",
-                  margin: "8px",
-                }}
-                key={action.id}
-              >
-                <img
-                  src="https://www.teameacc.org/wp-content/uploads/sites/8/2022/04/events.jpg"
-                  className="card-img-top"
-                  alt="..."
-                  style={{ marginTop: "10px" }}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{action.name}</h5>
-                  <p className="card-text">{action.description}</p>
-                  {action.Keywords.length > 0 && (
-                    <div>
-                      <div>This action is related to:</div>
-                      <div>
-                        {action.Keywords.map((k) => (
-                          <div key={k.id}>{k.keyword}</div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <button
-                  style={{
-                    backgroundColor: "#c4c1e0",
-                    color: "white",
-                    margin: "10px",
-                    borderRadius: "10px",
-                    border: "2px solid white",
-                  }}
-                >
-                  Access this action
-                </button>
-              </div>
+            .map((action, index) => (
+            <div key={index} className="col-sm">
+              <ActionCard action={action} />
+            </div>
             ))}
         </div>
       </div>
