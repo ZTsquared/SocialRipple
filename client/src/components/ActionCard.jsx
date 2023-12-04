@@ -30,47 +30,39 @@ export default function ActionCard({ action }) {
   const { days, hours, minutes, seconds } = useCountdown(targetDate);
 
   return (
-    <div
-      style={{
-        width: "18rem",
-        height: "28rem",
-        backgroundColor: "#c4c1e0",
-        color: "white",
-        padding: "10px",
-        marginBottom: "50px",
-        borderRadius: "6px",
-      }}
+
+    <div 
+        style={{
+          width: "18rem",
+          height: "20rem",
+          border: "1px solid black",
+        //   backgroundColor: "#c4c1e0",
+          color: "white",
+          marginBottom: "50px",
+          borderRadius: "6px",
+        }}
     >
-      <Link to={`/Action/View/${action.id}>`}>
-        <img
-          src="https://www.teameacc.org/wp-content/uploads/sites/8/2022/04/events.jpg"
-          className="card-img-top"
-          alt="..."
-          style={{ marginTop: "10px", borderRadius: "4px" }}
-        />
-        <br />
-        <hr />
-        <div className="card-body">
-          <div style={{ height: "5rem" }}>
-            <div className="card-title fs-5" style={{ height: "0.5rem" }}>
-              {action.name}
-            </div>
-            <br />
-            <TextTruncate
-              className="card-text fw-light"
-              line={2}
-              element="span"
-              truncateText="…"
-              text={action.description}
+        <Link to={`/Action/View/${action.id}>`}>
+            <img
+            src="https://blog.bluemoontalent.com/wp-content/uploads/2014/02/event-header-4.jpg"
+            className="card-img-top"
+            alt="..."
+            style={{ marginTop: "0px",  borderRadius: "6px 6px 0px 0px" }}
             />
-          </div>
-          <hr />
-          <div className="card-text fw-light">
-            {action.is_group ? (
-              <div>
-                <div className="row">
-                  <div className="col-3">{`When: `} </div>
-                  <div className="col">{eventDate} </div>
+            <div className="card-body" style={{
+                margin: "10px",
+            }}>
+                <div style={{ height: "5rem" }}>
+                    <div className="card-title fs-5" style={{ height: "0.5rem" }}>{action.name}</div>
+                    <br />
+                    <TextTruncate
+                        className="card-text fw-light"
+                        line={2}
+                        element="span"
+                        truncateText="…"
+                        text={action.description}
+                    />
+
                 </div>
                 <div className="row">
                   <div className="col-3"></div>

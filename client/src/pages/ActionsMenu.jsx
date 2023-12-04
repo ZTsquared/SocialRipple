@@ -1,19 +1,17 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
-
-  GoogleMap,
-  useJsApiLoader,
-  Marker,
-  InfoWindow,
-
+	GoogleMap,
+	useJsApiLoader,
+	Marker,
+	InfoWindow,
 } from "@react-google-maps/api";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import ActionCard from "../components/ActionCard"
-import NavBar from "../components/NavBar"
-import FootBar from "../components/FootBar"
+import ActionCard from "../components/ActionCard";
+import NavBar from "../components/NavBar";
+import FootBar from "../components/FootBar";
 
 export default function ActionsMenu() {
   const [actions, setActions] = useState([]);                                           // an array with ALL the actions
@@ -98,6 +96,9 @@ export default function ActionsMenu() {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
       setActions(data);
+      console.log(data)
+      setCenter({ lat: data[1]?.latitude, lng: data[1]?.longitude})
+
     } catch (error) {
       console.log(error);
     }
@@ -131,36 +132,27 @@ export default function ActionsMenu() {
             <div>
               <h3>a decent looking map</h3>
 
-              {isLoaded && (
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={center}
-                  zoom={15}
-                  onLoad={onLoad}
-                  onUnmount={onUnmount}
-                >
-                  {actions.map((action, i) => (
-                    <div key={i}>
-                      <Marker
-                        onClick={() => markerClick(action)}
-                        key={i}
-                        position={{
-                          lat: action.latitude,
-                          lng: action.longitude,
-                        }}
-                      />
-                    </div>
-                  ))}
-                  {showInfoWindow.visible === true && (
-                    <InfoWindow position={center}>
-                      <div>
-                        <p>hola</p>
-                        <Link to="/">learn more </Link>
-                      </div>
-                    </InfoWindow>
-                  )}
-                </GoogleMap>
-              )}
+              {isLoaded && <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={center}
+                zoom={15}
+                onLoad={onLoad}
+                onUnmount={onUnmount}>
+                
+                {actions.map((action, i) => <div key={i}><Marker onClick={() => markerClick(action)} key={i} position={{lat: action.latitude, lng: action.longitude}}/>
+                                                             
+                                            </div>)}
+                                            {showInfoWindow.visible === true &&
+                                                                
+                                            <InfoWindow onCloseClick={console.log("this")} position={center}>
+                                              <div>
+                                                <p>{currentMarkerAction.name}</p>
+                                                <p>{currentMarkerAction.description}</p>
+                                                <Link to={`/Action/View/${currentMarkerAction.id}`}>learn more </Link>
+                                              </div>
+                                            </InfoWindow>
+                                            }
+              </GoogleMap>}
 
             </div>
           </div>
@@ -169,5 +161,6 @@ export default function ActionsMenu() {
       </div>
     </div>
   );
+
 
 }
