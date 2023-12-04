@@ -9,6 +9,7 @@ export default function NavBar() {
   const { isLoggedIn, onLogout, onLogin } = useAuth();
   const navigate = useNavigate();
   const [showOffcanvas, setShowOffcanvas] = useState(false);
+
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
       href=""
@@ -22,6 +23,7 @@ export default function NavBar() {
       &#x25bc;
     </a>
   ));
+
   const CustomMenu = React.forwardRef(
     ({ children, style, className, "aria-labelledby": labeledBy }, ref) => {
       const [value, setValue] = useState("");
@@ -53,18 +55,11 @@ export default function NavBar() {
     setShowOffcanvas(!showOffcanvas);
   };
 
-  function goToActions() {
-    if (id === "1") {
-      navigate("/MainMenu");
-    } else if (id === "1") {
-      navigate("/MainMenu/Group");
-    } else if (id === "3") {
-      navigate("/MainMenu/Individual");
-    }
-  }
-
   return (
-    <nav className="navbar bg-body-tertiary fixed-top">
+    <nav
+      className="navbar bg-body-tertiary fixed-top"
+      style={{ marginBottom: "30px" }}
+    >
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           SocialRipple
@@ -103,7 +98,31 @@ export default function NavBar() {
                     Home
                   </div>
                 </Link>
-              </li>
+              </li>{" "}
+              <Dropdown>
+                <Dropdown.Toggle
+                  as={CustomToggle}
+                  id="dropdown-custom-components"
+                >
+                  Actions
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu as={CustomMenu}>
+                  <Dropdown.Item tag={Link} href="/MainMenu" eventKey="1">
+                    All
+                  </Dropdown.Item>
+                  <Dropdown.Item tag={Link} href="/MainMenu/Group" eventKey="2">
+                    Group Actions
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    tag={Link}
+                    href="/MainMenu/Individual"
+                    eventKey="2"
+                  >
+                    Single Actions
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
               {isLoggedIn && (
                 <div>
                   <li className="nav-item">
@@ -128,45 +147,19 @@ export default function NavBar() {
                       </div>
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link to="/Action/Create">
+                      <div
+                        className="nav-link active"
+                        aria-current="page"
+                        href="#"
+                        onClick={handleLogout}
+                      >
+                        Log out
+                      </div>
+                    </Link>
+                  </li>
                 </div>
-              )}
-              <Dropdown>
-                <Dropdown.Toggle
-                  as={CustomToggle}
-                  id="dropdown-custom-components"
-                >
-                  Actions
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu as={CustomMenu}>
-                  <Dropdown.Item tag={Link} href="/MainMenu" eventKey="1">
-                    All
-                  </Dropdown.Item>
-                  <Dropdown.Item tag={Link} href="/MainMenu/Group" eventKey="2">
-                    Group Actions
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    tag={Link}
-                    href="/MainMenu/Individual"
-                    eventKey="2"
-                  >
-                    Single Actions
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>{" "}
-              {isLoggedIn && (
-                <li className="nav-item">
-                  <Link to="/Action/Create">
-                    <div
-                      className="nav-link active"
-                      aria-current="page"
-                      href="#"
-                      onClick={handleLogout}
-                    >
-                      Log out
-                    </div>
-                  </Link>
-                </li>
               )}
               {!isLoggedIn && (
                 <div>
@@ -184,7 +177,7 @@ export default function NavBar() {
                 </div>
               )}
             </ul>
-            {/* <form className="d-flex mt-3" role="search">
+            {/* <form className="d-flex mt-3" role="search"> //just leaving this in here in case we want a search bar at any point 
               <input
                 className="form-control me-2"
                 type="search"
