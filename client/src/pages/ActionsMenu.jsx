@@ -1,32 +1,47 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
+
   GoogleMap,
   useJsApiLoader,
   Marker,
-  InfoWindow
+  InfoWindow,
+
 } from "@react-google-maps/api";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import ActionCard from "../components/ActionCard"
+import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
+
 export default function ActionsMenu() {
-  const { isLoggedIn, onLogout, onLogin } = useAuth();                                  // we all know these guys
   const [actions, setActions] = useState([]);                                           // an array with ALL the actions
   const [center, setCenter] = useState();                                               // lat & lng the map takes as its center
   const [currentMarkerAction, setCurrentMarkerAction] = useState();                     // all the info of the action corresponding to the marker clicked
   const [recommendedActions, setRecommendedActions] = useState([]);                     // the 3 recommended actions on top
   const [showInfoWindow, setShowInfoWindow] = useState({visible: false, position: {}}); // the dinamically updated popup for the marker clicked
   const [map, setMap] = useState(null);                                                 // the map in all its joy and glory                                           
-
   const navigate = useNavigate();
+    //state:
+  const [locationMarker, setLocationMarker] = useState();
+  const [actionMarkers, setActionMarkers] = useState();
 
   useEffect(() => {
     getActions();
   }, []);
 
   useEffect(() => {
-    setRecommendedActions(actions.filter((e,i) => i < 3));
+    setRecommendedActions(actions.filter((e, i) => i < 3));
+    setCenter({ lat: actions[1]?.latitude, lng: actions[1]?.longitude });
   }, [actions]);
+
+
+  useEffect(() => {
+    // console.log(recommendedActions, actions);
+    // console.log(new Date(recommendedActions[0]?.start_time).getDay())
+  }, [recommendedActions]);
+
 
   const containerStyle = {
     width: "1000px",
@@ -38,6 +53,8 @@ export default function ActionsMenu() {
     googleMapsApiKey: "YOUR_API_KEY",
   });
 
+
+
   const onLoad = useCallback(function callback(map) {
     
     const bounds = new window.google.maps.LatLngBounds(center);
@@ -48,18 +65,32 @@ export default function ActionsMenu() {
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
-  function handleLogout() {
-    console.log("Logged out");
-    onLogout();
-    navigate("/");
-  }
 
+
+
+  // const concoctRecomendations = actions.filter()
+
+  const getLocation = async (street, number, city) => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
+      );
+      const responseToJson = await response.json();
+
+      setLocationMarker(responseToJson);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   function markerClick(action) {
     console.log(`action ${action.name} clicked`);
-    setCenter({ lat: action.latitude, lng: action.longitude})
-    setShowInfoWindow({visible: true, position: { lat: action.latitude, lng: action.longitude}})
-    setCurrentMarkerAction(action)
+    setCenter({ lat: action.latitude, lng: action.longitude });
+    setShowInfoWindow({
+      visible: true,
+      position: { lat: action.latitude, lng: action.longitude },
+    });
+
   }
 
   async function getActions() {
@@ -69,67 +100,29 @@ export default function ActionsMenu() {
       setActions(data);
       console.log(data)
       setCenter({ lat: data[1]?.latitude, lng: data[1]?.longitude})
-      
+
     } catch (error) {
       console.log(error);
     }
   }
 
-  function handleActionClick(e){
-    const action_id = e.target.name
-    console.log(e.target)
+  function handleActionClick(e) {
+    const action_id = e.target.name;
+    console.log(e.target);
   }
 
   return (
-
     <div>
-      <header className="navbar navbar-expand-lg navbar-light bg-light">
-        <nav>
-          Nav bar of our awesome app{" "}
-          {isLoggedIn ? (
-            <div>
-              <Link to="/Action/Create" className="btn btn-success">
-                Create Action
-              </Link>
-              <Link to="/Profile" className="btn btn-success">
-                Profile
-              </Link>
-              <button className="btn btn-success" onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
-          ) : (
-            <div>
-              <Link to="/Login" className="btn btn-success">
-                Login
-              </Link>
-              <Link to="/Register" className="btn btn-success">
-                Sign In
-              </Link>
-            </div>
-          )}
-        </nav>
-      </header>
+      <NavBar/>
       <div className="container">
         <div className="row">
           <h3>Recommended for you</h3>
-          {recommendedActions.map(
-            (action, index) =>(
-              <div key={index} className="col-sm">
-                <div name={action.id} className="card" onClick={handleActionClick}>
-                  <div>
-                    <b>{action.name}</b>
-                  </div>
-                  <div>{action.description}</div>
-                  {/* <div>Starting {Date.createFromMysql()}</div> */}
-                  <div>Starting {new Date(action.start_time).getMonth() + 1}/{new Date(action.start_time).getDay()}/{new Date(action.start_time).getFullYear()}</div>
-                  <div>
-                    place: {action.in_person && "Barcelona"} {action.in_person && action.online && " & "} {action.online && "Online"}
-                  </div>
-                </div>
-              </div>
-            )
-          )}
+          {recommendedActions.map((action, index) => (
+            <div key={index}
+            className="col-sm">
+              <ActionCard action={action} />
+            </div>
+          ))}
         </div>
         <div className="row">
           <Link to="Individual" className="btn btn-success">
@@ -140,6 +133,7 @@ export default function ActionsMenu() {
           <div className="col-sm">
             <div>
               <h3>a decent looking map</h3>
+
               {isLoaded && <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
@@ -160,19 +154,14 @@ export default function ActionsMenu() {
                                               </div>
                                             </InfoWindow>
                                             }
-                
               </GoogleMap>}
+
             </div>
           </div>
         </div>
-        <footer className="footer">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to="/" className="btn btn-success">
-              Homepage
-            </Link>
-          </nav>
-        </footer>
+        <FootBar/>
       </div>
     </div>
   );
+
 }

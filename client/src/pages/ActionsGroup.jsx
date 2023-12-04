@@ -2,23 +2,16 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import useAuth from "../hooks/useAuth";
 import ActionCard from "../components/ActionCard"
+import NavBar from "../components/NavBar"
+import FootBar from "../components/FootBar"
 
 export default function ActionsIndividual() {
-  const { isLoggedIn, onLogout, onLogin } = useAuth();
   const [actions, setActions] = useState([]);
 
-  useEffect(() => {
-    getActions();
-  }, []);
-
-  
-  function handleLogout() {
-    console.log("Logged out");
-    onLogout();
-    navigate("/");
-  }
+	useEffect(() => {
+		getActions();
+	}, []);
 
   async function getActions() {
     try {
@@ -32,33 +25,7 @@ export default function ActionsIndividual() {
 
   return (
     <div>
-      <header className="navbar navbar-expand-lg navbar-light bg-light">
-        <nav>
-          Nav bar of our awesome app{" "}
-          {isLoggedIn ? (
-            <div>
-              <Link to="/Action/Create" className="btn btn-success">
-                Create Action
-              </Link>
-              <Link to="/Profile" className="btn btn-success">
-                Profile
-              </Link>
-              <button className="btn btn-success" onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
-          ) : (
-            <div>
-              <Link to="/Login" className="btn btn-success">
-                Login
-              </Link>
-              <Link to="/Register" className="btn btn-success">
-                Sign In
-              </Link>
-            </div>
-          )}
-        </nav>
-      </header>
+      <NavBar/>
       <div>
         <Link to="/MainMenu/Individual" className="btn btn-success">
           Individual actions
@@ -69,22 +36,17 @@ export default function ActionsIndividual() {
       </div>
       <div className="container">
         <div className="row">
-            <h3>Group Actions</h3>
-            {actions.map(
+          <h3>Group Actions</h3>
+          {actions.filter((a) =>(a.is_group)).map(
             (action, index) =>
-              action.is_group && (
-                <ActionCard action = {action} index = {index}/>
-              )
-            )}
+            <div key={index} className="col-sm">
+              <ActionCard action={action} />
+            </div>
+          )}
         </div>
-        <footer className="footer">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to="/Home" className="btn btn-success">
-              Homepage
-            </Link>
-          </nav>
-        </footer>
       </div>
+      <FootBar/>
     </div>
   );
+
 }

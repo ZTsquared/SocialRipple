@@ -3,20 +3,17 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 
+import NavBar from "../components/NavBar"
+
 export default function Home() {
+
   const navigate = useNavigate();
-  const { isLoggedIn, onLogout, onLogin } = useAuth();
   const [actions, setActions] = useState([]);
 
-  useEffect(() => {
-    getActions();
-  }, []);
+	useEffect(() => {
+		getActions();
+	}, []);
 
-  function handleLogout() {
-    console.log("Logged out");
-    onLogout();
-    navigate("/MainMenu");
-  }
 
   async function getActions() {
     try {
@@ -35,34 +32,8 @@ export default function Home() {
     // no filters
     // calls to action of the week
     // login button
-    <div className="body">
-      <header className="navbar navbar-expand-lg navbar-light bg-light">
-        <nav>
-          {isLoggedIn ? (
-            <div>
-              <Link to="/Action/Create" className="btn btn-success">
-                Create Action
-              </Link>
-              <Link to="/Profile" className="btn btn-success">
-                Profile
-              </Link>
-              <button className="btn btn-success" onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
-          ) : (
-            <div>
-              <Link to="/Login" className="btn btn-success">
-                Login
-              </Link>
-              or
-              <Link to="/Register" className="btn btn-success">
-                Sign Up
-              </Link>
-            </div>
-          )}
-        </nav>
-      </header>
+    <div>
+      <NavBar/>
       <br />
       <h2>SocialRipple</h2>
       <div className="homepageParagraph-css">
@@ -131,12 +102,7 @@ export default function Home() {
             ))}
         </div>
       </div>
-      <br />
-      <Link to="/MainMenu" className="btn btn-success">
-        Calls to action
-      </Link>
-      <br />
-      <br />
     </div>
   );
+
 }
