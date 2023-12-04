@@ -2,35 +2,29 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
-import ActionCard from "../components/ActionCard"
-import NavBar from "../components/NavBar"
-import FootBar from "../components/FootBar"
-
+import ActionCard from "../components/ActionCard";
+import NavBar from "../components/NavBar";
 
 export default function ActionsIndividual() {
-	const [actions, setActions] = useState([]);
+  const [actions, setActions] = useState([]);
 
-	useEffect(() => {
-		getActions();
-	}, []);
+  useEffect(() => {
+    getActions();
+  }, []);
 
-
-	async function getActions() {
-		try {
-			const response = await fetch(`/api/actions`);
-			const data = await response.json();
-			setActions(data);
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
-
+  async function getActions() {
+    try {
+      const response = await fetch(`/api/actions`);
+      const data = await response.json();
+      setActions(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
-      <NavBar/>
+      <NavBar />
       <div>
         <Link to="/MainMenu/Individual" className="btn btn-success">
           Individual actions
@@ -42,16 +36,15 @@ export default function ActionsIndividual() {
       <div className="container">
         <div className="row">
           <h3>Individual Actions</h3>
-          {actions.filter((a) =>(!a.is_group)).map(
-            (action, index) =>
-            <div key={index} className="col-sm">
-              <ActionCard action={action}/>
-            </div>
-          )}
+          {actions
+            .filter((a) => !a.is_group)
+            .map((action, index) => (
+              <div key={index} className="col-sm">
+                <ActionCard action={action} />
+              </div>
+            ))}
         </div>
-        <FootBar/>
       </div>
     </div>
   );
-
 }

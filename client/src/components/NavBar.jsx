@@ -1,44 +1,200 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import useAuth from "../hooks/useAuth";
+import Form from "react-bootstrap/Form";
 
 export default function NavBar() {
-    const { isLoggedIn, onLogout, onLogin } = useAuth();
+  const { isLoggedIn, onLogout, onLogin } = useAuth();
+  const navigate = useNavigate();
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+    <a
+      href=""
+      ref={ref}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+    >
+      {children}
+      &#x25bc;
+    </a>
+  ));
+  const CustomMenu = React.forwardRef(
+    ({ children, style, className, "aria-labelledby": labeledBy }, ref) => {
+      const [value, setValue] = useState("");
+      return (
+        <div
+          ref={ref}
+          style={style}
+          className={className}
+          aria-labelledby={labeledBy}
+        >
+          <ul className="list-unstyled">
+            {React.Children.toArray(children).filter(
+              (child) =>
+                !value || child.props.children.toLowerCase().startsWith(value)
+            )}
+          </ul>
+        </div>
+      );
+    }
+  );
 
-    function handleLogout() {
-        console.log("Logged out");
-        onLogout();
-        navigate("/");
-      }
+  function handleLogout() {
+    console.log("Logged out");
+    onLogout();
+    navigate("/");
+  }
+
+  const handleToggleOffcanvas = () => {
+    setShowOffcanvas(!showOffcanvas);
+  };
+
+  function goToActions() {
+    if (id === "1") {
+      navigate("/MainMenu");
+    } else if (id === "1") {
+      navigate("/MainMenu/Group");
+    } else if (id === "3") {
+      navigate("/MainMenu/Individual");
+    }
+  }
 
   return (
-    <header className="navbar navbar-expand-lg navbar-light bg-light">
-        <nav>
-        {isLoggedIn ? (
-            <div>
-            <Link to="/MainMenu" className="btn btn-success">
-              Calls to action
-            </Link>
-            <Link to="/Action/Create" className="btn btn-success">
-                Create Action
-            </Link>
-            <Link to="/Profile" className="btn btn-success">
-                Profile
-            </Link>
-            {/* <button className="btn btn-success" onClick={handleLogout}> */}
-            <button className="btn btn-success" onClick={handleLogout}>
-                Logout
-            </button>
-            </div>
-        ) : (
-            <div>
-            <Link to="/Login" className="btn btn-success">
-                Login
-            </Link>
-            </div>
-        )}
-        </nav>
-    </header>
-  )
+    <nav className="navbar bg-body-tertiary fixed-top">
+      <div className="container-fluid">
+        <a className="navbar-brand" href="#">
+          SocialRipple
+        </a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          aria-label="Toggle navigation"
+          onClick={handleToggleOffcanvas}
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div
+          className={`offcanvas offcanvas-end${showOffcanvas ? " show" : ""}`}
+          tabIndex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
+              SocialRipple
+            </h5>
+            <button
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+              onClick={handleToggleOffcanvas}
+            ></button>
+          </div>
+          <div className="offcanvas-body">
+            <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li className="nav-item">
+                <Link to="/">
+                  <div className="nav-link active" aria-current="page" href="#">
+                    Home
+                  </div>
+                </Link>
+              </li>
+              {isLoggedIn && (
+                <div>
+                  <li className="nav-item">
+                    <Link to="/Profile">
+                      <div
+                        className="nav-link active"
+                        aria-current="page"
+                        href="#"
+                      >
+                        Profile
+                      </div>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/Action/Create">
+                      <div
+                        className="nav-link active"
+                        aria-current="page"
+                        href="#"
+                      >
+                        Create Action
+                      </div>
+                    </Link>
+                  </li>
+                </div>
+              )}
+              <Dropdown>
+                <Dropdown.Toggle
+                  as={CustomToggle}
+                  id="dropdown-custom-components"
+                >
+                  Actions
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu as={CustomMenu}>
+                  <Dropdown.Item onClick={goToActions} eventKey="1">
+                    All
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={goToActions} eventKey="2">
+                    Group Actions
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={goToActions} eventKey="2">
+                    Single Actions
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>{" "}
+              {isLoggedIn && (
+                <li className="nav-item">
+                  <Link to="/Action/Create">
+                    <div
+                      className="nav-link active"
+                      aria-current="page"
+                      href="#"
+                      onClick={handleLogout}
+                    >
+                      Log out
+                    </div>
+                  </Link>
+                </li>
+              )}
+              {!isLoggedIn && (
+                <div>
+                  <li className="nav-item">
+                    <Link to="/Login">
+                      <div
+                        className="nav-link active"
+                        aria-current="page"
+                        href="#"
+                      >
+                        Sign Up or Log in
+                      </div>
+                    </Link>
+                  </li>
+                </div>
+              )}
+            </ul>
+
+            {/* <form className="d-flex mt-3" role="search">
+              <input
+                className="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button className="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form> */}
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
 }

@@ -5,7 +5,6 @@ import { useState } from "react";
 import axios from "axios";
 
 import NavBar from "../components/NavBar";
-import FootBar from "../components/FootBar";
 
 export default function CreateAction() {
   const [actionBody, setActionBody] = useState();
@@ -21,8 +20,12 @@ export default function CreateAction() {
   }, []);
 
   useEffect(() => {
-      setCoordinates(actionBody?.street, actionBody?.house_number, actionBody?.city);
-  }, [actionBody?.street, actionBody?.house_number, actionBody?.city])
+    setCoordinates(
+      actionBody?.street,
+      actionBody?.house_number,
+      actionBody?.city
+    );
+  }, [actionBody?.street, actionBody?.house_number, actionBody?.city]);
 
   async function getUsers() {
     try {
@@ -57,9 +60,7 @@ export default function CreateAction() {
       checked
         ? setActionBody({ ...actionBody, [name]: true })
         : setActionBody({ ...actionBody, [name]: false });
-    } 
-    
-    else {
+    } else {
       setActionBody({ ...actionBody, [name]: value });
     }
   };
@@ -105,23 +106,17 @@ export default function CreateAction() {
 
   const setCoordinates = async (street, number, city) => {
     try {
-
-      if(street && number && city){
+      if (street && number && city) {
         const response = await fetch(
           `https://maps.googleapis.com/maps/api/geocode/json?address=carrer%20${street}%20${number}%20${city}&key=AIzaSyCGHIA__546ykAp5aVLx19mpq0fP_OeZhs`
         );
         const responseToJson = await response.json();
 
-        if(responseToJson.results.length > 0){
-          console.log("fetch ok (I guess)")
+        if (responseToJson.results.length > 0) {
+          console.log("fetch ok (I guess)");
           setActionCoordinates(responseToJson.results[0].geometry?.location);
-        }
-
-        else return;
-        
+        } else return;
       }
-      
-
     } catch (error) {
       console.log(error.message);
     }
@@ -308,7 +303,6 @@ export default function CreateAction() {
       <br />
       <br />
       <br />
-      <FootBar/>
     </div>
   );
 }

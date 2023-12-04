@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import NavBar from "../components/NavBar";
-import FootBar from "../components/FootBar";
 import useAuth from "../hooks/useAuth";
 
 export default function Register() {
@@ -14,7 +13,7 @@ export default function Register() {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
-    organisation: "",
+    organisation: false,
     street: "",
     house_number: "",
     city: "",
@@ -244,7 +243,6 @@ export default function Register() {
           <br />
         </div>
       </div>
-      <FootBar />
     </div>
   );
 }
