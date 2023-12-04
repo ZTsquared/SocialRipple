@@ -5,13 +5,15 @@ import { useCountdown } from "../hooks/useCountdown";
 import { Tabs, Tab } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import NavBar from "../components/NavBar"
-import FootBar from "../components/FootBar"
+import NavBar from "../components/NavBar";
+import FootBar from "../components/FootBar";
 
 export default function Action() {
-  
 	const [oneAction, setOneAction] = useState([]);
 	const { ActionId } = useParams();
+	const [checked, setChecked] = useState(false);
+	const [volunteership, setVolunteership] = useState([]);
+
 	let navigate = useNavigate();
 
 	useEffect(() => {
@@ -51,10 +53,19 @@ export default function Action() {
 		minute: "numeric",
 	});
 
+	const handleChange = (e) => {
+		setChecked(!checked);
+		if (checked) {
+			setVolunteership((v) => [...v, e.target.value]);
+		} else setVolunteership((vol) => vol !== e.target.value);
+	};
+
+	// adds user to volunteership array (nested inside requirement array) when box is checked
+
 	return (
 		<div>
-			<NavBar/>
-			{/* <div className="left-side"> */}
+			<NavBar />
+
 			<div className="actioncontainer-css">
 				<h1> {oneAction.name} </h1>
 				<div className="tabs">
@@ -107,34 +118,36 @@ export default function Action() {
 									{oneAction.Requirements.map((requirement) => (
 										<div key={requirement.id}>
 											<div className="row">
-												<div className="col">{requirement.description}</div>
-												<div className="col">
-													{requirement.capacity} people needed
-													<div id="actionVolunteerContent-css">
-														{requirement.Volunteerships &&
-															requirement.Volunteerships.length > 0 && (
-																<div>
-																	Volunteers:{" "}
-																	{requirement.Volunteerships.map(
-																		(volunteership) => (
-																			<div key={volunteership.id}>
-																				<div>{volunteership.User.username}</div>
-																				{/* <div>Completed: {volunteership.completed}</div> */}
-																			</div>
-																		)
-																	)}
-																</div>
-															)}
-													</div>
-													<div className="joinButton">
-														<button
-															type="button"
-															className="btn btn-primary btn-sm">
-															Join
-														</button>
-													</div>
+												<div className="col-6">{requirement.description}</div>
+
+												<div className="col-3">
+													{requirement.Volunteerships.length !=
+														requirement.capacity &&
+														`${requirement.Volunteerships.length} / ${requirement.capacity}`}
+												</div>
+												<div className="col-3">
+													{requirement.Volunteerships &&
+														requirement.Volunteerships.length > 0 && (
+															<div>
+																Volunteers:{" "}
+																{requirement.Volunteerships.map(
+																	(volunteership) => (
+																		<div key={volunteership.id}>
+																			<div>{volunteership.User.username}</div>
+																		</div>
+																	)
+																)}
+															</div>
+														)}
 												</div>
 											</div>
+											{/* <div className="joinButton">
+												<button
+													type="button"
+													className="btn btn-primary btn-sm">
+													Join
+												</button>
+											</div> */}
 										</div>
 									))}
 								</div>
@@ -142,7 +155,6 @@ export default function Action() {
 						</Tab>
 					</Tabs>
 				</div>
-
 				<div className="countdown">
 					{days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
 						<div>Countdown is over!</div>
@@ -154,7 +166,6 @@ export default function Action() {
 						</div>
 					)}
 				</div>
-
 				{/* back to actionsmenu page */}
 				<div className="buttonSection" id="singleButton">
 					<button className="backButton" onClick={() => navigate(-1)}>
@@ -162,8 +173,7 @@ export default function Action() {
 					</button>
 				</div>
 			</div>
-			<FootBar/>
+			<FootBar />
 		</div>
 	);
-
 }
