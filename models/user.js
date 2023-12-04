@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.BOOLEAN,
 				allowNull: false,
 			},
+			city: DataTypes.STRING,
 			longitude: DataTypes.NUMBER,
 			latitude: DataTypes.NUMBER,
 		},

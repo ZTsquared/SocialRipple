@@ -25,23 +25,24 @@ export default function ActionCard({action}) {
     <div 
         style={{
           width: "18rem",
-          height: "28rem",
-          backgroundColor: "#c4c1e0",
+          height: "20rem",
+          border: "1px solid black",
+        //   backgroundColor: "#c4c1e0",
           color: "white",
-          padding: "10px",
           marginBottom: "50px",
           borderRadius: "6px",
         }}
     >
         <Link to={`/Action/View/${action.id}>`}>
             <img
-            src="https://www.teameacc.org/wp-content/uploads/sites/8/2022/04/events.jpg"
+            src="https://blog.bluemoontalent.com/wp-content/uploads/2014/02/event-header-4.jpg"
             className="card-img-top"
             alt="..."
-            style={{ marginTop: "10px",  borderRadius: "4px" }}
+            style={{ marginTop: "0px",  borderRadius: "6px 6px 0px 0px" }}
             />
-            <br /><hr />
-            <div className="card-body">
+            <div className="card-body" style={{
+                margin: "10px",
+            }}>
                 <div style={{ height: "5rem" }}>
                     <div className="card-title fs-5" style={{ height: "0.5rem" }}>{action.name}</div>
                     <br />
