@@ -1,19 +1,17 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import {
-
-  GoogleMap,
-  useJsApiLoader,
-  Marker,
-  InfoWindow,
-
+	GoogleMap,
+	useJsApiLoader,
+	Marker,
+	InfoWindow,
 } from "@react-google-maps/api";
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import ActionCard from "../components/ActionCard"
-import NavBar from "../components/NavBar"
-import FootBar from "../components/FootBar"
+import ActionCard from "../components/ActionCard";
+import NavBar from "../components/NavBar";
+import FootBar from "../components/FootBar";
 
 export default function ActionsMenu() {
   const [actions, setActions] = useState([]);                                           // an array with ALL the actions
@@ -168,5 +166,6 @@ export default function ActionsMenu() {
       </div>
     </div>
   );
+
 
 }

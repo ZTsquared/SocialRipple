@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-import NavBar from "../components/NavBar"
-import FootBar from "../components/FootBar"
+import NavBar from "../components/NavBar";
+import FootBar from "../components/FootBar";
 
 export default function CreateAction() {
-
   const [actionBody, setActionBody] = useState();
   const [actionCoordinates, setActionCoordinates] = useState();
   const [requirements, setRequirements] = useState();
@@ -162,7 +161,7 @@ export default function CreateAction() {
     // capacity
 
     <div>
-      <NavBar/>
+      <NavBar />
       <h3>CreateAction</h3>
       <form onSubmit={handleSubmit} action="">
         <label htmlFor="name">
@@ -312,5 +311,4 @@ export default function CreateAction() {
       <FootBar/>
     </div>
   );
-
 }
