@@ -6,6 +6,11 @@ a {
   background-color: lavender;
   text-align: center;
 }
+body {
+  margin-top: 20px;
+  background-color: lavender;
+  text-align: center;
+}
 
 #page-container {
   position: relative;
