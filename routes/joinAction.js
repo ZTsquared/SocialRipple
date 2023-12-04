@@ -1,10 +1,25 @@
 var express = require("express");
 var router = express.Router();
-var bcrypt = require("bcrypt");
-var jwt = require("jsonwebtoken");
 const models = require("../models");
-const { Model } = require("sequelize");
-const supersecret = process.env.SUPER_SECRET;
-require("dotenv").config();
+const { Op, Association } = require("sequelize");
 
-router.post("/:id/volunteership", async function (req, res, next) {});
+router.post("/", async function (req, res) {
+	const { userId, requirementId } = req.body;
+	try {
+		console.log("joinAction");
+		console.log(userId, requirementId);
+
+		const volunteershipInfo = await models.Volunteership.create({
+			userId: userId,
+			requirementId: requirementId,
+			completed: 0,
+		});
+
+		// console.log(volunteershipInfo);
+		res.send("volunteership created");
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
+module.exports = router;
