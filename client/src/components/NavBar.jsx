@@ -139,13 +139,17 @@ export default function NavBar() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as={CustomMenu}>
-                  <Dropdown.Item onClick={goToActions} eventKey="1">
+                  <Dropdown.Item tag={Link} href="/MainMenu" eventKey="1">
                     All
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={goToActions} eventKey="2">
+                  <Dropdown.Item tag={Link} href="/MainMenu/Group" eventKey="2">
                     Group Actions
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={goToActions} eventKey="2">
+                  <Dropdown.Item
+                    tag={Link}
+                    href="/MainMenu/Individual"
+                    eventKey="2"
+                  >
                     Single Actions
                   </Dropdown.Item>
                 </Dropdown.Menu>
@@ -180,7 +184,6 @@ export default function NavBar() {
                 </div>
               )}
             </ul>
-
             {/* <form className="d-flex mt-3" role="search">
               <input
                 className="form-control me-2"
