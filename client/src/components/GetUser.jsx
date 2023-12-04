@@ -10,15 +10,21 @@ export default async function getUser() {
         },
       });
       const data = await response.json();
+
+      // Judit: for now i'm only passing the user's coordinates
+      const userObject = {
+        lat: data.latitude,
+        lng: data.longitude
+      }
+
+      console.log(userObject)
+
+      return userObject
     } catch (error) {
       console.log(error);
     }
 
-  const userObject = data;
-
-
   return (
-    undefined
-    // <AuthContext.Provider value={userObject}>{children}</AuthContext.Provider>
+    console.log("hola")
   );
 }
