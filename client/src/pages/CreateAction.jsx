@@ -13,6 +13,8 @@ export default function CreateAction() {
   const [user, setUser] = useState();
   const [keywords, setKeywords] = useState(); // just to get the full array of keywords so you can pick the ones you want.
   const [preferences, setPreferences] = useState([]); // doing it like this for now... it's NOT exactly requirements, but ye
+  const [isOnline, setIsOnline] = useState(false); //so that we can make the action link show up (or not)
+  const [isInPerson, setIsInPerson] = useState(false); //so that we can make the address form show up (or not)
 
   useEffect(() => {
     getUsers();
@@ -55,7 +57,12 @@ export default function CreateAction() {
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
-
+    if (name === "online") {
+      checked ? setIsOnline(true) : setIsOnline(false);
+    } else if (name === "inperson") {
+      checked ? setIsInPerson(true) : setIsInPerson(false);
+    }
+    console.log(isInPerson);
     if (name === "online" || name === "inperson" || name === "is_group") {
       checked
         ? setActionBody({ ...actionBody, [name]: true })
@@ -137,178 +144,227 @@ export default function CreateAction() {
   };
 
   return (
-    // form to create an action
-
-    // name of the action
-    // description
-    // online or in person checkboxes or droplist
-    // start time - end time
-    // group or individual checkboxes or droplist
-    // online link
-    // google coordinates (this should come automatically)
-
-    // requirements
-    //    · the user can add 0, 1 or more requirements (I'm not sure it makes sense to put 0 req...?)
-    //    · the user has to specify the amount of "volunteer users" needed for each requirement
-
-    // requirements:
-    // description
-    // capacity
-
     <div>
       <NavBar />
-      <h3>CreateAction</h3>
+      <h3>Create an Action</h3>
+      <p>Get involved with the SocialRipple community!</p>
       <form onSubmit={handleSubmit} action="">
-        <label htmlFor="name">
-          action name:
+        <label htmlFor="name" className="form-label">
+          Action name:
           <input
             onChange={handleChange}
             type="text"
             id="name"
             name="name"
             maxLength={35}
+            className="form-control"
+            cols="50"
+            rows="1"
           />
         </label>{" "}
         <br />
-        <label htmlFor="description">
-          action description:
+        <label htmlFor="description" className="form-label">
+          Action description:
           <textarea
             onChange={handleChange}
             name="description"
             id="description"
-            cols="60"
-            rows="6"
+            cols="50"
+            rows="3"
             minLength={150}
+            className="form-control"
           ></textarea>
         </label>{" "}
         <br />
-        <label htmlFor="online">
-          {" "}
-          on-line?
-          <input
-            onChange={handleChange}
-            type="checkbox"
-            name="online"
-            id="online"
-          />
-        </label>{" "}
-        <br />
-        <label htmlFor="inperson">
-          {" "}
-          in-person?
-          <input
-            onChange={handleChange}
-            type="checkbox"
-            name="inperson"
-            id="inperson"
-          />
-        </label>{" "}
-        <br />
-        <label htmlFor="start_time">
-          starting date:
+        <label
+          htmlFor="start_time"
+          className="form-label"
+          style={{ margin: "5px" }}
+        >
+          Starting date:
           <input
             onChange={handleChange}
             name="start_time"
             id="start_time"
             type="date"
+            className="form-control"
           />
-        </label>{" "}
-        <br />
-        <label htmlFor="end_time">
-          finishing date:
+        </label>
+        <label
+          htmlFor="end_time"
+          className="form-label"
+          style={{ margin: "5px" }}
+        >
+          Finishing date:
           <input
             onChange={handleChange}
             name="end_time"
             id="end_time"
             type="date"
+            className="form-control"
           />
-        </label>{" "}
+        </label>
         <br />
-        <label htmlFor="is_group">
-          {" "}
-          is it a group action?
+        <label htmlFor="is_group" className="form-label">
+          Is it a group action?
           <input
             onChange={handleChange}
             type="checkbox"
             name="is_group"
             id="is_group"
           />
-        </label>{" "}
+        </label>
         <br />
-        <label htmlFor="online_link">
-          on-line action link:
+        <label htmlFor="online" className="form-label">
+          On-line?
           <input
             onChange={handleChange}
-            type="text"
-            id="online_link"
-            name="online_link"
+            type="checkbox"
+            name="online"
+            id="online"
           />
-        </label>{" "}
+        </label>
         <br />
-        <h5>Address</h5>
-        <label htmlFor="street">
-          Street:
-          <input
-            onChange={handleChange}
-            type="text"
-            name="street"
-            id="street"
-          />
-        </label>{" "}
-        <label htmlFor="house_number">
-          Number:
-          <input
-            onChange={handleChange}
-            type="text"
-            name="house_number"
-            id="house_number"
-          />
-        </label>{" "}
-        <label htmlFor="city">
-          City:
-          <input onChange={handleChange} type="text" name="city" id="city" />
-        </label>{" "}
-        <br />
-        Choose the keywords that fit better:
-        {keywords?.map((keyword, index) => (
-          <div key={keyword.id}>
-            <input
-              id={keyword.id}
-              value={keyword.id}
-              type="checkbox"
-              onChange={handleKeywordChange}
-              checked={preferences.includes(keyword.id) ? "checked" : null}
-            />
-            {keyword.keyword}
+        {isOnline && (
+          <div>
+            <label htmlFor="online_link" className="form-label">
+              On-line action link:
+              <input
+                onChange={handleChange}
+                type="text"
+                id="online_link"
+                name="online_link"
+                className="form-control"
+              />
+            </label>{" "}
+            <br />
           </div>
-        ))}
-        <label htmlFor="requirements">
+        )}
+        <label htmlFor="inperson" className="form-label">
+          In-person?
+          <input
+            onChange={handleChange}
+            type="checkbox"
+            name="inperson"
+            id="inperson"
+          />
+        </label>
+        <br />
+        {isInPerson && (
+          <div>
+            {" "}
+            <h5>Where is it taking place?</h5>
+            <label
+              htmlFor="street"
+              className="form-label"
+              style={{ margin: "5px" }}
+            >
+              <input
+                onChange={handleChange}
+                type="text"
+                name="street"
+                id="street"
+                className="form-control"
+                placeholder="Street"
+              />
+            </label>
+            <label
+              htmlFor="house_number"
+              className="form-label"
+              style={{ margin: "5px" }}
+            >
+              <input
+                onChange={handleChange}
+                type="text"
+                name="house_number"
+                id="house_number"
+                className="form-control"
+                placeholder="Number"
+              />
+            </label>
+            <label
+              htmlFor="city"
+              className="form-label"
+              style={{ margin: "5px" }}
+            >
+              <input
+                onChange={handleChange}
+                type="text"
+                name="city"
+                id="city"
+                className="form-control"
+                placeholder="City"
+              />
+            </label>
+            <br />
+            <br />
+          </div>
+        )}
+        What is this action related to?
+        <div className="preferencesInRegisterPage-css row justify-content-center">
+          {keywords?.map((keyword, index) => (
+            <div
+              key={keyword.id}
+              className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
+              style={{ margin: index % 3 === 2 ? "5px" : "10px" }}
+            >
+              <div className="d-inline-flex" style={{ gap: "67px" }}>
+                <input
+                  id={keyword.id}
+                  value={keyword.id}
+                  type="checkbox"
+                  onChange={handleKeywordChange}
+                  checked={preferences.includes(keyword.id) ? "checked" : null}
+                  className="btn-check"
+                  autoComplete="off"
+                />
+                <label
+                  className="btn"
+                  htmlFor={keyword.id}
+                  style={{ backgroundColor: "#e4f1fe" }}
+                >
+                  {keyword.keyword}
+                </label>
+              </div>
+            </div>
+          ))}
+        </div>
+        <label htmlFor="requirements" className="form-label">
           <br />
           <br />
-          Requirements: <br />
-          capacity:{" "}
+          <h5>Requirements: </h5>
+          Capacity:{" "}
           <input
             onChange={handleRequirementChange}
             name="req_capacity"
             type="number"
+            className="form-control"
           />{" "}
           <br />
-          description: <br />
-          <label htmlFor="">
+          Description: <br />
+          <label htmlFor="" className="form-label">
             <textarea
               onChange={handleRequirementChange}
               name="req_description"
               id="req_description"
-              cols="30"
-              rows="10"
+              cols="50"
+              rows="5"
+              className="form-control"
             ></textarea>
           </label>
         </label>{" "}
         <br />
-        <button>Create!</button>
+        <button
+          className="sigInButton-css"
+          style={{
+            fontSize: "22px",
+            padding: "9px 22px",
+            borderRadius: "7px",
+          }}
+        >
+          Create!
+        </button>
       </form>
-      <br />
-      <br />
       <br />
     </div>
   );
