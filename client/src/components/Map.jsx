@@ -31,8 +31,9 @@ export default function Map() {
   }
 
   const containerStyle = {
-    width: "1000px",
-    height: "500px",
+    display: "flex",
+    width: "500px",
+    height: "800px",
   };
 
   const { isLoaded } = useJsApiLoader({
@@ -49,8 +50,6 @@ export default function Map() {
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
-
-  // const concoctRecomendations = actions.filter()
 
   function markerClick(action) {
     console.log(`action ${action.name} clicked`);
@@ -74,7 +73,33 @@ export default function Map() {
 
   return (
     <div>
-      <h3>a decent looking map</h3>
+
+    <h3> <br /></h3>
+
+    {isLoaded && 
+    <GoogleMap 
+      mapContainerStyle={containerStyle}
+      center={center}
+      zoom={15}
+      onLoad={onLoad}
+      onUnmount={onUnmount}>
+      
+      {actions.filter(a => a.latitude && a.longitude).map((action, i) => 
+      <div key={i}>
+        <Marker onClick={() => markerClick(action)} key={i} position={{lat: action.latitude, lng: action.longitude}}/>
+                                                   
+          </div>)}
+          {showInfoWindow.visible === true &&
+                              
+          <InfoWindow onCloseClick={() => console.log("this")} position={center}>
+            <div>
+              <p>{currentMarkerAction.name}</p>
+              <p>{currentMarkerAction.description}</p>
+              <Link to={`/Action/View/${currentMarkerAction.id}`}>learn more </Link>
+            </div>
+          </InfoWindow>
+          }
+    </GoogleMap>}
 
       {isLoaded && (
         <GoogleMap

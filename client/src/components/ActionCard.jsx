@@ -22,18 +22,18 @@ export default function ActionCard({action}) {
     
 
   return (
-    <div 
+    <div className="card"
         style={{
-          width: "18rem",
+          width: "16rem",
           height: "20rem",
-          border: "1px solid black",
+        //   border: "1px solid black",
         //   backgroundColor: "#c4c1e0",
-          color: "white",
-          marginBottom: "50px",
-          borderRadius: "6px",
+        //   color: "white",
+        //   marginBottom: "50px",
+        //   borderRadius: "6px",
         }}
     >
-        <Link to={`/Action/View/${action.id}>`}>
+
             <img
             src="https://blog.bluemoontalent.com/wp-content/uploads/2014/02/event-header-4.jpg"
             className="card-img-top"
@@ -44,32 +44,30 @@ export default function ActionCard({action}) {
                 margin: "10px",
             }}>
                 <div style={{ height: "5rem" }}>
-                    <div className="card-title fs-5" style={{ height: "0.5rem" }}>{action.name}</div>
+                    <div className="card-title fs-8" style={{ height: "0.5rem" }}>{action.name}</div>
                     <br />
                     <TextTruncate
                         className="card-text fw-light"
+                        style={{fontSize: "12px"}}
                         line={2}
                         element="span"
                         truncateText="…"
                         text={action.description}
                     />
-                </div>
-                <hr />
-                <div className="card-text fw-light">
-                    <div  style={{ height: "3rem",}}>
+                    <div>
                         {action.is_group ? <div>
                             <div className="row">
-                                <div className="col-3">{`When: `} </div>
-                                <div className="col">{eventDate} </div>
+                                <div style={{fontSize: "12px"}} className="col-4">{`When: `} </div>
+                                <div style={{fontSize: "12px"}} className="col">{eventDate} </div>
                             </div> 
                             <div className="row">
-                            <div className="col-3"></div>
+                            <div className="col-4"></div>
                                 <div className="col">{`${eventStartTime} - ${eventEndTime}`} </div>
                             </div> 
-                        </div> : <div>
+                        </div> : <div style={{fontSize: "12px"}}>
                             {days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
                                 <div>
-                                    <div className="fs-3">Happening Now!</div>
+                                    <div style={{fontSize: "12px"}} className="fs-3">Happening Now!</div>
                                     <br />
                                 </div>
                             ) : (
@@ -79,13 +77,17 @@ export default function ActionCard({action}) {
                             )}
                         </div>}
                     </div>
+                </div>
+                <hr />
+                <div className="card-text fw-light">
+                    
                     <div className="row">
-                        <div className="col-3">{`Where: `} </div>
-                        <div className="col">{!action.in_person && !action.online && "Anywhere!"} {action.in_person && action.city} {action.in_person && action.online && " & "} {action.online && "Online"}</div>
+                        <div style={{fontSize: "12px"}} className="col-4">{`Where: `} </div>
+                        <div style={{fontSize: "12px"}}className="col">{!action.in_person && !action.online && "Anywhere!"} {action.in_person && action.city} {action.in_person && action.online && " & "} {action.online && "Online"}</div>
                     </div> 
                 </div>
             </div>
-        </Link>
+
     </div>
   )
 }

@@ -10,7 +10,6 @@ const authRouter = require("./routes/auth");
 const keywordsRouter = require("./routes/keywords");
 const preferencesRouter = require("./routes/preferences");
 const actionsRouter = require("./routes/actions");
-const joinActionRouter = require("./routes/joinAction");
 
 var app = express();
 
@@ -26,7 +25,6 @@ app.use("/api/auth", authRouter);
 app.use("/api/keywords", keywordsRouter);
 app.use("/api/preferences", preferencesRouter);
 app.use("/api/actions", actionsRouter);
-app.use("/api/joinAction", joinActionRouter);
 
 app.use(cors());
 
