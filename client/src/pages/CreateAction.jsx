@@ -161,7 +161,13 @@ export default function CreateAction() {
       <form onSubmit={handleSubmit} action="">
         <label htmlFor="name">
           action name:
-          <input onChange={handleChange} type="text" id="name" name="name" />
+          <input
+            onChange={handleChange}
+            type="text"
+            id="name"
+            name="name"
+            maxLength={35}
+          />
         </label>{" "}
         <br />
         <label htmlFor="description">
@@ -172,6 +178,7 @@ export default function CreateAction() {
             id="description"
             cols="60"
             rows="6"
+            minLength={150}
           ></textarea>
         </label>{" "}
         <br />

@@ -2,3 +2,8 @@ a {
   text-decoration: none;
   color: black;
 }
+
+body {
+  margin: 20px;
+  margin-top: 40px;
+}
