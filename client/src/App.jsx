@@ -42,7 +42,7 @@ function App() {
               {/* <Route path="Actions/View/:ActionId" element={<ActionsMenu />} /> */}
               <Route path="/Actions/View/:ActionId" element={<Action />} />
           </Route>
-          <Route path="/MainMenu/:typeOfActions" element={<ActionsMenu />} />
+          <Route path="/Actions/:typeOfActions" element={<ActionsMenu />} />
           <Route
             path="/Action/Create"
             element={
