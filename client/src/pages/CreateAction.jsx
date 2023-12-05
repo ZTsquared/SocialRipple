@@ -62,7 +62,6 @@ export default function CreateAction() {
     } else if (name === "inperson") {
       checked ? setIsInPerson(true) : setIsInPerson(false);
     }
-    console.log(isInPerson);
     if (name === "online" || name === "inperson" || name === "is_group") {
       checked
         ? setActionBody({ ...actionBody, [name]: true })
@@ -146,11 +145,28 @@ export default function CreateAction() {
   return (
     <div>
       <NavBar />
-      <h3>Create an Action</h3>
-      <p>Get involved with the SocialRipple community!</p>
+      <h2>Create an Action, Make a Difference!</h2>
+      <div className="paragraphOfCreateAction-css">
+        <p>
+          Your ideas can spark positive change! By creating an action, you
+          contribute to the vibrancy of our community. Whether it's a volunteer
+          opportunity, an event, or a cause you're passionate about, share it
+          with others and inspire collective impact.
+        </p>
+        <p>
+          Let your creativity shine and lead the way. Get started below and help
+          make our community a better place!
+        </p>
+      </div>
       <form onSubmit={handleSubmit} action="">
-        <label htmlFor="name" className="form-label">
-          Action name:
+        <label
+          htmlFor="name"
+          className="form-label"
+          style={{
+            fontSize: "17px",
+          }}
+        >
+          Name:
           <input
             onChange={handleChange}
             type="text"
@@ -163,16 +179,23 @@ export default function CreateAction() {
           />
         </label>{" "}
         <br />
-        <label htmlFor="description" className="form-label">
-          Action description:
+        <label
+          htmlFor="description"
+          className="form-label"
+          style={{
+            fontSize: "17px",
+          }}
+        >
+          Description:
           <textarea
             onChange={handleChange}
             name="description"
             id="description"
-            cols="50"
-            rows="3"
+            cols="42"
+            rows="4"
             minLength={150}
             className="form-control"
+            placeholder="As more people discover your action, this short intro helps introduce it."
           ></textarea>
         </label>{" "}
         <br />
@@ -205,23 +228,37 @@ export default function CreateAction() {
           />
         </label>
         <br />
-        <label htmlFor="is_group" className="form-label">
+        <label
+          htmlFor="is_group"
+          className="form-label"
+          style={{
+            fontSize: "17px",
+          }}
+        >
           Is it a group action?
           <input
             onChange={handleChange}
             type="checkbox"
             name="is_group"
             id="is_group"
+            className="checkedBoxesCreateAction-css"
           />
         </label>
         <br />
-        <label htmlFor="online" className="form-label">
+        <label
+          htmlFor="online"
+          className="form-label"
+          style={{
+            fontSize: "17px",
+          }}
+        >
           On-line?
           <input
             onChange={handleChange}
             type="checkbox"
             name="online"
             id="online"
+            className="checkedBoxesCreateAction-css"
           />
         </label>
         <br />
@@ -240,19 +277,25 @@ export default function CreateAction() {
             <br />
           </div>
         )}
-        <label htmlFor="inperson" className="form-label">
+        <label
+          htmlFor="inperson"
+          className="form-label"
+          style={{
+            fontSize: "17px",
+          }}
+        >
           In-person?
           <input
             onChange={handleChange}
             type="checkbox"
             name="inperson"
             id="inperson"
+            className="checkedBoxesCreateAction-css"
           />
         </label>
         <br />
         {isInPerson && (
           <div>
-            {" "}
             <h5>Where is it taking place?</h5>
             <label
               htmlFor="street"
@@ -300,7 +343,13 @@ export default function CreateAction() {
             <br />
           </div>
         )}
-        What is this action related to?
+        <label
+          style={{
+            fontSize: "18px",
+          }}
+        >
+          What is this action related to?
+        </label>
         <div className="preferencesInRegisterPage-css row justify-content-center">
           {keywords?.map((keyword, index) => (
             <div
@@ -328,31 +377,44 @@ export default function CreateAction() {
               </div>
             </div>
           ))}
-        </div>
-        <label htmlFor="requirements" className="form-label">
-          <br />
-          <br />
-          <h5>Requirements: </h5>
-          Capacity:{" "}
+        </div>{" "}
+        <br />
+        <br />
+        <h5> Volunteership Requirements: </h5>{" "}
+        <label
+          htmlFor="requirements"
+          className="form-label"
+          style={{
+            fontSize: "16px",
+          }}
+        >
+          How many people are needed?
           <input
             onChange={handleRequirementChange}
             name="req_capacity"
             type="number"
             className="form-control"
-          />{" "}
-          <br />
+          />
+        </label>
+        <br />{" "}
+        <label
+          htmlFor=""
+          className="form-label"
+          style={{
+            fontSize: "16px",
+          }}
+        >
           Description: <br />
-          <label htmlFor="" className="form-label">
-            <textarea
-              onChange={handleRequirementChange}
-              name="req_description"
-              id="req_description"
-              cols="50"
-              rows="5"
-              className="form-control"
-            ></textarea>
-          </label>
-        </label>{" "}
+          <textarea
+            onChange={handleRequirementChange}
+            name="req_description"
+            id="req_description"
+            cols="50"
+            rows="5"
+            className="form-control"
+            placeholder=" Help us understand what tasks or skills are needed from volunteers during this action. Clearly stating requirements allows potential volunteers to align their interests and abilities with the action's needs."
+          ></textarea>
+        </label>
         <br />
         <button
           className="sigInButton-css"

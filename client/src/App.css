@@ -57,3 +57,13 @@ body {
 .no-underline-css {
   text-decoration: none;
 }
+
+.paragraphOfCreateAction-css {
+  text-align: center;
+  padding-left: 21%;
+  padding-right: 21%;
+}
+
+.checkedBoxesCreateAction-css {
+  margin: 4px;
+}
