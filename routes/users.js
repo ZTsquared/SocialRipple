@@ -39,27 +39,29 @@ router.get("/profile/:id", async function (req, res, next) {
 });
 
 //POST
-router.post("/joinAction", userShouldBeLoggedIn, async function (req, res, next) {
-
-  console.log(req.body);
-  const { requirements } = req.body;
-  console.log(requirements)
-  try {
-    const thisUserId = req.user.id
-    user = await models.User.findOne({
-      where: { id: thisUserId }
-    });
-    console.log("what comes back from shouldBeLoggedIn")
-    console.log(user)
-    const result = await user.addVolunteership(requirements);
-    console.log("result is:")
-    console.log(result)
-    res.send("Action joined successfully");
-  } catch (error) {
-    res.status(500).send(error);
+router.post(
+  "/joinAction",
+  userShouldBeLoggedIn,
+  async function (req, res, next) {
+    console.log(req.body);
+    const { requirements } = req.body;
+    console.log(requirements);
+    try {
+      const thisUserId = req.user.id;
+      user = await models.User.findOne({
+        where: { id: thisUserId },
+      });
+      console.log("what comes back from shouldBeLoggedIn");
+      console.log(user);
+      const result = await user.addVolunteership(requirements);
+      console.log("result is:");
+      console.log(result);
+      res.send("Action joined successfully");
+    } catch (error) {
+      res.status(500).send(error);
+    }
   }
-
-});
+);
 
 // ADDING preferences to your own profile
 router.put("/profile/preferences", userShouldBeLoggedIn, async (req, res) => {

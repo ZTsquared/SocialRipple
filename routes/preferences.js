@@ -33,7 +33,6 @@ router.get("/", async function (req, res, next) {
 
 //POST
 
-
 //the route below does not work properly
 // router.post("/post", async function (req, res, next) {
 //   const { userId, keywordId } = req.body;
@@ -53,7 +52,5 @@ router.get("/", async function (req, res, next) {
 //     res.status(500).send(error);
 //   }
 // });
-
-
 
 module.exports = router;
