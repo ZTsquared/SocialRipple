@@ -33,6 +33,7 @@ export default function Profile() {
       });
       const data = await response.json();
       setUser(data);
+      console.log(user);
     } catch (error) {
       console.log(error);
     }
@@ -45,18 +46,23 @@ export default function Profile() {
   return (
     <div className="body">
       <NavBar />
-      <h1>User profile</h1>
+      <h1 className="userProfile-css">User profile</h1>
       <h3>Hello {user.username}!</h3>
       <div>These are your preferences:</div>
+
       <div>
         {preferences?.map((e, i) => (
-          <div key={i}>{e.keyword}</div>
+          <div style={{ margin: "5px" }}>
+            <div key={i} className="keywordsAtProfile-css">
+              {e.keyword}
+            </div>
+          </div>
         ))}
       </div>
-      <div>
+      <div className="dateAtEntry-css">
         You have been a member since:
         {
-          <div className="dateAtEntry">
+          <div>
             {new Date(user.createdAt).toLocaleDateString("en-UK", {
               day: "numeric",
               month: "long",
@@ -66,7 +72,12 @@ export default function Profile() {
         }
       </div>
       <Link to="/Action/Create">
-        <button className="btn btn-success">Create a new action!</button>
+        <button
+          className="btn btn-success buttonToCreateACtion-css"
+          style={{ background: "rgb(108, 187, 226)", border: "transparent" }}
+        >
+          Create a new action!
+        </button>
       </Link>
     </div>
   );
