@@ -8,7 +8,6 @@ import Map from "../components/Map";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-
 export default function ActionsMenu() {
   const navigate = useNavigate();
   const [actions, setActions] = useState([]);                               // an array with ALL the actions                                 
@@ -17,7 +16,8 @@ export default function ActionsMenu() {
     allVisible: false,
     group: false,
   });
-  
+
+  const [show, setShow] = useState(false);
   const {typeOfActions, ActionId} = useParams();
 
   useEffect(() => {
@@ -30,6 +30,32 @@ export default function ActionsMenu() {
   }, [actions]);
 
   useEffect(() => {}, [recommendedActions]);
+
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered>
+        <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Outlet></Outlet>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleCloseModal}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+    );
+  }
+  
 
   async function getActions() {
     try {
@@ -70,17 +96,14 @@ export default function ActionsMenu() {
 
   // but if we prefer the other approach we can revert to a previous commit ^^
 
-  const [show, setShow] = useState(false);
-
-  const handleCloseModal = () => setShow(false);
-  const handleShowModal = (e) => {
-    
+  const handleCloseModal = () => setShow(false);  
+  const handleShowModal = (e) => {  
     console.log(e.target)
     setShow(true);
   }
 
   return (
-    <div className="container">
+    <div >
 
       <br /><br /><br />
       <div className="row">
@@ -89,14 +112,17 @@ export default function ActionsMenu() {
             {!typeOfActions ? "Recommended Actions" :
             typeOfActions === "Group" ? "Group Actions" : "Individual Actions"}
           </h3>
+
+          <div className="row">
+
           { typeOfActions ?
           
           actions
             .filter((a) => (typeOfActions === "Group" ? a.is_group : !a.is_group))
             .map((action, index) => (
-              <div onClick={handleShowModal} key={index} className="col-sm">
+              <div onClick={handleShowModal} key={index} className="col-3">
 
-                <Link to={`/Actions/View/1`}>
+                <Link to={`/Actions/View/${action.id}`}>
                   <ActionCard action={action} />
                 </Link>
                 
@@ -105,20 +131,25 @@ export default function ActionsMenu() {
             :
             recommendedActions
             .map((action, index) => (
-              <div onClick={handleShowModal} key={index} className="col-sm">
-                <Link to={`/Actions/View/1`}>
+              <div onClick={handleShowModal} key={index} className="col-3">
+              
+                <Link to={`/Actions/View/${action.id}`}>
                   <ActionCard action={action} />
                 </Link>
+                
               </div>
             ))
             
             }
+          </div>
         </div>
 
-      <div className="col-sm">
-
+      <div className="col-4" >
+          
           <div className="map_container">
+          <div>
             <Map />
+          </div>
           </div>
 
       </div>
@@ -128,28 +159,12 @@ export default function ActionsMenu() {
       className="modal show"
       style={{ display: 'block', position: 'initial' }}
     >
-      <>
-      <Button variant="primary" onClick={handleShowModal}>
-        Launch demo modal
-      </Button>
 
-      <Modal show={show} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Outlet></Outlet>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleCloseModal}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+      <MyVerticallyCenteredModal
+        show={show}
+        onHide={() => setShow(false)}
+      />
+      
     </div>
       <br /><br /><br />
     </div>
