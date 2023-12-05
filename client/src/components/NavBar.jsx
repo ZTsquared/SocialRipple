@@ -132,15 +132,15 @@ export default function NavBar() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu as={CustomMenu}>
-                  <Dropdown.Item tag={Link} href="/MainMenu" eventKey="1">
+                  <Dropdown.Item tag={Link} href="/Actions" eventKey="1">
                     All
                   </Dropdown.Item>
-                  <Dropdown.Item tag={Link} href="/MainMenu/Group" eventKey="2">
+                  <Dropdown.Item tag={Link} href="/Actions/Group" eventKey="2">
                     Group Actions
                   </Dropdown.Item>
                   <Dropdown.Item
                     tag={Link}
-                    href="/MainMenu/Individual"
+                    href="/Actions/Individual"
                     eventKey="2"
                   >
                     Single Actions
