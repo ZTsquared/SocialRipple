@@ -24,7 +24,6 @@ export default function AuthProvider({ children }) {
     onLogout,
   };
 
-
   return (
     <AuthContext.Provider value={authObject}>{children}</AuthContext.Provider>
   );
