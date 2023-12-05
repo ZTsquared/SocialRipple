@@ -45,7 +45,6 @@ export default function Profile() {
 
   return (
     <div className="body">
-      <NavBar />
       {user.organisation ? (
         <h1 className="userProfile-css">Organisation profile</h1>
       ) : (

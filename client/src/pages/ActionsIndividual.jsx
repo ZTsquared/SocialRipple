@@ -44,7 +44,7 @@ export default function ActionsIndividual() {
 
   return (
     <div>
-      <NavBar />
+
       <div>
         <Link to="/MainMenu/Individual" className="btn btn-success">
           Individual actions

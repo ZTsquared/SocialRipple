@@ -86,7 +86,7 @@ export default function Action() {
 
 	return (
 		<div>
-			<NavBar />
+
 
 			<div className="actioncontainer-css">
 				<h1> {oneAction.name} </h1>

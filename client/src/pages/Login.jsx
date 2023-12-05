@@ -33,7 +33,7 @@ export default function Login() {
       //store it locally
       localStorage.setItem("token", data.token);
       onLogin();
-      navigate("/MainMenu");
+      navigate("/Actions");
     } catch (error) {
       console.log(error);
     }
