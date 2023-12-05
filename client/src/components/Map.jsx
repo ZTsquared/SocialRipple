@@ -72,7 +72,7 @@ export default function Map() {
 
   return (
     <div>
-    <h3>a decent looking map not decent at all</h3>
+    <h3> <br /></h3>
 
     {isLoaded && 
     <GoogleMap 

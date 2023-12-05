@@ -19,6 +19,8 @@ import NavBar from "./components/NavBar";
 import FootBar from "./components/FootBar";
 
 function App() {
+
+  const [showNavbar, setShowNavbar] = useState();
   return (
     <AuthProvider>
       <NavBar />
@@ -37,14 +39,13 @@ function App() {
           />
           <Route path="/Actions" element={<ActionsMenu />}>
               {/* <Route path="Actions/View/:ActionId" element={<ActionsMenu />} /> */}
+              <Route path="/Actions/View/:ActionId" element={<Action />} />
           </Route>
-          <Route path="/Actions/View/:ActionId" element={<Action />} />
           <Route path="/MainMenu/:typeOfActions" element={<ActionsMenu />} />
           <Route path="/Action/Create" element={<CreateAction />} />
           <Route path="/Action/Join" element={<JoinAction />} />
         </Routes>
       </div>
-      <FootBar />
     </AuthProvider>
   );
 }
