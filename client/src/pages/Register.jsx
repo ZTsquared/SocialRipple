@@ -124,7 +124,7 @@ export default function Register() {
 
   return (
     <div>
-      <NavBar />
+
       <div className="mainMenu">
         <div>
           <br />

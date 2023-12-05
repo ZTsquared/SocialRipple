@@ -32,7 +32,7 @@ export default function Home() {
     // calls to action of the week
     // login button
     <div>
-      <NavBar />
+
       <br />
       <h2>SocialRipple</h2>
       <div className="homepageParagraph-css">

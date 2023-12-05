@@ -144,7 +144,7 @@ export default function CreateAction() {
 
   return (
     <div>
-      <NavBar />
+
       <h2>Create an Action, Make a Difference!</h2>
       <div className="paragraphOfCreateAction-css">
         <p>
