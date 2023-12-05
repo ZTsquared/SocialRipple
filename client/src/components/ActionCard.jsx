@@ -2,24 +2,32 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCountdown } from "../hooks/useCountdown";
-import TextTruncate from 'react-text-truncate';
+import TextTruncate from "react-text-truncate";
 
-export default function ActionCard({action}) {
+export default function ActionCard({ action }) {
+  const [eventDate, setEventDate] = useState(
+    new Date(action.start_time).toLocaleDateString("en-UK", {
+      weekday: "long",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })
+  );
+  const [eventStartTime, setEventStartTime] = useState(
+    new Date(action.start_time).toLocaleTimeString("en-UK", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  );
+  const [eventEndTime, setEventEndTime] = useState(
+    new Date(action.end_time).toLocaleTimeString("en-UK", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  );
 
-    const [eventDate, setEventDate] = useState(new Date(action.start_time).toLocaleDateString("en-UK", {
-        weekday: 'long',
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-    }))
-    const [eventStartTime, setEventStartTime] = useState(new Date(action.start_time).toLocaleTimeString("en-UK", {hour: '2-digit', minute:'2-digit'}))
-    const [eventEndTime, setEventEndTime] = useState(new Date(action.end_time).toLocaleTimeString("en-UK", {hour: '2-digit', minute:'2-digit'}))
-    
-    const targetDate = new Date(action.start_time).getTime();
-	const { days, hours, minutes, seconds } = useCountdown(targetDate);
-
-
-    
+  const targetDate = new Date(action.start_time).getTime();
+  const { days, hours, minutes, seconds } = useCountdown(targetDate);
 
   return (
     <div className="card"
@@ -87,8 +95,6 @@ export default function ActionCard({action}) {
                     </div> 
                 </div>
             </div>
-
     </div>
-  )
+  );
 }
-
