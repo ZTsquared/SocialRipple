@@ -29,8 +29,9 @@ export default function Map() {
   }
 
   const containerStyle = {
-    width: "1000px",
-    height: "500px",
+    display: "flex",
+    width: "500px",
+    height: "800px",
   };
 
   const { isLoaded } = useJsApiLoader({
@@ -47,8 +48,6 @@ export default function Map() {
   const onUnmount = useCallback(function callback(map) {
     setMap(null);
   }, []);
-
-  // const concoctRecomendations = actions.filter()
 
   function markerClick(action) {
     console.log(`action ${action.name} clicked`);
@@ -73,10 +72,10 @@ export default function Map() {
 
   return (
     <div>
-    <h3>a decent looking map</h3>
+    <h3>a decent looking map not decent at all</h3>
 
     {isLoaded && 
-    <GoogleMap
+    <GoogleMap 
       mapContainerStyle={containerStyle}
       center={center}
       zoom={15}

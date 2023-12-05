@@ -12,6 +12,17 @@ body {
   text-align: center;
 }
 
+/* but this doesn't work when I create a class for the map itlsef */
+.map{
+  width: "500px";
+  height: "500px";
+}
+.map_container{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 #page-container {
   position: relative;
   min-height: 100vh;
