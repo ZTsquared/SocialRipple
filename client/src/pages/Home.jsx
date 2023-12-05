@@ -3,18 +3,16 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 
-import NavBar from "../components/NavBar"
-import ActionCard from "../components/ActionCard"
+import NavBar from "../components/NavBar";
+import ActionCard from "../components/ActionCard";
 
 export default function Home() {
-
   const navigate = useNavigate();
   const [actions, setActions] = useState([]);
 
-	useEffect(() => {
-		getActions();
-	}, []);
-
+  useEffect(() => {
+    getActions();
+  }, []);
 
   async function getActions() {
     try {
@@ -34,7 +32,7 @@ export default function Home() {
     // calls to action of the week
     // login button
     <div>
-      <NavBar/>
+      <NavBar />
       <br />
       <h2>SocialRipple</h2>
       <div className="homepageParagraph-css">
@@ -58,13 +56,12 @@ export default function Home() {
           {actions
             .filter((act, i) => i < 4)
             .map((action, index) => (
-            <div key={index} className="col-sm">
-              <ActionCard action={action} />
-            </div>
+              <div key={index} className="col-sm">
+                <ActionCard action={action} />
+              </div>
             ))}
         </div>
       </div>
     </div>
   );
-
 }
