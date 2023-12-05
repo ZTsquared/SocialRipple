@@ -61,3 +61,38 @@ body {
 .no-underline-css {
   text-decoration: none;
 }
+
+.paragraphOfCreateAction-css {
+  text-align: center;
+  padding-left: 21%;
+  padding-right: 21%;
+}
+
+.checkedBoxesCreateAction-css {
+  margin: 4px;
+}
+
+.userProfile-css {
+  text-align: left;
+}
+
+.buttonToCreateACtion-css {
+  position: absolute;
+  top: 65px;
+  right: 10px;
+}
+
+.keywordsAtProfile-css {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: rgb(108, 187, 226);
+  margin: auto;
+  max-width: 90px;
+  padding: 2px 3px;
+}
+
+.dateAtEntry-css {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}

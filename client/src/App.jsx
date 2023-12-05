@@ -10,8 +10,8 @@ import Register from "./pages/Register";
 import CreateAction from "./pages/CreateAction";
 import JoinAction from "./pages/JoinAction";
 import Profile from "./pages/Profile";
-import ActionsGroup from "./pages/ActionsGroup"
-import ActionsIndividual from "./pages/ActionsIndividual"
+import ActionsGroup from "./pages/ActionsGroup";
+import ActionsIndividual from "./pages/ActionsIndividual";
 //auth stuff
 import AuthProvider from "./components/AuthProvider";
 import RequireAuth from "./components/RequireAuth";
@@ -37,12 +37,21 @@ function App() {
               </RequireAuth>
             }
           />
+
           <Route path="/Actions" element={<ActionsMenu />}>
               {/* <Route path="Actions/View/:ActionId" element={<ActionsMenu />} /> */}
               <Route path="/Actions/View/:ActionId" element={<Action />} />
           </Route>
           <Route path="/MainMenu/:typeOfActions" element={<ActionsMenu />} />
-          <Route path="/Action/Create" element={<CreateAction />} />
+          <Route
+            path="/Action/Create"
+            element={
+              <RequireAuth>
+                <CreateAction />
+              </RequireAuth>
+            }
+          />
+
           <Route path="/Action/Join" element={<JoinAction />} />
         </Routes>
       </div>

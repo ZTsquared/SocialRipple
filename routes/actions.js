@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const models = require("../models");
 const { Op, Association } = require("sequelize");
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
 // create an action
-router.post("/", async (req, res) => {
+router.post("/", userShouldBeLoggedIn, async (req, res) => {
 	try {
 		const {
 			online,
@@ -63,19 +64,12 @@ router.get("/", async (req, res) => {
 						attributes: [],
 					},
 				},
-
 				{
 					model: models.Requirement,
 					include: [
 						{
-							model: models.Volunteership,
-							attributes: ["id", "completed"],
-							include: [
-								{
-									model: models.User,
-									attributes: ["id", "username"],
-								},
-							],
+							model: models.User,
+							// attributes: ["id", "username"],
 						},
 					],
 				},
@@ -104,22 +98,31 @@ router.get("/:action_id", async (req, res) => {
 						attributes: [],
 					},
 				},
-
 				{
 					model: models.Requirement,
 					include: [
 						{
-							model: models.Volunteership,
-							attributes: ["id", "completed"],
-							include: [
-								{
-									model: models.User,
-									attributes: ["id", "username"],
-								},
-							],
+							model: models.User,
+							attributes: ["id", "username"],
 						},
 					],
 				},
+
+				// {
+				// 	model: models.Requirement,
+				// 	include: [
+				// 		{
+				// 			model: models.Volunteership,
+				// 			attributes: ["id", "completed"],
+				// 			include: [
+				// 				{
+				// 					model: models.User,
+				// 					attributes: ["id", "username"],
+				// 				},
+				// 			],
+				// 		},
+				// 	],
+				// },
 			],
 		});
 		res.send(action);

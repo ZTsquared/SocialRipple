@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			Requirement.belongsTo(models.Action);
-			Requirement.hasMany(models.Volunteership);
+			Requirement.belongsToMany(models.User, { through: "Volunteerships" });
 		}
 	}
 	Requirement.init(
 		{
 			description: DataTypes.TEXT,
 			capacity: DataTypes.INTEGER,
-			name: DataTypes.STRING
+			name: DataTypes.STRING,
 		},
 		{
 			sequelize,

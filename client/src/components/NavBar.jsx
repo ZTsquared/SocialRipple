@@ -1,14 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import useAuth from "../hooks/useAuth";
 import Form from "react-bootstrap/Form";
+import Navbar from "react-bootstrap/Navbar";
 
 export default function NavBar() {
   const { isLoggedIn, onLogout, onLogin } = useAuth();
   const navigate = useNavigate();
   const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  async function getUsers() {
+    try {
+      const response = await fetch(`/api/users/profile`, {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+      const data = await response.json();
+      setUser(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
     <a
@@ -79,9 +99,13 @@ export default function NavBar() {
           aria-labelledby="offcanvasNavbarLabel"
         >
           <div className="offcanvas-header">
-            <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-              SocialRipple
-            </h5>
+            {isLoggedIn ? (
+              <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
+                Hey, {user.username}!
+              </h5>
+            ) : (
+              <h5>Welcome!</h5>
+            )}
             <button
               type="button"
               className="btn-close"
