@@ -412,7 +412,7 @@ export default function CreateAction() {
             cols="50"
             rows="5"
             className="form-control"
-            placeholder=" Help us understand what tasks or skills are needed from volunteers during this action. Clearly stating requirements allows potential volunteers to align their interests and abilities with the action's needs."
+            placeholder="Help us understand what tasks or skills are needed from volunteers during this action. Clearly stating requirements allows potential volunteers to align their interests and abilities with the action's needs."
           ></textarea>
         </label>
         <br />

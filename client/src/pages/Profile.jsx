@@ -46,19 +46,33 @@ export default function Profile() {
   return (
     <div className="body">
       <NavBar />
-      <h1 className="userProfile-css">User profile</h1>
+      {user.organisation ? (
+        <h1 className="userProfile-css">Organisation profile</h1>
+      ) : (
+        <h1 className="userProfile-css">User profile</h1>
+      )}
       <h3>Hello {user.username}!</h3>
       <div>These are your preferences:</div>
 
       <div>
         {preferences?.map((e, i) => (
-          <div style={{ margin: "5px" }}>
+          <div key={i} style={{ margin: "5px" }}>
             <div key={i} className="keywordsAtProfile-css">
               {e.keyword}
             </div>
           </div>
         ))}
       </div>
+      {/* <div>  //the base for when we have the requirements route
+        Requirements you've completed:
+        {requirements?.map((e, i) => (
+          <div key={i} style={{ margin: "5px" }}>
+            <div key={i}>
+              {e.requirement}
+            </div>
+          </div>
+        ))}
+      </div> */}
       <div className="dateAtEntry-css">
         You have been a member since:
         {
