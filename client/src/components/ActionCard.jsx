@@ -22,18 +22,18 @@ export default function ActionCard({action}) {
     
 
   return (
-    <div 
-        style={{
-          width: "18rem",
-          height: "20rem",
-          border: "1px solid black",
-        //   backgroundColor: "#c4c1e0",
-          color: "white",
-          marginBottom: "50px",
-          borderRadius: "6px",
-        }}
+    <div className="card"
+        // style={{
+        //   width: "100%",
+        //   height: "20rem",
+        //   border: "1px solid black",
+        // //   backgroundColor: "#c4c1e0",
+        //   color: "white",
+        //   marginBottom: "50px",
+        //   borderRadius: "6px",
+        // }}
     >
-        <Link to={`/Action/View/${action.id}>`}>
+
             <img
             src="https://blog.bluemoontalent.com/wp-content/uploads/2014/02/event-header-4.jpg"
             className="card-img-top"
@@ -53,10 +53,7 @@ export default function ActionCard({action}) {
                         truncateText="…"
                         text={action.description}
                     />
-                </div>
-                <hr />
-                <div className="card-text fw-light">
-                    <div  style={{ height: "3rem",}}>
+                    <div>
                         {action.is_group ? <div>
                             <div className="row">
                                 <div className="col-3">{`When: `} </div>
@@ -79,13 +76,17 @@ export default function ActionCard({action}) {
                             )}
                         </div>}
                     </div>
+                </div>
+                <hr />
+                <div className="card-text fw-light">
+                    
                     <div className="row">
                         <div className="col-3">{`Where: `} </div>
                         <div className="col">{!action.in_person && !action.online && "Anywhere!"} {action.in_person && action.city} {action.in_person && action.online && " & "} {action.online && "Online"}</div>
                     </div> 
                 </div>
             </div>
-        </Link>
+
     </div>
   )
 }

@@ -15,10 +15,13 @@ import ActionsIndividual from "./pages/ActionsIndividual"
 //auth stuff
 import AuthProvider from "./components/AuthProvider";
 import RequireAuth from "./components/RequireAuth";
+import NavBar from "./components/NavBar";
+import FootBar from "./components/FootBar";
 
 function App() {
   return (
     <AuthProvider>
+      <NavBar />
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -32,14 +35,16 @@ function App() {
               </RequireAuth>
             }
           />
-          <Route path="/MainMenu" element={<ActionsMenu />} />
-          <Route path="/MainMenu/Individual" element={<ActionsIndividual />} />
-          <Route path="/MainMenu/Group" element={<ActionsGroup />} />
-          <Route path="/Action/View/:ActionId" element={<Action />} />
+          <Route path="/Actions" element={<ActionsMenu />}>
+              {/* <Route path="Actions/View/:ActionId" element={<ActionsMenu />} /> */}
+          </Route>
+          <Route path="/Actions/View/:ActionId" element={<Action />} />
+          <Route path="/MainMenu/:typeOfActions" element={<ActionsMenu />} />
           <Route path="/Action/Create" element={<CreateAction />} />
           <Route path="/Action/Join" element={<JoinAction />} />
         </Routes>
       </div>
+      <FootBar />
     </AuthProvider>
   );
 }
