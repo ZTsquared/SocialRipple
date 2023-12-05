@@ -4,20 +4,25 @@ import "../Action.css";
 import { useCountdown } from "../hooks/useCountdown";
 import { Tabs, Tab } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
 
 import NavBar from "../components/NavBar";
 
 export default function Action() {
-	const [oneAction, setOneAction] = useState([]);
+	const [oneAction, setOneAction] = useState({});
 	const { ActionId } = useParams();
 	//   const [checked, setChecked] = useState(false);
-	const [volunteership, setVolunteership] = useState([]);
+	const [requirements, setRequirements] = useState([3, 4]);
 
 	let navigate = useNavigate();
 
 	useEffect(() => {
 		displayOneAction();
 	}, [ActionId]);
+
+	useEffect(() => {
+		console.log(oneAction);
+	}, [oneAction]);
 
 	async function displayOneAction() {
 		try {
@@ -26,6 +31,7 @@ export default function Action() {
 				throw new Error("Oops, something went wrong");
 			}
 			const data = await response.json();
+			console.log(data.name);
 			setOneAction(data);
 		} catch (error) {
 			console.log(error);
@@ -54,19 +60,20 @@ export default function Action() {
 
 	//trying things
 
-	// async function updateVolunteership(requirementId) {
-	// 	try {
-	// 		const response = await fetch(`/api/joinAction`, {
-	// 			method: "POST",
-	// 			body: JSON.stringify({ userId, requirementId }),
-	// 		});
-
-	// 		if (response.ok) {
-	// 			const updatedData = await response.json();
-	// 			setVolunteership(updatedData);
-	// 		}
-	// 	} catch (error) {}
-	// }
+	async function addVolunteerships() {
+		try {
+			const data = await fetch(`/api/users/profile/volunteerships`, {
+				method: "POST",
+				body: JSON.stringify({ requirements: [3, 4] }),
+				headers: {
+					authorization: "Bearer " + localStorage.getItem("token"),
+				},
+			});
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	// const handleCheckboxChange = (e) => {
 	// 	updateVolunteership();
@@ -76,9 +83,9 @@ export default function Action() {
 	// };
 
 	// users to join events with the requirements selected
-	// const onClick = (e) => {
-
-	// }
+	const handleClick = () => {
+		addVolunteerships();
+	};
 
 	return (
 		<div>
@@ -142,11 +149,11 @@ export default function Action() {
 														// onChange={() => handleCheckboxChange(requirement.id)}
 													/>
 												</div>
-												<div className="col-2">
+												{/* <div className="col-2">
 													{requirement.Volunteerships.length !==
 														requirement.capacity &&
 														`${requirement.Volunteerships.length} / ${requirement.capacity}`}
-												</div>
+												</div> */}
 
 												<div className="col-2">
 													{requirement.Volunteerships &&
@@ -173,6 +180,15 @@ export default function Action() {
 				</div>
 				<div className="container">
 					<div className="row">
+						{/* back to actionsmenu page */}
+						<div className="col-3">
+							<div className="buttonSection" id="singleButton">
+								<button className="backButton" onClick={() => navigate(-1)}>
+									Back
+								</button>
+							</div>
+						</div>
+
 						<div className="col-6">
 							<div className="countdown">
 								{days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
@@ -193,18 +209,8 @@ export default function Action() {
 								<button
 									type="button"
 									className="btn btn-primary btn-sm"
-									//onClick--> add user and req selected to the action
-								>
+									onClick={handleClick}>
 									Join
-								</button>
-							</div>
-						</div>
-
-						{/* back to actionsmenu page */}
-						<div className="col-3">
-							<div className="buttonSection" id="singleButton">
-								<button className="backButton" onClick={() => navigate(-1)}>
-									Back
 								</button>
 							</div>
 						</div>

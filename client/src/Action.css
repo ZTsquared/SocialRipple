@@ -3,12 +3,12 @@
 }
 
 .actionTabContent-css {
-	/* margin-top: 10%; */
+	/* margin-left: 10%; */
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	/* height: 100vh; */
 	padding: 20px;
-	padding-right: 30px;
+	/* padding-right: 30px; */
 	overflow-x: hidden;
 }
 
@@ -27,17 +27,22 @@
 	align-items: center;
 	justify-content: space-between;
 	text-align: center;
-	position: absolute;
-	bottom: 50px;
-	left: 20px;
-	right: 20px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	/* right: 0; */
+	padding: 20px;
+	/* z-index: 2; */
 }
 
 .joinButton {
 	display: flex;
-	/* align-items: left; */
+	align-items: center;
 	justify-content: center;
-	margin: 50%;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	padding: 20px;
 }
 
 .countdown {
@@ -50,8 +55,10 @@
 	border: 1px solid grey;
 	border-radius: 40px;
 	box-shadow: 1px 3px 3px 3px rgb(194, 194, 194);
-	position: absolute;
-	bottom: 50px;
-	left: 50%;
-	transform: translateX(-50%);
+	margin-bottom: 50px;
+	position: fixed;
+	bottom: 0;
+	/* z-index: 1; */
+	/*	bottom: 50px; */
+	/* transform: translateX(-50%); */
 }
