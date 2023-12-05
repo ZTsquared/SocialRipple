@@ -72,18 +72,6 @@ router.get("/", async (req, res) => {
 							// attributes: ["id", "username"],
 						},
 					],
-					// include: [
-					// 	{
-					// 		model: models.Volunteership,
-					// 		attributes: ["id", "completed"],
-					// 		include: [
-					// 			{
-					// 				model: models.User,
-					// 				attributes: ["id", "username"],
-					// 			},
-					// 		],
-					// 	},
-					// ],
 				},
 			],
 		});

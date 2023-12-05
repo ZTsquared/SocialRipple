@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			// define association here
 			//User.hasMany(models.Volunteership);
-			User.belongsToMany(models.Requirement, { through: "Volunteerships" });
+			User.belongsToMany(models.Requirement, { through: models.Volunteership }); // only get junction table info if models. is included
 			User.belongsToMany(models.Keyword, { through: "Preferences" });
 			User.hasMany(models.Action, { foreignKey: "organiserId" });
 		}

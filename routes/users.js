@@ -29,7 +29,17 @@ router.get("/profile/:id", async function (req, res, next) {
 		const user = await models.User.findOne({
 			attributes: ["username", "organisation"],
 			where: { id },
-			include: models.Keyword,
+			include: [
+				models.Keyword,
+				{
+					model: models.Requirement,
+					attributes: ["id", "name", "description"],
+					through: { attributes: ["completed"] },
+					include: [
+						{ model: models.Action, attributes: ["name", "description"] },
+					],
+				},
+			],
 		});
 		console.log("hi");
 		res.send(user);
@@ -43,14 +53,18 @@ router.post(
 	"/profile/volunteerships",
 	userShouldBeLoggedIn,
 	async function (req, res, next) {
+		console.log("passed the guard, with body:");
 		console.log(req.body);
 		const { requirements } = req.body;
 		console.log(requirements);
 		const { user } = req;
 		try {
-			const result = await user.addRequirements(requirements);
+			console.log("reached the backend try block");
+			const result = await user.addRequirements(requirements, {
+				through: { completed: 0 },
+			});
 			console.log("result is:");
-			console.log(result);
+
 			res.send("Action joined successfully");
 		} catch (error) {
 			res.status(500).send(error);

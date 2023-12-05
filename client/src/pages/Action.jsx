@@ -4,15 +4,12 @@ import "../Action.css";
 import { useCountdown } from "../hooks/useCountdown";
 import { Tabs, Tab } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
-
 import NavBar from "../components/NavBar";
 
 export default function Action() {
 	const [oneAction, setOneAction] = useState({});
 	const { ActionId } = useParams();
-	//   const [checked, setChecked] = useState(false);
-	const [requirements, setRequirements] = useState([3, 4]);
+	const [requirements, setRequirements] = useState([]);
 
 	let navigate = useNavigate();
 
@@ -58,29 +55,29 @@ export default function Action() {
 		minute: "numeric",
 	});
 
-	//trying things
-
+	// adding ruquirement and user id to volunteershi table
 	async function addVolunteerships() {
 		try {
+			console.log("posting");
 			const data = await fetch(`/api/users/profile/volunteerships`, {
 				method: "POST",
-				body: JSON.stringify({ requirements: [3, 4] }),
+				body: JSON.stringify({ requirements }),
 				headers: {
 					authorization: "Bearer " + localStorage.getItem("token"),
+					"Content-Type": "application/json",
 				},
 			});
+			console.log("returned by post:");
 			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	// const handleCheckboxChange = (e) => {
-	// 	updateVolunteership();
-	// update for--> requirement.Volunteerships.length
-	// unclick:
-	// remove from array
-	// };
+	function handleCheckboxChange(e) {
+		if (e.target.checked) setRequirements((r) => [...r, e.target.value]);
+		else setRequirements((r) => r.filter((req) => req !== e.target.value));
+	}
 
 	// users to join events with the requirements selected
 	const handleClick = () => {
@@ -144,9 +141,14 @@ export default function Action() {
 												<div className="col-6">{requirement.description}</div>
 												<div className="col-2">
 													<input
+														value={requirement.id}
 														type="checkbox"
-														//checked={requirement.checked}
-														// onChange={() => handleCheckboxChange(requirement.id)}
+														checked={
+															requirements.includes(requirement.id)
+																? "checked"
+																: null
+														}
+														onChange={handleCheckboxChange}
 													/>
 												</div>
 												{/* <div className="col-2">
