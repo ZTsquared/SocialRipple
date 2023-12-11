@@ -19,7 +19,12 @@
 	display: inline-block;
 	margin-right: 10px;
 	align-self: center;
+	/* background-color: #1640d6; */
 }
+
+/* .badge-bg-primary {
+	background-color: #1640d6;
+} */
 /* .buttonSection {
     display: flex;
     align-items: center;
@@ -31,15 +36,11 @@
     padding: 20px;
     /* z-index: 2;
  } */
-.joinButton {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	/* position: fixed; */
-	/* bottom: 0;
-    right: 0; */
-	/* padding: 20px; */
+
+#joinButton-css:hover {
+	background-color: #1a53ff;
 }
+
 .countdown {
 	display: flex;
 	align-items: center;
@@ -47,11 +48,12 @@
 	text-align: center;
 	width: 350px;
 	height: 100px;
-	border: 1px solid grey;
-	border-radius: 40px;
+	border: 10px solid #1640d6;
+	border-radius: 60px;
 	box-shadow: 1px 3px 3px 3px rgb(194, 194, 194);
 	align-self: center;
 	margin-left: 25%;
+	background: linear-gradient(to right, #ff90c2, #ed5ab3);
 	/* margin-bottom: 50px; */
 	/* position: fixed; */
 	/* bottom: 0; */

@@ -2,6 +2,34 @@ a {
 	text-decoration: none;
 }
 
+/*log in page*/
+
+.loginBox-css {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 300px;
+	margin: auto;
+	margin-top: 20px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.loginHeading-css {
+	margin-top: 10%;
+	text-align: center;
+}
+
+/* register page */
+.registerPage-css {
+	text-align: left;
+	margin-top: 5%;
+	margin-left: 10%;
+}
+
 /* .body {
 	background-color: lavender;
 	text-align: center;
@@ -56,23 +84,31 @@ a {
 	margin: 6px;
 }
 
+/* select keywords for actions display*/
+
 .sigInButton-css {
 	border-radius: 6px;
 	border: 0px;
 	padding: 9px 19px;
 	color: rgb(248, 242, 242);
-	background-color: rgb(108, 187, 226);
+	background-color: #1640d6;
 	margin: 3px;
 }
 
-.registerTitle-css {
+.sigInButton-css:hover {
+	background-color: #1a53ff;
+}
+
+/* .registerTitle-css {
 	border: 2px solid rgb(108, 187, 226);
 	background-color: rgb(108, 187, 226);
 	color: rgb(248, 242, 242);
 	margin: 10px 500px;
 	padding: 2px;
-	border-radius: 7px;
-}
+	border-radius: 7px; 
+} */
+
+/* home page */
 
 .homepageParagraph-css {
 	margin: 5px 170px;

@@ -54,7 +54,7 @@ export default function Home() {
 		// no filters
 		// calls to action of the week
 		// login button
-		<div>
+		<div className="homepageBody-css">
 			<div className="flex justify-center items-center h-screen w-screen">
 				<EarthCanvas />
 			</div>

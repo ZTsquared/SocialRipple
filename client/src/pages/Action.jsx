@@ -281,7 +281,13 @@ export default function Action() {
 					<Button variant="secondary" onClick={closeModal}>
 						Close
 					</Button>
-					<Button variant="primary" onClick={handleClick}>
+					<Button
+						id="joinButton-css"
+						variant="primary"
+						onClick={handleClick}
+						style={{
+							backgroundColor: "#1640D6",
+						}}>
 						Join
 					</Button>
 				</Modal.Footer>
