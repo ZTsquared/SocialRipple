@@ -23,16 +23,8 @@ export default function ActionCard({action}) {
 
   return (
     <div 
-    // className = "actionCard-css"
-        style={{
-          backgroundColor: "white",
-          width: "18.5rem",
-          height: "18.5rem",
-          textAlign: "left",
-          border: "1px solid black",
-          marginBottom: "50px",
-          borderRadius: "6px",
-        }}
+    // className="hover-overlay " 
+    className = "actionCard-css" 
     >
         <div>
             <img
