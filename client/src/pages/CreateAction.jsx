@@ -17,6 +17,7 @@ export default function CreateAction() {
   const [isInPerson, setIsInPerson] = useState(false); //so that we can make the address form show up (or not)
   const minLength = 140; //characters in the description field
   const [actionCreated, setActionCreated] = useState(false);
+  const [allInputsCompleted, setAllInputsCompleted] = useState(false);
 
   useEffect(() => {
     getUsers();
@@ -71,6 +72,31 @@ export default function CreateAction() {
     } else {
       setActionBody({ ...actionBody, [name]: value });
     }
+
+    if (actionBody.online) {
+      if (
+        actionBody.online_link.length &&
+        actionBody.name.length &&
+        actionBody.description.length &&
+        preferences.length
+      ) {
+        console.log("it is online");
+        setAllInputsCompleted(true);
+      }
+    } else if (actionBody.inperson) {
+      if (
+        actionBody.city.length &&
+        actionBody.street.length &&
+        actionBody.house_number.length &&
+        actionBody.name.length &&
+        actionBody.description.length &&
+        preferences.length
+      ) {
+        console.log("it is not online");
+        setAllInputsCompleted(true);
+      }
+    }
+    console.log(allInputsCompleted);
   };
 
   const handleRequirementChange = (e) => {
@@ -94,23 +120,26 @@ export default function CreateAction() {
     //instead of coordinates and it made sense to me passing the whole thing with the coordinates instead
     //of an address
 
-    createNewAction({
-      online: actionBody.online,
-      inperson: actionBody.inperson,
-      start_time: actionBody.start_time,
-      end_time: actionBody.end_time,
-      is_group: actionBody.is_group,
-      name: actionBody.name,
-      description: actionBody.description,
-      online_link: actionBody.online_link,
-      city: actionBody.city,
-      latitude: actionCoordinates?.lat,
-      longitude: actionCoordinates?.lng,
-      organiser_id: user.id,
-      Keywords: preferences, // placeholder for now
-      Requirements: [requirements], // placeholder for now
-    });
-    setActionCreated(true);
+    if (allInputsCompleted) {
+      createNewAction({
+        online: actionBody.online,
+        online_link: actionBody.online_link,
+        inperson: actionBody.inperson,
+        start_time: actionBody.start_time,
+        end_time: actionBody.end_time,
+        is_group: actionBody.is_group,
+        name: actionBody.name,
+        description: actionBody.description,
+        online_link: actionBody.online_link,
+        city: actionBody.city,
+        latitude: actionCoordinates?.lat,
+        longitude: actionCoordinates?.lng,
+        organiser_id: user.id,
+        Keywords: preferences, // placeholder for now
+        Requirements: [requirements], // placeholder for now
+      });
+      setActionCreated(true);
+    }
   }
 
   const setCoordinates = async (street, number, city) => {
@@ -436,16 +465,35 @@ export default function CreateAction() {
               ></textarea>
             </label>
             <br />
-            <button
-              className="sigInButton-css"
-              style={{
-                fontSize: "22px",
-                padding: "9px 22px",
-                borderRadius: "7px",
-              }}
-            >
-              Create!
-            </button>
+            {allInputsCompleted ? (
+              <button
+                className="sigInButton-css"
+                style={{
+                  fontSize: "22px",
+                  padding: "9px 22px",
+                  borderRadius: "7px",
+                }}
+              >
+                Create!
+              </button>
+            ) : (
+              <div>
+                <div>Please finish completing all the inputs😉</div>
+                <button
+                  className="sigInButton-css"
+                  style={{
+                    fontSize: "22px",
+                    padding: "9px 22px",
+                    borderRadius: "7px",
+                    backgroundColor: "rgb(93, 163, 198)",
+                    color: " rgb(224, 220, 220)",
+                  }}
+                  disabled={true}
+                >
+                  Create!
+                </button>
+              </div>
+            )}
           </form>
           <br />
         </div>
