@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
+
 import React, { useEffect, useRef, useState } from "react";
 import {WebGLRenderer} from "three";
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text3D, Sphere, useTexture } from '@react-three/drei';
+
 import ActionCard from "../components/ActionCard";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -30,6 +32,7 @@ export default function Home() {
       console.log(error);
     }
   }
+
 
 
   const EsferitaBonita = ({ position, size, color}) => {
@@ -61,6 +64,7 @@ export default function Home() {
 
 
         <Text3D anchorX="center" position={[-4.3, 3, 3]} font="./public/fonts/Kalnia Thin_Regular.json">
+
           Social Ripple
           <meshNormalMaterial />
         </Text3D>
@@ -79,9 +83,11 @@ export default function Home() {
     // login button
     <div>
 
+
     <div className="flex justify-center items-center h-screen w-screen">
       <TitleCanvas />
     </div>
+
 
       <br />
       <h2>SocialRipple</h2>
@@ -104,18 +110,22 @@ export default function Home() {
       <div className="d-flex justify-content-center align-items-center">
         <div className="row">
           <Carousel>
-          {actions
-            .filter((act, i) => i < 4)
-            .map((action, index) => (
-              <div key={index} >
-                <img src="https://blog.bluemoontalent.com/wp-content/uploads/2014/02/event-header-4.jpg" alt="" />
-                <p className="legend">{action.name} <br /> {action.description}</p> 
-              </div>
-            ))}
+            {actions
+              .filter((act, i) => i < 4)
+              .map((action, index) => (
+                <div key={index}>
+                  <img
+                    src="https://blog.bluemoontalent.com/wp-content/uploads/2014/02/event-header-4.jpg"
+                    alt=""
+                  />
+                  <p className="legend">
+                    {action.name} <br /> {action.description}
+                  </p>
+                </div>
+              ))}
           </Carousel>
         </div>
       </div>
-
     </div>
   );
 }

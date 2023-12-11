@@ -13,7 +13,7 @@ body {
 }
 
 /* but this doesn't work when I create a class for the map itlsef */
-.modal-xlg{
+.modal-xlg {
   height: 30px;
 }
 #page-container {
@@ -21,24 +21,25 @@ body {
   min-height: 100vh;
 }
 
+
 .mainmenu_container{
+
   display: flex;
   columns: 2;
   padding: auto;
   margin: auto;
 }
 
-.actioncard_button{
+.actioncard_button {
   border: none;
   background: none;
 }
 
-.actions_left_side{
+.actions_left_side {
   width: 75%;
 }
 
-.actions_right_side{
-
+.actions_right_side {
   width: 25%;
 }
 
@@ -118,7 +119,7 @@ body {
   left: 10px;
 }
 
-.actionCard-css{
+.actionCard-css {
   background-color: white;
   width: 18.5rem;
   height: 18.5rem;
@@ -129,7 +130,8 @@ body {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
-.actionCard-css:hover{
-  border: 1.3px solid black;
-  box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2);
+.actionCard-css:hover {
+  background-color: rgb(250, 250, 250);
+  border: 1px solid black;
+  box-shadow: 8px 8px 5px rgba(0, 0, 0, 0.3);
 }
