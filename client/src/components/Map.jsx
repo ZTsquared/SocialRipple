@@ -31,8 +31,9 @@ export default function Map() {
   }
 
   const containerStyle = {
-    display: "flex",
-    width: "500px",
+
+    // display: "flex",
+    width: "800px",
     height: "800px",
   };
 
@@ -70,6 +71,25 @@ export default function Map() {
     }
   }
 
+  const MyInfoWindow = () => {
+
+    return(
+      <InfoWindow
+              onCloseClick={() => console.log("this")}
+              position={center}
+            >
+              <div>
+                <p>{currentMarkerAction.name}</p>
+                <p>{currentMarkerAction.description}</p>
+                <Link to={`/Actions/View/${currentMarkerAction.id}`}>
+                  learn more{" "}
+                </Link>
+              </div>
+      </InfoWindow>
+    )
+  }
+
+
   return (
     <div>
 
@@ -95,18 +115,9 @@ export default function Map() {
               </div>
             ))}
           {showInfoWindow.visible === true && (
-            <InfoWindow
-              onCloseClick={() => console.log("this")}
-              position={center}
-            >
-              <div>
-                <p>{currentMarkerAction.name}</p>
-                <p>{currentMarkerAction.description}</p>
-                <Link to={`/Action/View/${currentMarkerAction.id}`}>
-                  learn more{" "}
-                </Link>
-              </div>
-            </InfoWindow>
+          
+            <MyInfoWindow />
+
           )}
         </GoogleMap>
       )}

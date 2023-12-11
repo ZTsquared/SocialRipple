@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import useAuth from "../hooks/useAuth";
-import { Link, useNavigate, useParams, Outlet } from "react-router-dom";
+import { Link, useNavigate, useLocation, useParams, Outlet } from "react-router-dom";
 import ActionCard from "../components/ActionCard";
-import NavBar from "../components/NavBar";
-import FootBar from "../components/FootBar";
 import Map from "../components/Map";
 
 export default function ActionsMenu() {
 
 	const navigate = useNavigate();
+  const location = useLocation();
 	const [actions, setActions] = useState([]); // an array with ALL the actions
 	const [recommendedActions, setRecommendedActions] = useState([]); // the 3 recommended actions on top
 	const [selectFilter, setSelectFilter] = useState(false);
@@ -25,7 +23,7 @@ export default function ActionsMenu() {
 	const [requirements, setRequirements] = useState([]);
 
 	useEffect(() => {
-		console.log(typeOfActions);
+		console.log(location.state);
 		getActions();
 		getKeywords();
 	}, []);
@@ -129,6 +127,10 @@ export default function ActionsMenu() {
 
 	// but if we prefer the other approach we can revert to a previous commit ^^
 
+  function handleActionClick(action) {
+    navigate(`/Actions/View/${action.id}`, {state: selectedKeywordIds})
+  }
+
 	return (
 		<div>
 			{!selectFilter ? (
@@ -191,8 +193,8 @@ export default function ActionsMenu() {
 			)}
 			<br />
 			<br />
-			<div className="row">
-				<div className="col-sm">
+			<div className="container">
+				<div className="actions_left_side">
 					<h3>
 						{!typeOfActions
 							? "Recommended Actions"
@@ -208,7 +210,7 @@ export default function ActionsMenu() {
 										typeOfActions === "Group" ? a.is_group : !a.is_group
 									)
 									.map((action, index) => (
-										<div key={index} className="col-3">
+										<div key={index} className="col-">
 											<Link to={`/Actions/View/${action.id}`}>
 												<ActionCard action={action} />
 											</Link>
@@ -216,23 +218,20 @@ export default function ActionsMenu() {
 									))
 							: recommendedActions.map((action, index) => (
 									<div key={index} className="col-3">
-										<Link to={`/Actions/View/${action.id}`}>
-											<ActionCard action={action} />
-										</Link>
+										{/* <Link to={`/Actions/View/${action.id}`}> */}
+                      <button className="actioncard_button" onClick={() => handleActionClick(action)}>
+											  <ActionCard action={action} />
+                      </button>
+										{/* </Link> */}
 									</div>
 							  ))}
 					</div>
 				</div>
 
-				<div className="col-4">
-					<div className="map_container">
-						<div>
+				<div className="actions_right_side">
 							<Map />
-						</div>
-					</div>
 				</div>
 			</div>
-
 			<Outlet />
 
 			<br />
