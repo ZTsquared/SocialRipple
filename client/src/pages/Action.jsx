@@ -6,14 +6,10 @@ import { Tabs, Tab } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "../components/NavBar";
 
-export default function Action({ handleJoinAction }) {
+export default function Action() {
 	const [oneAction, setOneAction] = useState({});
 	const { ActionId } = useParams();
 	const [requirements, setRequirements] = useState([]);
-
-	// // bringing prop here
-	//handle joinaction
-	// //added by Claire
 
 	let navigate = useNavigate();
 
@@ -84,16 +80,9 @@ export default function Action({ handleJoinAction }) {
 	}
 
 	// users to join events with the requirements selected
-	// const handleClick = () => {
-	// 	addVolunteerships();
-	// };
-
-	// new attempt for join button
 	const handleClick = () => {
-		handleJoinAction();
-		addVolunteerships(requirements);
+		addVolunteerships();
 	};
-	// added by Claire
 
 	return (
 		<div>
