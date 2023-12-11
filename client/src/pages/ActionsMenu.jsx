@@ -7,6 +7,7 @@ import FootBar from "../components/FootBar";
 import Map from "../components/Map";
 
 export default function ActionsMenu() {
+
 	const navigate = useNavigate();
 	const [actions, setActions] = useState([]); // an array with ALL the actions
 	const [recommendedActions, setRecommendedActions] = useState([]); // the 3 recommended actions on top
@@ -239,4 +240,5 @@ export default function ActionsMenu() {
 			<br />
 		</div>
 	);
+
 }
