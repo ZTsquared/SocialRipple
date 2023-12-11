@@ -117,3 +117,19 @@ body {
   bottom: 10px;
   left: 10px;
 }
+
+.actionCard-css{
+  background-color: white;
+  width: 18.5rem;
+  height: 18.5rem;
+  text-align: left;
+  border: 1px solid black;
+  margin-bottom: 50px;
+  border-radius: 6px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.actionCard-css:hover{
+  border: 1.3px solid black;
+  box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2);
+}
