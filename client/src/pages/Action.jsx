@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import {
+	useParams,
+	useNavigate,
+	useOutletContext,
+	useLocation,
+} from "react-router-dom";
 import "../Action.css";
 import { useCountdown } from "../hooks/useCountdown";
 import { Tabs, Tab } from "react-bootstrap";
@@ -18,15 +23,15 @@ export default function Action() {
 	const [requirements, setRequirements] = useState([]);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-	let navigate = useNavigate();
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	useEffect(() => {
 		displayOneAction();
+		console.log(location.state);
 	}, [ActionId]);
 
-	useEffect(() => {
-		console.log(oneAction);
-	}, [oneAction]);
+	useEffect(() => {}, [oneAction]);
 
 	async function displayOneAction() {
 		try {
@@ -35,7 +40,7 @@ export default function Action() {
 				throw new Error("Oops, something went wrong");
 			}
 			const data = await response.json();
-			console.log(data.name);
+
 			setOneAction(data);
 		} catch (error) {
 			console.log(error);
@@ -99,6 +104,9 @@ export default function Action() {
 			check = 0;
 		}
 		console.log(check);
+
+		if (e.target.checked) setRequirements((r) => [...r, e.target.value]);
+		else setRequirements((r) => r.filter((req) => req !== e.target.value));
 	}
 
 	// users to join events with the requirements selected
@@ -116,6 +124,7 @@ export default function Action() {
 			navigate("/Actions");
 			//setShowSuccessMessage(false); // Reset the success message state when closing the modal
 		}, 1000);
+		setTimeout(() => navigate("/Actions", { state: location.state }), 300);
 	}
 	const [show, setShow] = useState(true);
 
