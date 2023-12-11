@@ -9,7 +9,7 @@ import NavBar from "../components/NavBar";
 export default function Action() {
 	const [oneAction, setOneAction] = useState({});
 	const { ActionId } = useParams();
-	const [requirements, setRequirements] = useOutletContext();
+	const [requirements, setRequirements] = useState([]);
 
 	let navigate = useNavigate();
 
@@ -76,7 +76,6 @@ export default function Action() {
 
 	function handleCheckboxChange(e) {
 		console.log(e);
-		e.preventDefault();
 		if (e.target.checked) setRequirements((r) => [...r, e.target.value]);
 		else setRequirements((r) => r.filter((req) => req !== e.target.value));
 	}

@@ -12,31 +12,19 @@ export default function ActionsMenu() {
   const navigate = useNavigate();
   const [actions, setActions] = useState([]);                               // an array with ALL the actions                                 
   const [recommendedActions, setRecommendedActions] = useState([]);         // the 3 recommended actions on top
-  const [selectFilter, setSelectFilter] = useState(false);
-  const [andSearch, setAndSearch] = useState(false)
-  const [keywords, setKeywords] = useState([]);
-  const [selectedKeywordIds, setSelectedKeywordIds] = useState([]);
   const [displayActions, setDisplayActions] = useState({
     allVisible: false,
     group: false,
   });
-  
+
   const [show, setShow] = useState(false);
   const {typeOfActions, ActionId} = useParams();
-  const [requirements, setRequirements] = useState([]);
 
 
   useEffect(() => {
     console.log(typeOfActions)
     getActions();
-    getKeywords();
   }, []);
- 
-  useEffect(() => {
-    console.log(selectedKeywordIds)
-  }, [andSearch]);
-
-
 
   useEffect(() => {
     setRecommendedActions(actions.filter((e, i) => i < 3));
@@ -55,7 +43,7 @@ export default function ActionsMenu() {
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Outlet context={[requirements, setRequirements]}></Outlet>
+            <Outlet ></Outlet>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseModal}>
@@ -80,57 +68,6 @@ export default function ActionsMenu() {
       setActions(data);
     } catch (error) {
       console.log(error);
-    }
-  }
-
-  async function getKeywords() {
-    try {
-      const response = await fetch(`/api/keywords`);
-      const data = await response.json();
-      setKeywords(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  function handleKeywordChange(e) {
-    if (e.target.checked) setSelectedKeywordIds((k) => [...k, e.target.value]);
-    else setSelectedKeywordIds((k) => k.filter((key) => key !== e.target.value));
-  }
-
-
-  function handleFilterToggle() {
-    if (selectFilter){
-      setSelectedKeywordIds([])
-      setAndSearch(false)
-      getActions()
-    }
-    setSelectFilter(!selectFilter);
-  }
-
-  function handleAndSearchToggle(){
-    setAndSearch(!andSearch)
-  }
-  
-
-  function filterActions() {
-    const actionsArray = []
-    for (let act of actions){
-      let actionKeywords = []
-      for (let key of act.Keywords){
-        actionKeywords.push(key.id.toString())
-      }
-      if (andSearch){
-        if (selectedKeywordIds.every((id) => (actionKeywords.includes(id)))){
-          actionsArray.push(act)
-        }
-      } else {
-        if (actionKeywords.some((id) => (selectedKeywordIds.includes(id)))){
-          actionsArray.push(act)        
-        }
-      }
-      setActions(actionsArray)
-      setSelectFilter(false);
     }
   }
 
@@ -171,59 +108,8 @@ export default function ActionsMenu() {
 
   return (
     <div >
-      {!selectFilter ? 
-        <button className="sigInButton-css" onClick = {handleFilterToggle}>Search Actions</button>
-        : 
-        <div>
-          <br />
-          <label className="form-label">What kind of activities are you looking for?</label>
-          <br />
-          <div className="preferencesInRegisterPage-css row justify-content-center">
-            {keywords.map((keyword, index) => (
-              <div
-                key={keyword.id}
-                className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
-                style={{ margin: index % 3 === 2 ? "5px" : "10px" }}
-              >
-                <div className="d-inline-flex" style={{ gap: "67px" }}>
-                  <input
-                    id={keyword.id}
-                    value={keyword.id}
-                    type="checkbox"
-                    name="preferences"
-                    onChange={handleKeywordChange}
-                    checked={
-                      selectedKeywordIds.includes(keyword.id) ? "checked" : null
-                    }
-                    className="btn-check"
-                    autoComplete="off"
-                  />
-                  <label
-                    className="btn"
-                    htmlFor={keyword.id}
-                    style={{ backgroundColor: "#e4f1fe" }}
-                  >
-                    {keyword.keyword}
-                  </label>
-                </div>
-              </div>
-            ))}
-          </div>
-          <br />
-          <input 
-            type="checkbox"
-            onChange={handleAndSearchToggle}
-            checked={
-              andSearch ? "checked" : false
-            }
-          />
-          <label htmlFor="">Show only actions that match all my selected keywords</label>
-          <br />
-          <button className="sigInButton-css"onClick = {filterActions}>Apply Filter</button>
-          <button className="sigInButton-css" onClick = {handleFilterToggle}>Cancel Filter</button>
-        </div>
-      }
-      <br /><br />
+
+      <br /><br /><br />
       <div className="row">
         <div className="col-sm">
           <h3>
@@ -243,7 +129,7 @@ export default function ActionsMenu() {
                 <Link to={`/Actions/View/${action.id}`}>
                   <ActionCard action={action} />
                 </Link>
-                
+
               </div>
             ))
             :
