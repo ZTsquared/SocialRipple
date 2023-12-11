@@ -6,10 +6,14 @@ import { Tabs, Tab } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "../components/NavBar";
 
-export default function Action() {
+export default function Action({ handleJoinAction }) {
 	const [oneAction, setOneAction] = useState({});
 	const { ActionId } = useParams();
 	const [requirements, setRequirements] = useState([]);
+
+	// // bringing prop here
+	//handle joinaction
+	// //added by Claire
 
 	let navigate = useNavigate();
 
@@ -80,16 +84,20 @@ export default function Action() {
 	}
 
 	// users to join events with the requirements selected
+	// const handleClick = () => {
+	// 	addVolunteerships();
+	// };
+
+	// new attempt for join button
 	const handleClick = () => {
-		addVolunteerships();
+		handleJoinAction();
+		addVolunteerships(requirements);
 	};
+	// added by Claire
 
 	return (
 		<div>
-
-
 			<div className="actioncontainer-css">
-				<h1> {oneAction.name} </h1>
 				<div className="tabs">
 					<Tabs defaultActiveKey="description" id="tabs">
 						<Tab
@@ -97,6 +105,7 @@ export default function Action() {
 							title="Description"
 							className="actionTabContent-css ">
 							<p>{oneAction.description}</p>
+							<br></br>
 							{oneAction.Keywords && (
 								<div className="keywordBadges">
 									<ul>
@@ -116,23 +125,36 @@ export default function Action() {
 							className="actionTabContent-css ">
 							<div>
 								<div className="container">
-									{oneAction.online
-										? `Follow this link: ${oneAction.online_link} `
-										: `Location: ${oneAction.longitude} ${oneAction.latitude}`}{" "}
-								</div>
-								<div>
-									{oneAction.start_time
-										? `Start time: ${startTime}`
-										: "Take as long as you want!"}{" "}
-									{oneAction.end_time ? `End time: ${endTime}` : ""}{" "}
-								</div>
-							</div>{" "}
+									{!oneAction.in_person && !oneAction.online && "Anywhere!"}
+									{oneAction.online && !oneAction.in_person && (
+										<div>Follow this link: {oneAction.online_link}</div>
+									)}
+									{oneAction.in_person && !oneAction.online && (
+										<div>Location: {oneAction.city}</div>
+									)}
+									{oneAction.in_person && oneAction.online && (
+										<>
+											<div>Location: {oneAction.city}</div>
+											<div>Follow this link: {oneAction.online_link}</div>
+										</>
+									)}
+									<div>
+										{oneAction.start_time
+											? `Start time: ${startTime}`
+											: "Take as long as you want!"}{" "}
+										<br></br>
+										{oneAction.end_time ? `End time: ${endTime}` : ""}{" "}
+									</div>{" "}
+								</div>{" "}
+							</div>
 						</Tab>
 
 						<Tab
 							eventKey="requirements"
 							title="Requirements"
 							className="actionTabContent-css">
+							<h4>What do you want to do?</h4>
+							<br></br>
 							{oneAction.Requirements && oneAction.Requirements.length > 0 && (
 								<div className="container">
 									{oneAction.Requirements.map((requirement) => (
@@ -151,13 +173,13 @@ export default function Action() {
 														onChange={handleCheckboxChange}
 													/>
 												</div>
-												{/* <div className="col-2">
-													{requirement.Volunteerships.length !==
-														requirement.capacity &&
-														`${requirement.Volunteerships.length} / ${requirement.capacity}`}
-												</div> */}
-
+												{/*showing the capacity*/}
 												<div className="col-2">
+													{requirement.Users.length !== requirement.capacity &&
+														`${requirement.Users.length} / ${requirement.capacity}`}
+												</div>
+												<div className="col-2">
+													{/*
 													{requirement.Volunteerships &&
 														requirement.Volunteerships.length > 0 && (
 															<div>
@@ -170,7 +192,7 @@ export default function Action() {
 																	)
 																)}
 															</div>
-														)}
+																	)}*/}
 												</div>
 											</div>
 										</div>
@@ -180,45 +202,28 @@ export default function Action() {
 						</Tab>
 					</Tabs>
 				</div>
-				<div className="container">
-					<div className="row">
-						{/* back to actionsmenu page */}
-						<div className="col-3">
-							<div className="buttonSection" id="singleButton">
-								<button className="backButton" onClick={() => navigate(-1)}>
-									Back
-								</button>
-							</div>
-						</div>
-
-						<div className="col-6">
-							<div className="countdown">
-								{days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
-									<div>Countdown is over!</div>
-								) : (
-									<div>
-										Time until action!
-										<br></br>
-										{days} days, {hours} hours, {minutes} minutes, {seconds}{" "}
-										seconds
-									</div>
-								)}
-							</div>
-						</div>
-
-						<div className="col-3">
-							<div className="joinButton">
-								<button
-									type="button"
-									className="btn btn-primary btn-sm"
-									onClick={handleClick}>
-									Join
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
+			<div className="joinButton">
+				<button
+					type="button"
+					className="btn btn-primary btn-sm"
+					onClick={handleClick}>
+					Join
+				</button>
+			</div>
+			{!Number.isNaN(days) && (
+				<div className="countdown">
+					{days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
+						<div>Countdown is over!</div>
+					) : (
+						<div>
+							Time until action!
+							<br></br>
+							{days} days, {hours} hours, {minutes} minutes, {seconds} seconds
+						</div>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }
