@@ -244,7 +244,7 @@ export default function ActionsMenu() {
           </div>
         )}
         <div className="actions_right_side">
-          <Map />
+          <Map actions={actions} />
         </div>
       </div>
       <Outlet />
