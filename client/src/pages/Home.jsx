@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { Canvas } from '@react-three/fiber';
-import { useGLTF, Text3D } from '@react-three/drei';
+import { Canvas } from "@react-three/fiber";
+import { useGLTF, Text3D } from "@react-three/drei";
 import ActionCard from "../components/ActionCard";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -29,15 +29,21 @@ export default function Home() {
   }
 
   const EarthCanvas = () => {
-
-    const earth = useGLTF('../public/3dmodels/earth/scene.gltf');
+    const earth = useGLTF("../public/3dmodels/earth/scene.gltf");
 
     return (
-      <Canvas frameloop="demand" camera={{ position: [0, 10, 9], fov: 10, near: 0.1, far: 200 }}> 
+      <Canvas
+        frameloop="demand"
+        camera={{ position: [0, 10, 9], fov: 10, near: 0.1, far: 200 }}
+      >
         <ambientLight intensity={0.3} />
-        <Text3D anchorX="center" position={[-4, 3, 3]} font="./public/fonts/Kalnia Thin_Regular.json">
+        <Text3D
+          anchorX="center"
+          position={[-4, 3, 3]}
+          font="./public/fonts/Kalnia Thin_Regular.json"
+        >
           Social Ripple
-          <meshNormalMaterial/>
+          <meshNormalMaterial />
         </Text3D>
         <primitive object={earth.scene} scale={2.5} />
       </Canvas>
@@ -51,10 +57,9 @@ export default function Home() {
     // calls to action of the week
     // login button
     <div>
-
-    <div className="flex justify-center items-center h-screen w-screen">
-      <EarthCanvas />
-    </div>
+      <div className="flex justify-center items-center h-screen w-screen">
+        <EarthCanvas />
+      </div>
 
       <br />
       <h2>SocialRipple</h2>
@@ -77,18 +82,22 @@ export default function Home() {
       <div className="d-flex justify-content-center align-items-center">
         <div className="row">
           <Carousel>
-          {actions
-            .filter((act, i) => i < 4)
-            .map((action, index) => (
-              <div key={index} >
-                <img src="https://blog.bluemoontalent.com/wp-content/uploads/2014/02/event-header-4.jpg" alt="" />
-                <p className="legend">{action.name} <br /> {action.description}</p> 
-              </div>
-            ))}
+            {actions
+              .filter((act, i) => i < 4)
+              .map((action, index) => (
+                <div key={index}>
+                  <img
+                    src="https://blog.bluemoontalent.com/wp-content/uploads/2014/02/event-header-4.jpg"
+                    alt=""
+                  />
+                  <p className="legend">
+                    {action.name} <br /> {action.description}
+                  </p>
+                </div>
+              ))}
           </Carousel>
         </div>
       </div>
-
     </div>
   );
 }
