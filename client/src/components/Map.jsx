@@ -9,10 +9,10 @@ import {
 } from "@react-google-maps/api";
 import getUser from "./GetUser";
 
-export default function Map() {
+export default function Map({actions}) {
   const [map, setMap] = useState(null);
   const [center, setCenter] = useState({lat: 41.481111, lng: 2.127002});
-  const [actions, setActions] = useState([]);
+  // const [actions, setActions] = useState([]);
   const [showInfoWindow, setShowInfoWindow] = useState({
     visible: false,
     position: {},
