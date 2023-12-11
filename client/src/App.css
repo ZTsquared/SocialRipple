@@ -21,6 +21,27 @@ body {
   min-height: 100vh;
 }
 
+.container{
+  display: flex;
+  columns: 2;
+  padding: auto;
+  margin: auto;
+}
+
+.actioncard_button{
+  border: none;
+  background: none;
+}
+
+.actions_left_side{
+  width: 75%;
+}
+
+.actions_right_side{
+
+  width: 25%;
+}
+
 #content-wrap {
   padding-bottom: 2.5rem; /* Footer height */
 }

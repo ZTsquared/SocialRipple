@@ -1,31 +1,29 @@
 .actioncontainer-css {
-	margin-top: 10%;
+	margin-top: 5%;
+	/* width: 400px; */
 }
 
 .actionTabContent-css {
-	/* margin-left: 10%; */
 	display: flex;
 	flex-direction: column;
-
-	height: 50vh; /* Set a fixed height for the entire container */
-	/* width: 100vh; */
-
+	/* height: 50vh; */
 	padding: 20px;
 	/* padding-right: 30px; */
-	overflow-x: hidden;
+	text-align: left;
+	/* overflow-x: hidden; */
 }
 
 .keywordBadges ul {
-	position: absolute;
 	bottom: 30%;
 }
 
 .keywordBadges li {
 	display: inline-block;
 	margin-right: 10px;
+	align-self: center;
 }
 
-.buttonSection {
+/* .buttonSection {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -33,19 +31,18 @@
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	/* right: 0; */
 	padding: 20px;
-	/* z-index: 2; */
-}
+	/* z-index: 2;
+ } */
 
 .joinButton {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	padding: 20px;
+	/* position: fixed; */
+	/* bottom: 0;
+	right: 0; */
+	/* padding: 20px; */
 }
 
 .countdown {
@@ -58,10 +55,13 @@
 	border: 1px solid grey;
 	border-radius: 40px;
 	box-shadow: 1px 3px 3px 3px rgb(194, 194, 194);
-	margin-bottom: 50px;
-	position: fixed;
-	bottom: 0;
+	align-self: center;
+	margin-left: 25%;
+
+	/* margin-bottom: 50px; */
+	/* position: fixed; */
+	/* bottom: 0; */
 	/* z-index: 1; */
 	/*	bottom: 50px; */
-	/* transform: translateX(-50%); */
+	/* transform: translateX(-50%; */
 }
