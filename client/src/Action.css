@@ -12,27 +12,34 @@
 	text-align: left;
 	/* overflow-x: hidden; */
 }
-
 .keywordBadges ul {
 	bottom: 30%;
 }
-
 .keywordBadges li {
 	display: inline-block;
 	margin-right: 10px;
 	align-self: center;
 }
-
+/* .buttonSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    /* z-index: 2;
+ } */
 .joinButton {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	/* position: fixed; */
 	/* bottom: 0;
-	right: 0; */
+    right: 0; */
 	/* padding: 20px; */
 }
-
 .countdown {
 	display: flex;
 	align-items: center;
@@ -45,5 +52,71 @@
 	box-shadow: 1px 3px 3px 3px rgb(194, 194, 194);
 	align-self: center;
 	margin-left: 25%;
-	background-image: linear-gradient(to bottom right, red, yellow);
+	/* margin-bottom: 50px; */
+	/* position: fixed; */
+	/* bottom: 0; */
+	/* z-index: 1; */
+	/*  bottom: 50px; */
+	/* transform: translateX(-50%; */
+}
+
+.actioncontainer-css {
+	margin-top: 5%;
+	/* width: 400px; */
+}
+.actionTabContent-css {
+	display: flex;
+	flex-direction: column;
+	/* height: 50vh; */
+	padding: 20px;
+	/* padding-right: 30px; */
+	text-align: left;
+	/* overflow-x: hidden; */
+}
+.keywordBadges ul {
+	bottom: 30%;
+}
+.keywordBadges li {
+	display: inline-block;
+	margin-right: 10px;
+	align-self: center;
+}
+/* .buttonSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    /* z-index: 2;
+ } */
+.joinButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* position: fixed; */
+	/* bottom: 0;
+    right: 0; */
+	/* padding: 20px; */
+}
+.countdown {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	width: 350px;
+	height: 100px;
+	border: 1px solid grey;
+	border-radius: 40px;
+	box-shadow: 1px 3px 3px 3px rgb(194, 194, 194);
+	align-self: center;
+	margin-left: 25%;
+	/* margin-bottom: 50px; */
+	/* position: fixed; */
+	/* bottom: 0; */
+	/* z-index: 1; */
+	/*  bottom: 50px; */
+	/* transform: translateX(-50%; */
 }

@@ -235,8 +235,8 @@ export default function Action() {
 																	}`}
 																</div>
 
-																<div className="col-2">
-																	{/*
+																{/* <div className="col-2"> */}
+																{/*
 													{requirement.Volunteerships &&
 														requirement.Volunteerships.length > 0 && (
 															<div>
@@ -250,7 +250,7 @@ export default function Action() {
 																)}
 															</div>
 																	)}*/}
-																</div>
+																{/* </div> */}
 															</div>
 														</div>
 													))}

@@ -2,15 +2,15 @@ a {
 	text-decoration: none;
 }
 
-.body {
+/* .body {
 	background-color: lavender;
 	text-align: center;
-}
-body {
+} */
+/* body {
 	margin-top: 20px;
 	background-color: lavender;
 	text-align: center;
-}
+} */
 
 /* but this doesn't work when I create a class for the map itlsef */
 .modal-xlg {
@@ -21,25 +21,24 @@ body {
 	min-height: 100vh;
 }
 
-.container{
-  display: flex;
-  columns: 2;
-  padding: auto;
-  margin: auto;
+.mainmenu_container {
+	display: flex;
+	columns: 2;
+	padding: auto;
+	margin: auto;
 }
 
-.actioncard_button{
-  border: none;
-  background: none;
+.actioncard_button {
+	border: none;
+	background: none;
 }
 
-.actions_left_side{
-  width: 75%;
+.actions_left_side {
+	width: 75%;
 }
 
-.actions_right_side{
-
-  width: 25%;
+.actions_right_side {
+	width: 25%;
 }
 
 #content-wrap {
@@ -78,6 +77,17 @@ body {
 .homepageParagraph-css {
 	margin: 5px 170px;
 }
+
+.mission-container-css {
+	background-color: #f4f4f4;
+	padding: 20px;
+	margin: 20px;
+	text-align: center;
+}
+
+/* .mission-statement-css {
+	/* font-size: 1.2em;
+ } */
 
 .no-underline-css {
 	text-decoration: none;
@@ -118,18 +128,18 @@ body {
 	left: 10px;
 }
 
-.actionCard-css{
-  background-color: white;
-  width: 18.5rem;
-  height: 18.5rem;
-  text-align: left;
-  border: 1px solid black;
-  margin-bottom: 50px;
-  border-radius: 6px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+.actionCard-css {
+	background-color: white;
+	width: 18.5rem;
+	height: 18.5rem;
+	text-align: left;
+	border: 1px solid black;
+	margin-bottom: 50px;
+	border-radius: 6px;
+	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
-.actionCard-css:hover{
-  border: 1.3px solid black;
-  box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2);
+.actionCard-css:hover {
+	border: 1.3px solid black;
+	box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2);
 }
