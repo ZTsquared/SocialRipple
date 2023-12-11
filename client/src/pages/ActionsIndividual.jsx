@@ -14,6 +14,7 @@ export default function ActionsIndividual() {
   useEffect(() => {
     getAllActions();
     getAllKeywords();
+    console.log("yu", allActions)
   }, []);
 
   useEffect(() => {
@@ -40,7 +41,10 @@ export default function ActionsIndividual() {
     }
   }
 
-  function filterActions() {}
+  function filterActions() {
+    const selectedKeyword = 1
+
+  }
 
   return (
     <div>
