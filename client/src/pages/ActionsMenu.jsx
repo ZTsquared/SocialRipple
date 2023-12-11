@@ -26,13 +26,22 @@ export default function ActionsMenu() {
 
   useEffect(() => {
     console.log(typeOfActions)
-    getActions();
+    getActions([]);
     getKeywords();
   }, []);
+
+  // useEffect(() => {
+  //   filterActions();
+  // }, [actions]);
  
   useEffect(() => {
+    console.log(selectFilter)
+  }, [selectFilter]);
+
+  useEffect(() => {
     console.log(selectedKeywordIds)
-  }, [andSearch]);
+    console.log(actions)
+  }, [selectedKeywordIds]);
 
 
 
@@ -67,16 +76,44 @@ export default function ActionsMenu() {
     );
   }
   
-
-  async function getActions() {
+  
+  async function getActions(filterKeywordIds) {
     try {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
-      setActions(data);
+      setActions(filterActions(data, filterKeywordIds));
     } catch (error) {
       console.log(error);
     }
   }
+  
+
+  function filterActions(rawActions, filterKeywordIds) {
+    setSelectFilter(false);
+    if (!filterKeywordIds.length){
+      return rawActions
+    } else {
+      const actionsArray = []
+      for (let act of rawActions){
+        let actionKeywords = []
+        for (let key of act.Keywords){
+          actionKeywords.push(key.id.toString())
+        }
+        if (andSearch){
+          if (filterKeywordIds.every((id) => (actionKeywords.includes(id)))){
+            actionsArray.push(act)
+          }
+        } else {
+          if (actionKeywords.some((id) => (filterKeywordIds.includes(id)))){
+            actionsArray.push(act)        
+          }
+        }
+      }
+      console.log("setting actions")
+      return actionsArray
+    }
+  }
+
 
   async function getKeywords() {
     try {
@@ -98,7 +135,7 @@ export default function ActionsMenu() {
     if (selectFilter){
       setSelectedKeywordIds([])
       setAndSearch(false)
-      getActions()
+      getActions([])
     }
     setSelectFilter(!selectFilter);
   }
@@ -108,26 +145,6 @@ export default function ActionsMenu() {
   }
   
 
-  function filterActions() {
-    const actionsArray = []
-    for (let act of actions){
-      let actionKeywords = []
-      for (let key of act.Keywords){
-        actionKeywords.push(key.id.toString())
-      }
-      if (andSearch){
-        if (selectedKeywordIds.every((id) => (actionKeywords.includes(id)))){
-          actionsArray.push(act)
-        }
-      } else {
-        if (actionKeywords.some((id) => (selectedKeywordIds.includes(id)))){
-          actionsArray.push(act)        
-        }
-      }
-      setActions(actionsArray)
-      setSelectFilter(false);
-    }
-  }
 
   function actionsToDisplayToggle(event) {
     console.log(event.target.name);
@@ -188,7 +205,7 @@ export default function ActionsMenu() {
                     name="preferences"
                     onChange={handleKeywordChange}
                     checked={
-                      selectedKeywordIds.includes(keyword.id) ? "checked" : null
+                      selectedKeywordIds.includes(keyword.id.toString()) ? "checked" : null
                     }
                     className="btn-check"
                     autoComplete="off"
@@ -214,7 +231,7 @@ export default function ActionsMenu() {
           />
           <label htmlFor="">Show only actions that match all my selected keywords</label>
           <br />
-          <button className="sigInButton-css"onClick = {filterActions}>Apply Filter</button>
+          <button className="sigInButton-css"onClick = {() => getActions(selectedKeywordIds)}>Apply Filter</button>
           <button className="sigInButton-css" onClick = {handleFilterToggle}>Cancel Filter</button>
         </div>
       }
