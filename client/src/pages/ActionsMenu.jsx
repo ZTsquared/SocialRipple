@@ -23,6 +23,8 @@ export default function ActionsMenu() {
   
   const [show, setShow] = useState(false);
   const {typeOfActions, ActionId} = useParams();
+  const [requirements, setRequirements] = useState([]);
+
 
   useEffect(() => {
     console.log(typeOfActions)
@@ -53,20 +55,23 @@ export default function ActionsMenu() {
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Outlet></Outlet>
+            <Outlet context={[requirements, setRequirements]}></Outlet>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseModal}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleCloseModal}>
-              Save Changes
+            <Button variant="primary" onClick={joinActionAndCloseModal}>
+              Join!
             </Button>
           </Modal.Footer>
         </Modal>
     );
   }
   
+  function joinActionAndCloseModal(){
+    setShow(false)
+  }
 
   async function getActions() {
     try {

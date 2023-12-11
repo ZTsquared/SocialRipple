@@ -11,7 +11,7 @@ import getUser from "./GetUser";
 
 export default function Map() {
   const [map, setMap] = useState(null);
-  const [center, setCenter] = useState();
+  const [center, setCenter] = useState({lat: 41.481111, lng: 2.127002});
   const [actions, setActions] = useState([]);
   const [showInfoWindow, setShowInfoWindow] = useState({
     visible: false,
@@ -42,8 +42,7 @@ export default function Map() {
   });
 
   const onLoad = useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+    map.zoom=10;
     setMap(map);
   }, []);
 
@@ -76,32 +75,7 @@ export default function Map() {
 
     <h3> <br /></h3>
 
-    {isLoaded && 
-    <GoogleMap 
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={15}
-      onLoad={onLoad}
-      onUnmount={onUnmount}>
-      
-      {actions.filter(a => a.latitude && a.longitude).map((action, i) => 
-      <div key={i}>
-        <Marker onClick={() => markerClick(action)} key={i} position={{lat: action.latitude, lng: action.longitude}}/>
-                                                   
-          </div>)}
-          {showInfoWindow.visible === true &&
-                              
-          <InfoWindow onCloseClick={() => console.log("this")} position={center}>
-            <div>
-              <p>{currentMarkerAction.name}</p>
-              <p>{currentMarkerAction.description}</p>
-              <Link to={`/Action/View/${currentMarkerAction.id}`}>learn more </Link>
-            </div>
-          </InfoWindow>
-          }
-    </GoogleMap>}
-
-      {isLoaded && (
+      {isLoaded && center && (
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
