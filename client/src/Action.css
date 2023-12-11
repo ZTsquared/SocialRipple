@@ -23,18 +23,6 @@
 	align-self: center;
 }
 
-/* .buttonSection {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	text-align: center;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	padding: 20px;
-	/* z-index: 2;
- } */
-
 .joinButton {
 	display: flex;
 	align-items: center;
@@ -57,11 +45,5 @@
 	box-shadow: 1px 3px 3px 3px rgb(194, 194, 194);
 	align-self: center;
 	margin-left: 25%;
-
-	/* margin-bottom: 50px; */
-	/* position: fixed; */
-	/* bottom: 0; */
-	/* z-index: 1; */
-	/*	bottom: 50px; */
-	/* transform: translateX(-50%; */
+	background-image: linear-gradient(to bottom right, red, yellow);
 }
