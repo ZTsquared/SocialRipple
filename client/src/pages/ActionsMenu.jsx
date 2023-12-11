@@ -18,9 +18,7 @@ export default function ActionsMenu() {
 		group: false,
 	});
 
-	const [show, setShow] = useState(false);
 	const { typeOfActions, ActionId } = useParams();
-	const [requirements, setRequirements] = useState([]);
 
 	useEffect(() => {
 		console.log(location.state);
@@ -131,9 +129,6 @@ export default function ActionsMenu() {
 
 	// but if we prefer the other approach we can revert to a previous commit ^^
 
-  function handleActionClick(action) {
-    navigate(`/Actions/View/${action.id}`, {state: selectedKeywordIds})
-  }
 
   return (
     <div >
@@ -205,18 +200,16 @@ export default function ActionsMenu() {
 									)
 									.map((action, index) => (
 										<div key={index} className="col-">
-											<Link to={`/Actions/View/${action.id}`}>
+											<Link to={`/Actions/View/${action.id}`} state={selectedKeywordIds}>
 												<ActionCard action={action} />
 											</Link>
 										</div>
 									))
 							: recommendedActions.map((action, index) => (
 									<div key={index} className="col-3">
-										{/* <Link to={`/Actions/View/${action.id}`}> */}
-                      <button className="actioncard_button" onClick={() => handleActionClick(action)}>
+										<Link to={`/Actions/View/${action.id}`} state={selectedKeywordIds}>
 											  <ActionCard action={action} />
-                      </button>
-										{/* </Link> */}
+										</Link>
 									</div>
 							  ))}
 					</div>
