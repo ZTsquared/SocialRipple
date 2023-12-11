@@ -113,6 +113,12 @@ export default function CreateAction() {
     const newRequirements = [...requirements];
     newRequirements[index][name] = value;
     setRequirements(newRequirements);
+    if (
+      requirements[0].req_capacity > 0 &&
+      requirements[0].req_description.length
+    ) {
+      setAtLeastOneRequirementCompleted(true);
+    }
   };
 
   const addRequirement = () => {
@@ -194,10 +200,6 @@ export default function CreateAction() {
       console.log(error);
     }
   };
-
-  function settingToTrue() {
-    setWantToAddMoreRequirements(true);
-  }
 
   return (
     <div>
@@ -480,8 +482,14 @@ export default function CreateAction() {
                   ></textarea>
                 </label>
                 <br />
+                {!atLeastOneRequirementCompleted && (
+                  <div style={{ color: "red", fontSize: "13px" }}>
+                    Please add at least one requirement
+                  </div>
+                )}
               </div>
             ))}
+            <br />
             <button
               onClick={addRequirement}
               className="buttonToAddNewRequirement-css"
