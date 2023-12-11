@@ -6,7 +6,7 @@ import Map from "../components/Map";
 export default function ActionsMenu() {
 
 	const navigate = useNavigate();
-  const location = useLocation();
+  	const location = useLocation();
 	const [actions, setActions] = useState([]); // an array with ALL the actions
 	const [recommendedActions, setRecommendedActions] = useState([]); // the 3 recommended actions on top
 	const [selectFilter, setSelectFilter] = useState(false);
@@ -22,7 +22,7 @@ export default function ActionsMenu() {
 
 	useEffect(() => {
 		console.log(location.state);
-		getActions();
+		getActions([]);
 		getKeywords();
 	}, []);
 
@@ -185,8 +185,8 @@ export default function ActionsMenu() {
         </div>
       }
       <br /><br />
-      <div className="row">
-        <div className="col-sm">
+      <div className="mainmenu_container">
+        <div className="actions_left_side">
           <h3>
             {!typeOfActions ? "Recommended Actions" :
             typeOfActions === "Group" ? "Group Actions" : "Individual Actions"}
@@ -199,7 +199,7 @@ export default function ActionsMenu() {
 										typeOfActions === "Group" ? a.is_group : !a.is_group
 									)
 									.map((action, index) => (
-										<div key={index} className="col-">
+										<div key={index} className="col-3">
 											<Link to={`/Actions/View/${action.id}`} state={selectedKeywordIds}>
 												<ActionCard action={action} />
 											</Link>

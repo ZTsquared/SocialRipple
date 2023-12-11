@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import { Canvas } from '@react-three/fiber';
-import { useGLTF, Text3D } from '@react-three/drei';
+import React, { useEffect, useRef, useState } from "react";
+import {WebGLRenderer} from "three";
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Text3D, Sphere, useTexture } from '@react-three/drei';
 import ActionCard from "../components/ActionCard";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -12,6 +12,9 @@ import { Carousel } from "react-responsive-carousel";
 export default function Home() {
   const navigate = useNavigate();
   const [actions, setActions] = useState([]);
+
+  const renderer = new WebGLRenderer();
+  renderer.autoClear = false;
 
   useEffect(() => {
     getActions();
@@ -28,21 +31,45 @@ export default function Home() {
     }
   }
 
-  const EarthCanvas = () => {
 
-    const earth = useGLTF('../public/3dmodels/earth/scene.gltf');
+  const EsferitaBonita = ({ position, size, color}) => {
+
+    const ref = useRef();
+
+    const earthTexture = useTexture("./public/earthmap.jpeg")
+
+    useFrame((state, delta) => {
+
+      ref.current.rotation.y += delta / 4;
+    })
+
+    return (
+      <mesh ref={ref} position={[-3, 3.27, 3]}>
+      <sphereGeometry args={[0.3, 24, 24]} />
+      <meshStandardMaterial map={earthTexture}/>
+      </mesh>
+    )
+}
+
+  const TitleCanvas = () => {
 
     return (
       <Canvas frameloop="demand" camera={{ position: [0, 10, 9], fov: 10, near: 0.1, far: 200 }}> 
-        <ambientLight intensity={0.3} />
-        <Text3D anchorX="center" position={[-4, 3, 3]} font="./public/fonts/Kalnia Thin_Regular.json">
+        <ambientLight intensity={4} />
+        
+        <EsferitaBonita />
+
+
+        <Text3D anchorX="center" position={[-4.3, 3, 3]} font="./public/fonts/Kalnia Thin_Regular.json">
           Social Ripple
-          <meshNormalMaterial/>
+          <meshNormalMaterial />
         </Text3D>
-        <primitive object={earth.scene} scale={2.5} />
+        
       </Canvas>
     );
   };
+
+  
 
   return (
     // info
@@ -53,7 +80,7 @@ export default function Home() {
     <div>
 
     <div className="flex justify-center items-center h-screen w-screen">
-      <EarthCanvas />
+      <TitleCanvas />
     </div>
 
       <br />
