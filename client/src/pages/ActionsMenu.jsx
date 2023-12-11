@@ -10,6 +10,7 @@ import ActionCard from "../components/ActionCard";
 import Map from "../components/Map";
 
 export default function ActionsMenu() {
+
   const navigate = useNavigate();
   const location = useLocation();
   const [actions, setActions] = useState([]); // an array with ALL the actions
@@ -30,6 +31,7 @@ export default function ActionsMenu() {
   }, []);
 
   async function getActions(type, filterKeywordIds) {
+
     try {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
@@ -248,6 +250,7 @@ export default function ActionsMenu() {
         </div>
       </div>
       <Outlet />
+
 
       <br />
       <br />
