@@ -10,7 +10,6 @@ import ActionCard from "../components/ActionCard";
 import Map from "../components/Map";
 
 export default function ActionsMenu() {
-
   const navigate = useNavigate();
   const location = useLocation();
   const [actions, setActions] = useState([]); // an array with ALL the actions
@@ -31,7 +30,6 @@ export default function ActionsMenu() {
   }, []);
 
   async function getActions(type, filterKeywordIds) {
-
     try {
       const response = await fetch(`/api/actions`);
       const data = await response.json();
@@ -102,22 +100,22 @@ export default function ActionsMenu() {
     setAndSearch(!andSearch);
   }
 
-  function actionsToDisplayToggle(event) {
-    console.log(event.target.name);
-    event.target.name === "individual"
-      ? setDisplayActions({ ...displayActions, group: false })
-      : setDisplayActions({ ...displayActions, group: true });
+  // function actionsToDisplayToggle(event) {
+  //   console.log(event.target.name);
+  //   event.target.name === "individual"
+  //     ? setDisplayActions({ ...displayActions, group: false })
+  //     : setDisplayActions({ ...displayActions, group: true });
 
-    event.target.name === "display_actions_switch" &&
-      setDisplayActions({
-        ...displayActions,
-        allVisible: !displayActions.allVisible,
-      });
+  //   event.target.name === "display_actions_switch" &&
+  //     setDisplayActions({
+  //       ...displayActions,
+  //       allVisible: !displayActions.allVisible,
+  //     });
 
-    if (event.target.name === "individual") {
-      typeOfActions = "individual";
-    }
-  }
+  //   if (event.target.name === "individual") {
+  //     typeOfActions = "individual";
+  //   }
+  // }
 
   // I refactored the Group and individual pages into the mainmenu because right now ActionsIndividual.jsx and ActionsGroup.jsx are
   // exactly the same except one filters the group actions and the other one filters the individual ones.
@@ -250,7 +248,6 @@ export default function ActionsMenu() {
         </div>
       </div>
       <Outlet />
-
 
       <br />
       <br />

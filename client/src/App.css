@@ -21,9 +21,7 @@ body {
   min-height: 100vh;
 }
 
-
-.mainmenu_container{
-
+.mainmenu_container {
   display: flex;
   columns: 2;
   padding: auto;
@@ -121,8 +119,8 @@ body {
 
 .actionCard-css {
   background-color: white;
-  width: 18.5rem;
-  height: 18.5rem;
+  width: 18rem;
+  height: 18rem;
   text-align: left;
   border: 1px solid black;
   margin-bottom: 50px;
@@ -131,7 +129,7 @@ body {
 }
 
 .actionCard-css:hover {
-  background-color: rgb(250, 250, 250);
+  background-color: rgb(245, 245, 245);
   border: 1px solid black;
   box-shadow: 8px 8px 5px rgba(0, 0, 0, 0.3);
 }
