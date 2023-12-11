@@ -13,7 +13,7 @@ body {
 }
 
 /* but this doesn't work when I create a class for the map itlsef */
-.modal-xlg{
+.modal-xlg {
   height: 30px;
 }
 #page-container {
@@ -95,4 +95,26 @@ body {
   position: absolute;
   bottom: 10px;
   left: 10px;
+}
+
+.actionCreatedTittle-css {
+  align-items: center;
+  margin-top: 250px;
+  text-align: center;
+}
+
+.buttonToGoToHomePage-css {
+  position: absolute;
+  width: 110px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 100px;
+  left: 0px;
+  right: 0px;
+  margin-top: 230px;
+  border-radius: 6px;
+  border: 0px;
+  padding: 9px 19px;
+  color: rgb(248, 242, 242);
+  background-color: rgb(108, 187, 226);
 }
