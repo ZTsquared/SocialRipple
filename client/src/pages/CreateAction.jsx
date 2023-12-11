@@ -9,7 +9,9 @@ import NavBar from "../components/NavBar";
 export default function CreateAction() {
   const [actionBody, setActionBody] = useState({ description: "" });
   const [actionCoordinates, setActionCoordinates] = useState();
-  const [requirements, setRequirements] = useState();
+  const [requirements, setRequirements] = useState([
+    { req_capacity: "", req_description: "" },
+  ]);
   const [user, setUser] = useState();
   const [keywords, setKeywords] = useState(); // just to get the full array of keywords so you can pick the ones you want.
   const [preferences, setPreferences] = useState([]); // doing it like this for now... it's NOT exactly requirements, but ye
@@ -18,6 +20,10 @@ export default function CreateAction() {
   const minLength = 140; //characters in the description field
   const [actionCreated, setActionCreated] = useState(false);
   const [allInputsCompleted, setAllInputsCompleted] = useState(false);
+  const [atLeastOneRequirementCompleted, setAtLeastOneRequirementCompleted] =
+    useState(false);
+  const [wantToAddMoreRequirements, setWantToAddMoreRequirements] =
+    useState(false);
 
   useEffect(() => {
     getUsers();
@@ -99,11 +105,21 @@ export default function CreateAction() {
     console.log(allInputsCompleted);
   };
 
-  const handleRequirementChange = (e) => {
-    const { name, value } = e.target;
-    name === "req_capacity"
-      ? setRequirements({ ...requirements, capacity: value })
-      : setRequirements({ ...requirements, description: value });
+  const handleRequirementChange = (index, event) => {
+    const { name, value } = event.target;
+    // name === "req_capacity"
+    //   ? setRequirements({ ...requirements, capacity: value })
+    //   : setRequirements({ ...requirements, description: value });
+    const newRequirements = [...requirements];
+    newRequirements[index][name] = value;
+    setRequirements(newRequirements);
+  };
+
+  const addRequirement = () => {
+    setRequirements([
+      ...requirements,
+      { req_capacity: "", req_description: "" },
+    ]);
   };
 
   function handleKeywordChange(e) {
@@ -178,6 +194,10 @@ export default function CreateAction() {
       console.log(error);
     }
   };
+
+  function settingToTrue() {
+    setWantToAddMoreRequirements(true);
+  }
 
   return (
     <div>
@@ -429,41 +449,46 @@ export default function CreateAction() {
             </div>{" "}
             <br />
             <br />
-            <h5> Volunteership Requirements: </h5>{" "}
-            <label
-              htmlFor="requirements"
-              className="form-label"
-              style={{
-                fontSize: "16px",
-              }}
+            <h5>Volunteership Requirements:</h5>
+            {requirements.map((requirement, index) => (
+              <div key={index}>
+                <label htmlFor={`req_capacity_${index}`} className="form-label">
+                  How many people are needed?
+                  <input
+                    onChange={(e) => handleRequirementChange(index, e)}
+                    name="req_capacity"
+                    type="number"
+                    value={requirement.req_capacity}
+                    className="form-control"
+                  />
+                </label>
+                <br />
+                <label
+                  htmlFor={`req_description_${index}`}
+                  className="form-label"
+                >
+                  Description: <br />
+                  <textarea
+                    onChange={(e) => handleRequirementChange(index, e)}
+                    name="req_description"
+                    id={`req_description_${index}`}
+                    value={requirement.req_description}
+                    cols="50"
+                    rows="5"
+                    className="form-control"
+                    placeholder="Help us understand what tasks or skills are needed from volunteers during this action."
+                  ></textarea>
+                </label>
+                <br />
+              </div>
+            ))}
+            <button
+              onClick={addRequirement}
+              className="buttonToAddNewRequirement-css"
             >
-              How many people are needed?
-              <input
-                onChange={handleRequirementChange}
-                name="req_capacity"
-                type="number"
-                className="form-control"
-              />
-            </label>
+              Add More
+            </button>
             <br />
-            <label
-              htmlFor=""
-              className="form-label"
-              style={{
-                fontSize: "16px",
-              }}
-            >
-              Description: <br />
-              <textarea
-                onChange={handleRequirementChange}
-                name="req_description"
-                id="req_description"
-                cols="50"
-                rows="5"
-                className="form-control"
-                placeholder="Help us understand what tasks or skills are needed from volunteers during this action. Clearly stating requirements allows potential volunteers to align their interests and abilities with the action's needs."
-              ></textarea>
-            </label>
             <br />
             {allInputsCompleted ? (
               <button

@@ -118,3 +118,11 @@ body {
   color: rgb(248, 242, 242);
   background-color: rgb(108, 187, 226);
 }
+
+.buttonToAddNewRequirement-css {
+  border-radius: 6px;
+  border: 0px;
+  padding: 7px 16px;
+  color: rgb(248, 242, 242);
+  background-color: rgb(108, 187, 226);
+}
