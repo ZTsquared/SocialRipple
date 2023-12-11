@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import "../Action.css";
 import { useCountdown } from "../hooks/useCountdown";
 import { Tabs, Tab } from "react-bootstrap";
@@ -9,7 +9,7 @@ import NavBar from "../components/NavBar";
 export default function Action() {
 	const [oneAction, setOneAction] = useState({});
 	const { ActionId } = useParams();
-	const [requirements, setRequirements] = useState([]);
+	const [requirements, setRequirements] = useOutletContext();
 
 	let navigate = useNavigate();
 
@@ -75,6 +75,8 @@ export default function Action() {
 	}
 
 	function handleCheckboxChange(e) {
+		console.log(e);
+		e.preventDefault();
 		if (e.target.checked) setRequirements((r) => [...r, e.target.value]);
 		else setRequirements((r) => r.filter((req) => req !== e.target.value));
 	}

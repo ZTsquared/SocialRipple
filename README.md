@@ -26,6 +26,7 @@ npm install axios (claire had to install this too)
 npm install 
 npm i react-router-dom (lets see after merge if we all need this or if judit's install covers it)
 npm install --save google-maps-react (judit?)
+npm i react-responsive-carousel
 
 
 creat your own .env file in the main folder:
