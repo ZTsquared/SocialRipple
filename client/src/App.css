@@ -21,6 +21,26 @@ body {
   min-height: 100vh;
 }
 
+.mainmenu_container {
+  display: flex;
+  columns: 2;
+  padding: auto;
+  margin: auto;
+}
+
+.actioncard_button {
+  border: none;
+  background: none;
+}
+
+.actions_left_side {
+  width: 75%;
+}
+
+.actions_right_side {
+  width: 25%;
+}
+
 #content-wrap {
   padding-bottom: 2.5rem; /* Footer height */
 }
@@ -97,6 +117,7 @@ body {
   left: 10px;
 }
 
+
 .actionCreatedTittle-css {
   align-items: center;
   margin-top: 250px;
@@ -125,4 +146,21 @@ body {
   padding: 7px 16px;
   color: rgb(248, 242, 242);
   background-color: rgb(108, 187, 226);
+
+.actionCard-css {
+  background-color: white;
+  width: 18rem;
+  height: 18rem;
+  text-align: left;
+  border: 1px solid black;
+  margin-bottom: 50px;
+  border-radius: 6px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.actionCard-css:hover {
+  background-color: rgb(245, 245, 245);
+  border: 1px solid black;
+  box-shadow: 8px 8px 5px rgba(0, 0, 0, 0.3);
+
 }

@@ -1,8 +1,0 @@
-Model Information:
-* title:	Earth
-* source:	https://sketchfab.com/3d-models/earth-c7632af3320d45969153471d585aa77a
-* author:	VRA (https://sketchfab.com/architect47)
-
-Model License:
-* license type:	SKETCHFAB Editorial (https://sketchfab.com/licenses)
-* requirements:	Use only in connection with events that are newsworthy or of public interest
