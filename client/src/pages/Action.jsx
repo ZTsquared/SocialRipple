@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
-  useParams,
-  useNavigate,
-  useOutletContext,
-  useLocation,
+
+	useParams,
+	useNavigate,
+	useLocation,
+
 } from "react-router-dom";
 import "../Action.css";
 import { useCountdown } from "../hooks/useCountdown";
 import { Tabs, Tab } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import NavBar from "../components/NavBar";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Noty from "noty";
@@ -17,11 +17,14 @@ import "../../node_modules/noty/lib/noty.css";
 import "../../node_modules/noty/lib/themes/mint.css";
 
 export default function Action() {
-  // console.log("Component re-rendered");
-  const [oneAction, setOneAction] = useState({});
-  const { ActionId } = useParams();
-  const [requirements, setRequirements] = useState([]);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+	// console.log("Component re-rendered");
+	const [oneAction, setOneAction] = useState({});
+	const { ActionId } = useParams();
+	const [requirements, setRequirements] = useState([]);
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [mouseOverJoinButton, setMouseOverJoinButton] = useState(false);
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -167,6 +170,43 @@ export default function Action() {
                     )}
                   </Tab>
 
+
+	return (
+		<div>
+			<Modal
+				show={show}
+				onHide={closeModal}
+				size="lg"
+				aria-labelledby="contained-modal-title-vcenter"
+				centered
+				>
+				<Modal.Header closeButton style={{backgroundColor: "#babecb"}}>
+					<Modal.Title>{oneAction.name}</Modal.Title>
+				</Modal.Header>
+				<Modal.Body >
+					<div>
+						<div className="actioncontainer-css">
+							<div className="tabs" >
+								<Tabs style={{borderRadius: "8px 8px 0% 0%"}} defaultActiveKey="description" id="tabs">
+									<Tab 
+										eventKey="description"
+										title="Description"
+										className="actionTabContent-css">
+										<p>{oneAction.description}</p>
+										<br></br>
+										{oneAction.Keywords && (
+											<div className="keywordBadges">
+												<ul>
+													{oneAction.Keywords.map((keyword) => (
+														<li className="keywordBadges" key={keyword.id}>
+															{keyword.keyword}
+														</li>
+													))}
+												</ul>
+											</div>
+										)}
+									</Tab>
+
                   <Tab
                     eventKey="location"
                     title="Location"
@@ -201,6 +241,7 @@ export default function Action() {
                       </div>{" "}
                     </div>
                   </Tab>
+
 
                   <Tab
                     eventKey="requirements"
@@ -277,38 +318,43 @@ export default function Action() {
               </div>
             </div>
 
-            {!Number.isNaN(days) && (
-              <div className="countdown">
-                {days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
-                  <div>Countdown is over!</div>
-                ) : (
-                  <div>
-                    Time until action!
-                    <br></br>
-                    {days} days, {hours} hours, {minutes} minutes, {seconds}{" "}
-                    seconds
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeModal}>
-            Close
-          </Button>
-          <Button
-            id="joinButton-css"
-            variant="primary"
-            onClick={handleClick}
-            style={{
-              backgroundColor: "#1640D6",
-            }}
-          >
-            Join
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
-  );
+						{!Number.isNaN(days) && (
+							<div className="countdown">
+								{days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? (
+									<div>Countdown is over!</div>
+								) : (
+									<div>
+										Time until action!
+										<br></br>
+										{days} days, {hours} hours, {minutes} minutes, {seconds}{" "}
+										seconds
+									</div>
+								)}
+							</div>
+						)}
+					</div>
+				</Modal.Body>
+				<Modal.Footer style={{backgroundColor: "#babecb"}}>
+					<Button variant="secondary" onClick={closeModal}>
+						Close
+					</Button>
+					<Button
+						onMouseEnter={() => setMouseOverJoinButton(true)}
+						onMouseLeave={() => setMouseOverJoinButton(false)}
+						
+						id="joinButton-css"
+						variant="primary"
+						onClick={handleClick}
+						style={{
+						
+							backgroundColor: mouseOverJoinButton ? "#1640D6" : "#3e5dce",
+							
+						}}>
+						Join
+					</Button>
+				</Modal.Footer>
+			</Modal>
+		</div>
+	);
+
 }

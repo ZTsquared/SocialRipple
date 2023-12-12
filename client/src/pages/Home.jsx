@@ -1,10 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 
 import React, { useEffect, useRef, useState } from "react";
 import { WebGLRenderer } from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Text3D, Sphere, useTexture } from "@react-three/drei";
 import ActionCard from "../components/ActionCard";
+
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
@@ -21,6 +22,7 @@ export default function Home() {
     getActions();
   }, []);
 
+
   async function getActions() {
     try {
       const response = await fetch(`/api/actions`);
@@ -33,6 +35,7 @@ export default function Home() {
   }
 
   const EsferitaBonita = ({ position, size, color }) => {
+
     const ref = useRef();
 
     const earthTexture = useTexture("./public/earthmap.jpeg");
@@ -51,10 +54,12 @@ export default function Home() {
 
   const TitleCanvas = () => {
     return (
+
       <Canvas
         frameloop="demand"
         camera={{ position: [0, 10, 9], fov: 10, near: 0.1, far: 200 }}
       >
+
         <ambientLight intensity={4} />
 
         <EsferitaBonita />
@@ -78,9 +83,11 @@ export default function Home() {
     // calls to action of the week
     // login button
     <div>
+
       <div className="flex justify-center items-center h-screen w-screen">
         <TitleCanvas />
       </div>
+
 
       <br />
       <h2>SocialRipple</h2>
@@ -98,47 +105,52 @@ export default function Home() {
 					lasting friendships and combating isolation within communities. Join
 					us in our commitment to make a difference while forging meaningful
 					connections that extend beyond the boundaries of social change. */}
-        </p>
-      </div>
 
-      {/* <h4>This is what is going on this week:</h4> */}
-      <div className="d-flex justify-content-center align-items-center">
-        <div className="row">
-          <Carousel>
-            {actions
-              .filter((act, i) => i < 4)
-              .map((action, index) => (
-                <div key={index}>
-                  <img
+				</p>
+			</div>
+
+			{/* <h4>This is what is going on this week:</h4> */}
+			<div className="d-flex justify-content-center align-items-center">
+				<div className="row">
+					<Carousel>
+						{actions
+							.filter((act, i) => i < 4)
+							.map((action, index) => (
+								<div key={index}>
+									<img
                     src={`src/images/${
                       action.Keywords[0]
                         ? action.Keywords[0].keyword
                         : "Generic"
                     }.jpg`}
-                    alt=""
+                    alt="event image"
                   />
-                  <p className="legend">
-                    {action.name} <br /> {action.description}
-                  </p>
-                </div>
-              ))}
-          </Carousel>
-        </div>
-        <div className="mission-container-css">
-          <p className="mission-statement-css">
-            Our mission is to provide a safe space where individuals can engage
-            in transformative Calls to Actions—events and challenges that
-            transcend the ordinary. Whether you prefer the camaraderie of group
-            activities or the personal challenge of individual pursuits, our
-            platform offers diverse opportunities, both online and in person. At
-            the core of our vision is the belief that creating positive societal
-            impact can also be a catalyst for building lasting friendships and
-            combating isolation within communities. Join us in our commitment to
-            make a difference while forging meaningful connections that extend
-            beyond the boundaries of social change.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+									<p className="legend">
+										{action.name} <br /> {action.description}
+									</p>
+								</div>
+							))}
+					</Carousel>
+				</div>
+				<div className="mission-container-css">
+					<p className="mission-statement-css">
+						Our mission is to provide a safe space where individuals can engage
+						in transformative Calls to Actions—events and challenges that
+						transcend the ordinary. Whether you prefer the camaraderie of group
+						activities or the personal challenge of individual pursuits, our
+						platform offers diverse opportunities, both online and in person. At
+						the core of our vision is the belief that creating positive societal
+						impact can also be a catalyst for building lasting friendships and
+						combating isolation within communities. Join us in our commitment to
+						make a difference while forging meaningful connections that extend
+						beyond the boundaries of social change.
+					</p>
+				</div>
+			</div>
+			<Outlet />
+		</div>
+
+		
+	);
+
 }

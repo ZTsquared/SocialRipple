@@ -50,10 +50,23 @@ export default function Profile() {
       ) : (
         <h1 className="userProfile-css">User profile</h1>
       )}
-      <h3>Hello {user.username}!</h3>
+
+      <div >
+        
+      
+        <div >
+        <h3 >Hello {user.username}!</h3>
+        </div>
+      
+        <div >
+          <img style={{width: "10%"}}  src="./public/profile_pic.png" alt="" />
+        </div>
+        
+      </div>
+      
       <div>These are your preferences:</div>
 
-      <div>
+      <div style={{textAlign: "left"}}>
         {preferences?.map((e, i) => (
           <div key={i} style={{ margin: "5px" }}>
             <div key={i} className="keywordsAtProfile-css">

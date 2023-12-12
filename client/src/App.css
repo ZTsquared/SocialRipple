@@ -23,6 +23,7 @@ a {
   text-align: center;
 }
 
+
 /* register page */
 .registerPage-css {
   text-align: left;
@@ -150,12 +151,14 @@ a {
 }
 
 .keywordsAtProfile-css {
+
   border: 1px solid transparent;
   border-radius: 8px;
   background-color: #c174b040;
   margin: auto;
   max-width: 90px;
   padding: 2px 3px;
+
 }
 
 .dateAtEntry-css {
@@ -220,7 +223,9 @@ a {
   margin-left: 20px;
 }
 
+
 .keywordSelect-css:hover {
   background-color: #c174b080 !important;
   border: 1px solid black !important;
 }
+
