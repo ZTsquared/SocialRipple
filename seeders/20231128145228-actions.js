@@ -116,7 +116,7 @@ module.exports = {
 				start_time: "2024-01-07T13:00:00",
 				end_time: "2024-01-07T16:00:00",
 				is_group: 1,
-				name: "Debate on the Rise of Neo-Fascism",
+				name: "Debate on Neo-Fascism",
 				description:
 					"Engage in a thought-provoking and challenging exploration of political ideologies with a neo-fascism debate. This discourse invites participants to critically examine the principles and tenets associated with neo-fascist thought. Delve into the complexities of historical context, social implications, and the contemporary resonance of these ideologies. As participants present and counter arguments, the debate fosters an environment for rigorous intellectual exchange, aiming to deepen understanding and provoke critical thinking. While discussions on such topics can be intense, the goal is to provide a platform for examining contrasting viewpoints within the bounds of respectful discourse. Join us for an enlightening and intellectually stimulating neo-fascism debate that encourages reflection and promotes a nuanced understanding of political ideologies in today's world.",
 				organiserId: 2,
@@ -201,11 +201,11 @@ module.exports = {
 			},
 			{
 				online: 1,
-				in_person: 0,
+				in_person: 1,
 				start_time: "2024-01-0721:00:00",
 				end_time: "2024-01-07T00:00:00",
-				is_group: 0,
-				name: "Music Night",
+				is_group: 1,
+				name: "Salsa Night",
 				description:
 					"Step into the enchanting world of melody and rhythm at our Music Night, where the air is filled with the soulful notes of live performances and the shared joy of musical appreciation. Immerse yourself in a diverse tapestry of genres, from acoustic serenades to upbeat tunes that make you want to dance. Our talented musicians will transport you through an evening of musical enchantment, creating an atmosphere that resonates with harmony and emotion. Whether you're a connoisseur of classical compositions or a lover of modern beats, Music Night is a celebration of the universal language that connects us all. Join us for an unforgettable night where melodies weave stories and every note carries the promise of shared experiences and cherished memories.",
 				organiserId: 2,
@@ -382,7 +382,7 @@ module.exports = {
 				start_time: "2024-01-07T13:00:00",
 				end_time: "2024-01-07T16:00:00",
 				is_group: 1,
-				name: "Debate on the Rise of the Far Right",
+				name: "Debate on the Far Right",
 				description:
 					"Engage in a thought-provoking and challenging exploration of political ideologies with a neo-fascism debate. This discourse invites participants to critically examine the principles and tenets associated with neo-fascist thought. Delve into the complexities of historical context, social implications, and the contemporary resonance of these ideologies. As participants present and counter arguments, the debate fosters an environment for rigorous intellectual exchange, aiming to deepen understanding and provoke critical thinking. While discussions on such topics can be intense, the goal is to provide a platform for examining contrasting viewpoints within the bounds of respectful discourse. Join us for an enlightening and intellectually stimulating neo-fascism debate that encourages reflection and promotes a nuanced understanding of political ideologies in today's world.",
 				organiserId: 2,
@@ -449,11 +449,11 @@ module.exports = {
 				updatedAt: new Date(),
 			},
 			{
-				online: 1,
-				in_person: 0,
+				online: 0,
+				in_person: 1,
 				start_time: "2024-01-07T13:00:00",
 				end_time: "2024-01-07T16:00:00",
-				is_group: 0,
+				is_group: 1,
 				name: "Arts Night",
 				description:
 					"Unleash your creativity and join us for a magical Craft Night where artistic expression knows no bounds. Picture a cozy atmosphere filled with vibrant colors, laughter, and the hum of imagination at work. Gather with fellow craft enthusiasts to explore a myriad of artistic possibilities – from painting and sculpting to DIY projects and beyond. With a palette of materials at your fingertips, let your creativity flow as you bring your ideas to life. Whether you're a seasoned crafter or just discovering your artistic flair, Craft Night is a space for self-expression and community. Share tips, swap stories, and revel in the joy of creating something uniquely yours. Join us for an evening of crafty delights, where every masterpiece is a testament to the boundless beauty of imagination.",
@@ -467,10 +467,10 @@ module.exports = {
 			},
 			{
 				online: 1,
-				in_person: 0,
+				in_person: 1,
 				start_time: "2024-01-0721:00:00",
 				end_time: "2024-01-07T00:00:00",
-				is_group: 0,
+				is_group: 1,
 				name: "Music Night",
 				description:
 					"Step into the enchanting world of melody and rhythm at our Music Night, where the air is filled with the soulful notes of live performances and the shared joy of musical appreciation. Immerse yourself in a diverse tapestry of genres, from acoustic serenades to upbeat tunes that make you want to dance. Our talented musicians will transport you through an evening of musical enchantment, creating an atmosphere that resonates with harmony and emotion. Whether you're a connoisseur of classical compositions or a lover of modern beats, Music Night is a celebration of the universal language that connects us all. Join us for an unforgettable night where melodies weave stories and every note carries the promise of shared experiences and cherished memories.",

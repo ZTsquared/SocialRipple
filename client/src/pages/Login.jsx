@@ -60,7 +60,7 @@ export default function Login() {
 					aria-labelledby="contained-modal-title-vcenter"
 					centered
 					>
-					<Modal.Header closeButton style={{backgroundColor: "#babecb"}}>
+					<Modal.Header closeButton style={{backgroundColor: "#efdceb"}}>
 						<Modal.Title>Login</Modal.Title>
 					</Modal.Header>
 					<Modal.Body >
@@ -99,7 +99,7 @@ export default function Login() {
 							</button>{" "}
 							<br />
 							<br />
-							<Link to="/Register">Don't have an account yet?</Link>
+							<Link className="bluelink" to="/Register">Don't have an account yet?</Link>
 						</div>
 					</div>
 					</Modal.Body>

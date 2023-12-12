@@ -83,13 +83,13 @@ export default function Home() {
 				<TitleCanvas />
 			</div>
 
-			<br />
+	
 
 			<div className="homepageParagraph-css">
-				<p>
+				<h4 className="fw-light">
 					Welcome to SocialRipple, a platform designed to foster connections
 					through meaningful social change.
-				</p>
+				</h4>
 			</div>
 
 			<div className="d-flex justify-content-center align-items-center">
@@ -97,7 +97,7 @@ export default function Home() {
 				{/* <div className="row"> */}
 				<Carousel>
 					{actions
-						.filter((act, i) => i < 4)
+						.filter((act, i) => i < 8)
 						.map((action, index) => (
 							<div key={index}>
 								<img
@@ -108,8 +108,8 @@ export default function Home() {
                     }.jpg`}
                     alt="event image"
                   />
-								<p className="legend">
-									{action.name} <br /> {action.description}
+								<p style={{textAlign: "justify"}}className="legend">
+									<h6>{action.name}</h6>  {action.description}
 								</p>
 							</div>
 						))}
@@ -118,7 +118,7 @@ export default function Home() {
 				{/* <div className="row"> */}
 			</div>
 			<div className="mission-container-css">
-				<h4>Our Mission</h4>
+				<h4 style={{textAlign: "center"}}>Our Mission</h4>
 				<p className="mission-statement-css">
 					We want to create a safe space for transformative Calls to Actions,
 					fostering connections through group and individual activities, online
@@ -131,7 +131,7 @@ export default function Home() {
 			<div className="row">
 				<div className="col-4">
 					<div className="homepageBoxes">
-						<i class="fa-solid fa-users"></i>
+						<i className="fa-solid fa-users"></i>
 						<br></br>
 						Connect with other people. Join a community of like-minded and open
 						people, who are hungry for social change. Let's make this world a
@@ -141,7 +141,7 @@ export default function Home() {
 				<div className="col-4">
 					{" "}
 					<div className="homepageBoxes">
-						<i class="fa-solid fa-calendar"></i>
+						<i className="fa-solid fa-calendar"></i>
 						<br></br>
 						Join any of our user generated calls to action. Buy a book from a
 						local store or come to our movie night. We have a wide range of
@@ -152,7 +152,7 @@ export default function Home() {
 				<div className="col-4">
 					{" "}
 					<div className="homepageBoxes">
-						<i class="fa-solid fa-user"></i>
+						<i className="fa-solid fa-user"></i>
 						<br></br>
 						Keep connected with other users. Keep track of your previous and
 						upcoming calls to action. Make your profile space really your own

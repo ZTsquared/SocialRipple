@@ -225,7 +225,7 @@ export default function CreateAction() {
                 type="text"
                 id="name"
                 name="name"
-                maxLength={35}
+                maxLength={25}
                 className="form-control"
                 cols="50"
               />
@@ -258,6 +258,45 @@ export default function CreateAction() {
                   understand what it's about!
                 </div>
               )}
+            </div>
+            <br />
+
+            <label
+              style={{
+                fontSize: "18px",
+              }}
+            >
+              What is this action related to?
+            </label>
+            <div className="preferencesInRegisterPage-css row justify-content-center">
+              {keywords?.map((keyword, index) => (
+                <div
+                  key={keyword.id}
+                  className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
+                  style={{ margin: index % 3 === 2 ? "5px" : "10px" }}
+                >
+                  <div className="d-inline-flex" style={{ gap: "67px" }}>
+                    <input
+                      id={keyword.id}
+                      value={keyword.id}
+                      type="checkbox"
+                      onChange={handleKeywordChange}
+                      checked={
+                        preferences.includes(keyword.id) ? "checked" : null
+                      }
+                      className="btn-check"
+                      autoComplete="off"
+                    />
+                    <label
+                      className="btn keywordSelect-css"
+                      htmlFor={keyword.id}
+                      style={{ backgroundColor: "#e4f1fe" }}
+                    >
+                      {keyword.keyword}
+                    </label>
+                  </div>
+                </div>
+              ))}
             </div>
             <br />
             <label
@@ -401,46 +440,10 @@ export default function CreateAction() {
                   />
                 </label>
                 <br />
-                <br />
+
               </div>
             )}
-            <label
-              style={{
-                fontSize: "18px",
-              }}
-            >
-              What is this action related to?
-            </label>
-            <div className="preferencesInRegisterPage-css row justify-content-center">
-              {keywords?.map((keyword, index) => (
-                <div
-                  key={keyword.id}
-                  className={`col-2 mb-3 d-flex justify-content-center align-items-center`}
-                  style={{ margin: index % 3 === 2 ? "5px" : "10px" }}
-                >
-                  <div className="d-inline-flex" style={{ gap: "67px" }}>
-                    <input
-                      id={keyword.id}
-                      value={keyword.id}
-                      type="checkbox"
-                      onChange={handleKeywordChange}
-                      checked={
-                        preferences.includes(keyword.id) ? "checked" : null
-                      }
-                      className="btn-check"
-                      autoComplete="off"
-                    />
-                    <label
-                      className="btn keywordSelect-css"
-                      htmlFor={keyword.id}
-                      style={{ backgroundColor: "#e4f1fe" }}
-                    >
-                      {keyword.keyword}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
+            
             <br />
             <br />
             <h5>Volunteership Requirements:</h5>
