@@ -105,8 +105,8 @@ export default function NavBar() {
 					tabIndex="-1"
 					style={{
 						width: "15%",
-						background: "linear-gradient(to top, #001B79, #FF90C2)",
-						color: "#1640D6",
+						backgroundColor: "#ffe4e1",
+						// color: "#1640D6",
 					}}
 					id="offcanvasNavbar"
 					aria-labelledby="offcanvasNavbarLabel">

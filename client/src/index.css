@@ -3,6 +3,10 @@ a {
 	color: black;
 }
 
+body {
+	margin-top: 60px;
+}
+
 a:hover {
 	color: blue;
 }
