@@ -1,11 +1,14 @@
 a {
-  text-decoration: none;
-  color: black;
+	text-decoration: none;
+	color: black;
 }
 
-body {
-  margin: 20px;
-  margin-top: 55px;
-  text-align: center;
-  background-color: lavender;
+a:hover {
+	color: blue;
+}
+
+.homepageBody-css {
+	/* margin: 20px; */
+	margin-top: 55px;
+	text-align: center;
 }

@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, useOutletContext, useLocation } from "react-router-dom";
+import {
+	useParams,
+	useNavigate,
+	useOutletContext,
+	useLocation,
+} from "react-router-dom";
 import "../Action.css";
 import { useCountdown } from "../hooks/useCountdown";
 import { Tabs, Tab } from "react-bootstrap";
@@ -7,23 +12,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "../components/NavBar";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import Noty from "noty";
+import "../../node_modules/noty/lib/noty.css";
+import "../../node_modules/noty/lib/themes/mint.css";
 
 export default function Action() {
+	// console.log("Component re-rendered");
 	const [oneAction, setOneAction] = useState({});
 	const { ActionId } = useParams();
 	const [requirements, setRequirements] = useState([]);
+	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	useEffect(() => {
 		displayOneAction();
-		console.log(location.state)
+		console.log(location.state);
 	}, [ActionId]);
 
-	useEffect(() => {
-
-	}, [oneAction]);
+	useEffect(() => {}, [oneAction]);
 
 	async function displayOneAction() {
 		try {
@@ -59,7 +67,7 @@ export default function Action() {
 		minute: "numeric",
 	});
 
-	// adding ruquirement and user id to volunteershi table
+	// adding requirement and user id to volunteership table
 	async function addVolunteerships() {
 		try {
 			console.log("posting");
@@ -73,12 +81,34 @@ export default function Action() {
 			});
 			console.log("returned by post:");
 			console.log(data);
+			// show notification
+			new Noty({
+				text: "Joined successfully!",
+				type: "success",
+				layout: "topRight",
+				timeout: 3000,
+			}).show();
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
+	let check = 0;
 	function handleCheckboxChange(e) {
+<<<<<<<<< Temporary merge branch 1
+
+		if (e.target.checked) setRequirements((r) => [...r, e.target.value]);
+		else setRequirements((r) => r.filter((req) => req !== e.target.value));
+=========
+		console.log(e);
+		if (e.target.checked) {
+			setRequirements((r) => [...r, e.target.value]);
+			check = 1;
+		} else {
+			setRequirements((r) => r.filter((req) => req !== e.target.value));
+			check = 0;
+		}
+		console.log(check);
 
 		if (e.target.checked) setRequirements((r) => [...r, e.target.value]);
 		else setRequirements((r) => r.filter((req) => req !== e.target.value));
@@ -87,13 +117,20 @@ export default function Action() {
 	// users to join events with the requirements selected
 	const handleClick = () => {
 		addVolunteerships();
+		//setShowSuccessMessage(true);
+		// THIS IS NEWWW
+		// alert("Joined successfully!");
+		closeModal();
 	};
 
 	function closeModal() {
 		setShow(false);
-		setTimeout(() => navigate("/Actions", {state: location.state}), 300);
+		setTimeout(() => {
+			navigate("/Actions");
+			//setShowSuccessMessage(false); // Reset the success message state when closing the modal
+		}, 1000);
+		setTimeout(() => navigate("/Actions", { state: location.state }), 300);
 	}
-
 	const [show, setShow] = useState(true);
 
 	return (
@@ -182,6 +219,10 @@ export default function Action() {
 																</div>
 																<div className="col-2">
 																	<input
+																		disabled={
+																			requirement.Users.length ===
+																			requirement.capacity
+																		}
 																		value={requirement.id}
 																		type="checkbox"
 																		checked={
@@ -194,12 +235,13 @@ export default function Action() {
 																</div>
 																{/*showing the capacity*/}
 																<div className="col-2">
-																	{requirement.Users.length !==
-																		requirement.capacity &&
-																		`${requirement.Users.length} / ${requirement.capacity}`}
+																	{`${requirement.Users.length + check} / ${
+																		requirement.capacity
+																	}`}
 																</div>
-																<div className="col-2">
-																	{/*
+
+																{/* <div className="col-2"> */}
+																{/*
 													{requirement.Volunteerships &&
 														requirement.Volunteerships.length > 0 && (
 															<div>
@@ -213,7 +255,7 @@ export default function Action() {
 																)}
 															</div>
 																	)}*/}
-																</div>
+																{/* </div> */}
 															</div>
 														</div>
 													))}
@@ -244,8 +286,14 @@ export default function Action() {
 					<Button variant="secondary" onClick={closeModal}>
 						Close
 					</Button>
-					<Button variant="primary" onClick={handleClick}>
-						Join!
+					<Button
+						id="joinButton-css"
+						variant="primary"
+						onClick={handleClick}
+						style={{
+							backgroundColor: "#1640D6",
+						}}>
+						Join
 					</Button>
 				</Modal.Footer>
 			</Modal>

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import {
+
   Link,
   useNavigate,
   useLocation,
   useParams,
   Outlet,
+
 } from "react-router-dom";
 import ActionCard from "../components/ActionCard";
 import Map from "../components/Map";
 
 export default function ActionsMenu() {
+
   const navigate = useNavigate();
   const location = useLocation();
   const [actions, setActions] = useState([]); // an array with ALL the actions
@@ -80,11 +83,13 @@ export default function ActionsMenu() {
     }
   }
 
+
   function handleKeywordChange(e) {
     if (e.target.checked) setSelectedKeywordIds((k) => [...k, e.target.value]);
     else
       setSelectedKeywordIds((k) => k.filter((key) => key !== e.target.value));
   }
+
 
   function handleFilterToggle() {
     if (selectFilter) {
@@ -99,6 +104,7 @@ export default function ActionsMenu() {
   function handleAndSearchToggle() {
     setAndSearch(!andSearch);
   }
+
 
   // function actionsToDisplayToggle(event) {
   //   console.log(event.target.name);
@@ -126,6 +132,7 @@ export default function ActionsMenu() {
   // a sort of carousel fashion, showing 3 on top with arrows to scroll between the available actions left or right.
   // This all can be also refactored into components, but I think the concept of staying in the same page, even if filters for the actions are
   // implemented, makes sense.
+
 
   // but if we prefer the other approach we can revert to a previous commit ^^
 
@@ -254,4 +261,5 @@ export default function ActionsMenu() {
       <br />
     </div>
   );
+
 }
