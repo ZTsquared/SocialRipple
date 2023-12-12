@@ -10,7 +10,7 @@ export default function CreateAction() {
   const [actionBody, setActionBody] = useState({ description: "" });
   const [actionCoordinates, setActionCoordinates] = useState();
   const [requirements, setRequirements] = useState([
-    { req_capacity: "", req_description: "" },
+    { capacity: "", description: "" },
   ]);
   const [user, setUser] = useState();
   const [keywords, setKeywords] = useState(); // just to get the full array of keywords so you can pick the ones you want.
@@ -22,13 +22,17 @@ export default function CreateAction() {
   const [allInputsCompleted, setAllInputsCompleted] = useState(false);
   const [atLeastOneRequirementCompleted, setAtLeastOneRequirementCompleted] =
     useState(false);
-  const [wantToAddMoreRequirements, setWantToAddMoreRequirements] =
-    useState(false);
+  const [unlimitedPlaces, setUnlimitedPlaces] = useState(false);
 
   useEffect(() => {
     getUsers();
     getKeywords();
   }, []);
+
+  // useEffect(() => {
+  //   console.log("login requirements");
+  //   console.log(requirements);
+  // }, [requirements]);
 
   useEffect(() => {
     setCoordinates(
@@ -80,6 +84,7 @@ export default function CreateAction() {
     }
 
     if (actionBody.online) {
+      console.log(preferences.length);
       if (
         actionBody.online_link.length &&
         actionBody.name.length &&
@@ -102,27 +107,42 @@ export default function CreateAction() {
         setAllInputsCompleted(true);
       }
     }
-    console.log(requirements);
   };
 
   const handleRequirementChange = (index, event) => {
-    const { name, value } = event.target;
-    const newRequirements = [...requirements];
-    newRequirements[index][name] = value;
-    setRequirements(newRequirements);
+    const { name, value, checked } = event.target;
+
+    if (name === "capacity_checkbox") {
+      console.log(`is it checked? ${checked}`);
+      if (checked) setUnlimitedPlaces(true);
+      else if (!checked) setUnlimitedPlaces(false);
+    }
+
+    if (unlimitedPlaces) {
+      requirements[index].capacity = null;
+    }
+
     if (
-      requirements[0].req_capacity > 0 &&
-      requirements[0].req_description.length
+      (requirements[index].capacity > 0 &&
+        requirements[index].description?.length) ||
+      (unlimitedPlaces && requirements[0].description?.length)
     ) {
       setAtLeastOneRequirementCompleted(true);
     }
+
+    const newRequirements = [...requirements];
+
+    newRequirements[index][name] = value;
+
+    setRequirements(newRequirements);
+
+    console.log(unlimitedPlaces);
+    console.log(requirements);
   };
 
-  const addRequirement = () => {
-    setRequirements([
-      ...requirements,
-      { req_capacity: "", req_description: "" },
-    ]);
+  const addRequirement = (e) => {
+    e.preventDefault();
+    setRequirements([...requirements, { capacity: "", description: "" }]);
   };
 
   function handleKeywordChange(e) {
@@ -155,7 +175,7 @@ export default function CreateAction() {
         longitude: actionCoordinates?.lng,
         organiser_id: user.id,
         Keywords: preferences, // placeholder for now
-        Requirements: [requirements], // placeholder for now
+        Requirements: requirements, // placeholder for now
       });
       setActionCreated(true);
     }
@@ -215,7 +235,7 @@ export default function CreateAction() {
               help make our community a better place!
             </p>
           </div>
-          <form onSubmit={handleSubmit} action="">
+          <form>
             <label
               htmlFor="name"
               className="form-label"
@@ -436,7 +456,7 @@ export default function CreateAction() {
                       autoComplete="off"
                     />
                     <label
-                      className="btn"
+                      className="btn keywordSelect-css"
                       htmlFor={keyword.id}
                       style={{ backgroundColor: "#e4f1fe" }}
                     >
@@ -451,45 +471,44 @@ export default function CreateAction() {
             <h5>Volunteership Requirements:</h5>
             {requirements.map((requirement, index) => (
               <div key={index}>
-                <label htmlFor={`req_capacity_${index}`} className="form-label">
+                <label htmlFor={`capacity_${index}`} className="form-label">
                   How many people are needed?
                   <input
                     onChange={(e) => handleRequirementChange(index, e)}
-                    name="req_capacity"
+                    name="capacity"
                     type="number"
-                    value={requirement.req_capacity}
+                    value={requirement.capacity}
                     className="form-control"
                   />
                 </label>
                 <br />
                 <label
-                  htmlFor={`req_capacity_${index}`}
+                  htmlFor="capacity"
                   className="form-label"
                   style={{
                     fontSize: "17px",
                   }}
                 >
-                  {" "}
                   Unlimited places
                   <input
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      handleRequirementChange(index, e);
+                      setUnlimitedPlaces(e.target.checked);
+                    }}
                     type="checkbox"
-                    name="req_capacity"
-                    id="is_group"
+                    name="capacity_checkbox"
+                    checked={unlimitedPlaces}
                     className="checkedBoxesCreateAction-css"
                   />
                 </label>
                 <br />
-                <label
-                  htmlFor={`req_description_${index}`}
-                  className="form-label"
-                >
+                <label htmlFor={`description_${index}`} className="form-label">
                   Description: <br />
                   <textarea
                     onChange={(e) => handleRequirementChange(index, e)}
-                    name="req_description"
-                    id={`req_description_${index}`}
-                    value={requirement.req_description}
+                    name="description"
+                    id={`description_${index}`}
+                    value={requirement.description}
                     cols="50"
                     rows="5"
                     className="form-control"
@@ -506,7 +525,7 @@ export default function CreateAction() {
             ))}
             <br />
             <button
-              onClick={addRequirement}
+              onClick={(e) => addRequirement(e)}
               className="buttonToAddNewRequirement-css"
             >
               Add More
@@ -521,6 +540,8 @@ export default function CreateAction() {
                   padding: "9px 22px",
                   borderRadius: "7px",
                 }}
+                onClick={handleSubmit}
+                type="submit"
               >
                 Create!
               </button>
