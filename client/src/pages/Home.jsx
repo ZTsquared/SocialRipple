@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 
 
 import React, { useEffect, useRef, useState } from "react";
@@ -6,6 +6,7 @@ import {WebGLRenderer} from "three";
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text3D, Sphere, useTexture } from '@react-three/drei';
 import ActionCard from "../components/ActionCard";
+import Modal from "react-bootstrap/Modal";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
@@ -58,6 +59,7 @@ export default function Home() {
   const TitleCanvas = () => {
 
     return (
+      
       <Canvas frameloop="demand" camera={{ position: [0, 10, 9], fov: 10, near: 0.1, far: 200 }}> 
         <ambientLight intensity={4} />
         
@@ -83,8 +85,7 @@ export default function Home() {
     // calls to action of the week
     // login button
     <div>
-
-
+		<br /><br /><br />
     <div className="flex justify-center items-center h-screen w-screen">
       <TitleCanvas />
     </div>
@@ -143,7 +144,10 @@ export default function Home() {
 					</p>
 				</div>
 			</div>
+			<Outlet />
 		</div>
+
+		
 	);
 
 }

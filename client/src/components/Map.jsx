@@ -8,6 +8,8 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import getUser from "./GetUser";
+import ActionCard from "../components/ActionCard";
+
 
 export default function Map({ actions }) {
   const [map, setMap] = useState(null);
@@ -20,7 +22,6 @@ export default function Map({ actions }) {
   const [currentMarkerAction, setCurrentMarkerAction] = useState();
 
   useEffect(() => {
-    // getActions();
     setUserCoordinatesAsCenter();
   }, []);
 
@@ -31,8 +32,7 @@ export default function Map({ actions }) {
   }
 
   const containerStyle = {
-    // display: "flex",
-    width: "800px",
+    width: "100vw",
     height: "800px",
   };
 
@@ -58,28 +58,18 @@ export default function Map({ actions }) {
       visible: true,
       position: { lat: action.latitude, lng: action.longitude },
     });
+    
   }
-
-  // async function getActions() {
-  //   try {
-  //     const response = await fetch(`/api/actions`);
-  //     const data = await response.json();
-  //     setActions(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
 
   const MyInfoWindow = () => {
     return (
-      <InfoWindow onCloseClick={() => console.log("this")} position={center}>
+      <InfoWindow onCloseClick={() => console.log("current action marker id: ", currentMarkerAction.id)} position={center}>
         <div>
-          <p>{currentMarkerAction.name}</p>
-          <p>{currentMarkerAction.description}</p>
           <Link to={`/Actions/View/${currentMarkerAction.id}`}>
-            learn more{" "}
+          <ActionCard action={currentMarkerAction}></ActionCard>
           </Link>
         </div>
+        
       </InfoWindow>
     );
   };

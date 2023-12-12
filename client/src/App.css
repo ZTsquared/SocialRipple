@@ -23,6 +23,7 @@ a {
 	text-align: center;
 }
 
+
 /* register page */
 .registerPage-css {
 	text-align: left;
@@ -197,6 +198,7 @@ a {
   padding: 7px 16px;
   color: rgb(248, 242, 242);
   background-color: rgb(108, 187, 226);
+}
 
 .actionCard-css {
   background-color: white;

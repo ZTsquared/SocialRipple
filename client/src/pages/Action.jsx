@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import {
 	useParams,
 	useNavigate,
-	useOutletContext,
 	useLocation,
 } from "react-router-dom";
 import "../Action.css";
 import { useCountdown } from "../hooks/useCountdown";
 import { Tabs, Tab } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import NavBar from "../components/NavBar";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Noty from "noty";
@@ -22,6 +20,7 @@ export default function Action() {
 	const { ActionId } = useParams();
 	const [requirements, setRequirements] = useState([]);
 	const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+	const [mouseOverJoinButton, setMouseOverJoinButton] = useState(false);
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -139,26 +138,27 @@ export default function Action() {
 				onHide={closeModal}
 				size="lg"
 				aria-labelledby="contained-modal-title-vcenter"
-				centered>
-				<Modal.Header closeButton>
+				centered
+				>
+				<Modal.Header closeButton style={{backgroundColor: "#babecb"}}>
 					<Modal.Title>{oneAction.name}</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
+				<Modal.Body >
 					<div>
 						<div className="actioncontainer-css">
-							<div className="tabs">
-								<Tabs defaultActiveKey="description" id="tabs">
-									<Tab
+							<div className="tabs" >
+								<Tabs style={{borderRadius: "8px 8px 0% 0%"}} defaultActiveKey="description" id="tabs">
+									<Tab 
 										eventKey="description"
 										title="Description"
-										className="actionTabContent-css ">
+										className="actionTabContent-css">
 										<p>{oneAction.description}</p>
 										<br></br>
 										{oneAction.Keywords && (
 											<div className="keywordBadges">
 												<ul>
 													{oneAction.Keywords.map((keyword) => (
-														<li className="badge bg-primary" key={keyword.id}>
+														<li className="keywordBadges" key={keyword.id}>
 															{keyword.keyword}
 														</li>
 													))}
@@ -281,16 +281,21 @@ export default function Action() {
 						)}
 					</div>
 				</Modal.Body>
-				<Modal.Footer>
+				<Modal.Footer style={{backgroundColor: "#babecb"}}>
 					<Button variant="secondary" onClick={closeModal}>
 						Close
 					</Button>
 					<Button
+						onMouseEnter={() => setMouseOverJoinButton(true)}
+						onMouseLeave={() => setMouseOverJoinButton(false)}
+						
 						id="joinButton-css"
 						variant="primary"
 						onClick={handleClick}
 						style={{
-							backgroundColor: "#1640D6",
+						
+							backgroundColor: mouseOverJoinButton ? "#1640D6" : "#3e5dce",
+							
 						}}>
 						Join
 					</Button>
