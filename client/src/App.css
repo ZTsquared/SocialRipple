@@ -13,9 +13,7 @@ a {
   margin: auto;
   margin-top: 20px;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .loginHeading-css {
@@ -35,11 +33,11 @@ a {
 	background-color: lavender;
 	text-align: center;
 } */
-/* body {
-	margin-top: 20px;
-	background-color: lavender;
+.body {
+	margin: 20px;
+
 	text-align: center;
-} */
+}
 
 /* but this doesn't work when I create a class for the map itlsef */
 .modal-xlg {
@@ -106,16 +104,6 @@ a {
   background-color: #1a53ff;
 }
 
-/* .registerTitle-css {
-	border: 2px solid rgb(108, 187, 226);
-	background-color: rgb(108, 187, 226);
-	color: rgb(248, 242, 242);
-	margin: 10px 500px;
-	padding: 2px;
-	border-radius: 7px; 
-} */
-
-/* home page */
 
 .homepageParagraph-css {
   margin: 5px 170px;
@@ -123,18 +111,14 @@ a {
 
 .mission-container-css {
 
-	/* background-color: #ffe4e1; */
-	/* padding: 20px; */
-	/* margin: 50px; */
-	text-align: left;
+  display: inline-block;
+	text-align: justify;
 	margin-left: 50px;
 	max-width: 600px;
+  margin-bottom: 40px;;
+  
 
 }
-
-/* .mission-statement-css {
-	/* font-size: 1.2em;
- } */
 
 .homepageBoxes {
 	display: flex;
@@ -178,7 +162,7 @@ a {
 
   border: 1px solid transparent;
   border-radius: 8px;
-  background-color: #c174b040;
+  background-color: #8691c2;
   margin: auto;
   max-width: 90px;
   padding: 2px 3px;

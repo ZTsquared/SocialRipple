@@ -100,7 +100,7 @@ export default function Action() {
   function handleCheckboxChange(e) {
     if (e.target.checked) setRequirements((r) => [...r, e.target.value]);
     else setRequirements((r) => r.filter((req) => req !== e.target.value));
-
+  }
 
 
   // users to join events with the requirements selected
@@ -134,7 +134,7 @@ export default function Action() {
 				aria-labelledby="contained-modal-title-vcenter"
 				centered
 				>
-				<Modal.Header closeButton style={{backgroundColor: "#babecb"}}>
+				<Modal.Header closeButton style={{backgroundColor: "#efdceb"}}>
 					<Modal.Title>{oneAction.name}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body >
@@ -163,7 +163,7 @@ export default function Action() {
 
                   <Tab
                     eventKey="location"
-                    title="Location"
+                    title="Where & When"
                     className="actionTabContent-css "
                   >
                     <div>
@@ -175,11 +175,11 @@ export default function Action() {
                           <div>Follow this link: {oneAction.online_link}</div>
                         )}
                         {oneAction.in_person && !oneAction.online && (
-                          <div>Location: {oneAction.city}</div>
+                          <div>City: {oneAction.city}</div>
                         )}
                         {oneAction.in_person && oneAction.online && (
                           <>
-                            <div>Location: {oneAction.city}</div>
+                            <div>City: {oneAction.city}</div>
                             <div>Follow this link: {oneAction.online_link}</div>
                           </>
                         )}
@@ -210,7 +210,7 @@ export default function Action() {
 								<div className="col-6"></div>
 								<div className="col-2"></div>
 								<div className="col-1">
-									volunteers needed
+                <h4><i className="fa-solid fa-person-circle-plus"></i></h4>
                                 </div>
 							</div>
 
@@ -237,10 +237,10 @@ export default function Action() {
                                   />
                                 </div>
                                 {/*showing the capacity*/}
-                                <div className="col-1">
+                                <div className="col-3">
                                   {requirement.capacity
                                     ? `${
-                                        requirement.capacity -
+                                        
                                         requirement.Users.length
                                       } / ${requirement.capacity }`
                                     : "Unlimited Capacity"}
@@ -278,17 +278,45 @@ export default function Action() {
 									<div>Countdown is over!</div>
 								) : (
 									<div>
-										Time until action!
-										<br></br>
-										{days} days, {hours} hours, {minutes} minutes, {seconds}{" "}
-										seconds
+										<h5 style={{margin: "3px"}}>Time until action:</h5>
+	
+                    <div className="row">
+                      <div className="col-3">
+                        days
+                      </div>
+                      <div className="col-3">
+                        hours
+                      </div>
+                      <div className="col-3">
+                        minutes
+                      </div>
+                      <div className="col-3">
+                        seconds
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-3">
+                        <h4>{days}</h4>
+                      </div>
+                      <div className="col-3">
+                        <h4>{hours}</h4>
+                      </div>
+                      <div className="col-3">
+                        <h4>{minutes}</h4>
+                      </div>
+                      <div className="col-3">
+                        <h4>{seconds}</h4>
+                      </div>
+                    </div>
+									
+
 									</div>
 								)}
 							</div>
 						)}
 					</div>
 				</Modal.Body>
-				<Modal.Footer style={{backgroundColor: "#babecb"}}>
+				<Modal.Footer style={{backgroundColor: "#efdceb"}}>
 					<Button variant="secondary" onClick={closeModal}>
 						Close
 					</Button>

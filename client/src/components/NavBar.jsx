@@ -109,7 +109,7 @@ export default function NavBar() {
           tabIndex="-1"
           	style={{
 						width: "15%",
-						backgroundColor: "#ffe4e1",
+						backgroundColor: "#efdceb",
 						// color: "#1640D6",
 					}}
           id="offcanvasNavbar"
@@ -118,7 +118,7 @@ export default function NavBar() {
           <div className="offcanvas-header">
             {isLoggedIn ? (
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                Hey, {user.username}!
+                Hey, {user?.username}!
               </h5>
             ) : (
               <h5>Welcome!</h5>
@@ -160,11 +160,9 @@ export default function NavBar() {
                       </div>
                     </Link>
                   </li>
-                  <br />
-                  <br />
-                  <br />
                   <li className="nav-item">
                     <Link to="/Profile" onClick={handleToggleOffcanvas}>
+                      <br />
                       <div
                         className="nav-link active"
                         aria-current="page"
