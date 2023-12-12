@@ -95,11 +95,10 @@ export default function Action() {
 
 	let check = 0;
 	function handleCheckboxChange(e) {
-<<<<<<<<< Temporary merge branch 1
 
 		if (e.target.checked) setRequirements((r) => [...r, e.target.value]);
 		else setRequirements((r) => r.filter((req) => req !== e.target.value));
-=========
+
 		console.log(e);
 		if (e.target.checked) {
 			setRequirements((r) => [...r, e.target.value]);
