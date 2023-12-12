@@ -1,6 +1,10 @@
 a {
-	text-decoration: none;
-	color: black;
+  text-decoration: none;
+  color: black;
+}
+
+body {
+  margin-top: 60px;
 }
 
 body {
@@ -8,11 +12,11 @@ body {
 }
 
 a:hover {
-	color: blue;
+  color: blue;
 }
 
 .homepageBody-css {
-	/* margin: 20px; */
-	margin-top: 55px;
-	text-align: center;
+  /* margin: 20px; */
+  margin-top: 55px;
+  text-align: center;
 }

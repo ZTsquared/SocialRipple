@@ -1,4 +1,6 @@
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, Outlet } from "react-router-dom";
+
 
 import React, { useEffect, useRef, useState } from "react";
 import { WebGLRenderer } from "three";
@@ -6,31 +8,32 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Text3D, Sphere, useTexture } from "@react-three/drei";
 import ActionCard from "../components/ActionCard";
 
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
 // import "./public/fonts/Kalnia-VariableFont.ttf"
 export default function Home() {
-	const navigate = useNavigate();
-	const [actions, setActions] = useState([]);
 
-	const renderer = new WebGLRenderer();
-	renderer.autoClear = false;
+  const navigate = useNavigate();
+  const [actions, setActions] = useState([]);
+
 
 	useEffect(() => {
 		getActions();
 	}, []);
 
-	async function getActions() {
-		try {
-			const response = await fetch(`/api/actions`);
-			const data = await response.json();
-			setActions(data);
-			console.log(actions);
-		} catch (error) {
-			console.log(error);
-		}
-	}
+  async function getActions() {
+    try {
+      const response = await fetch(`/api/actions`);
+      const data = await response.json();
+      setActions(data);
+      console.log(actions);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
 	const EsferitaBonita = ({ position, size, color }) => {
 		const ref = useRef();
@@ -90,6 +93,7 @@ export default function Home() {
 			</div>
 
 			<div className="d-flex justify-content-center align-items-center">
+
 				{/* <div className="row"> */}
 				<Carousel>
 					{actions
@@ -97,9 +101,13 @@ export default function Home() {
 						.map((action, index) => (
 							<div key={index}>
 								<img
-									src="https://blog.bluemoontalent.com/wp-content/uploads/2014/02/event-header-4.jpg"
-									alt=""
-								/>
+                    src={`src/images/${
+                      action.Keywords[0]
+                        ? action.Keywords[0].keyword
+                        : "Generic"
+                    }.jpg`}
+                    alt="event image"
+                  />
 								<p className="legend">
 									{action.name} <br /> {action.description}
 								</p>
@@ -139,6 +147,7 @@ export default function Home() {
 						local store or come to our movie night. We have a wide range of
 						activities created by people like you.
 					</div>
+
 				</div>
 				<div className="col-4">
 					{" "}
@@ -151,6 +160,9 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
+			<Outlet />
 		</div>
+
+		
 	);
 }
