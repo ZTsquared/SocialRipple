@@ -157,7 +157,7 @@ a {
 	border: 1px solid transparent;
 	border-radius: 8px;
 	background-color: rgb(108, 187, 226);
-	margin: auto;
+	/* margin: auto; */
 	max-width: 90px;
 	padding: 2px 3px;
 }

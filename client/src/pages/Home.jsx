@@ -6,7 +6,7 @@ import {WebGLRenderer} from "three";
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text3D, Sphere, useTexture } from '@react-three/drei';
 import ActionCard from "../components/ActionCard";
-import Modal from "react-bootstrap/Modal";
+
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
@@ -37,7 +37,7 @@ export default function Home() {
 	}
 
 
-  const EsferitaBonita = ({ position, size, color}) => {
+  	const EsferitaBonita = ({ position, size, color}) => {
 
     const ref = useRef();
 

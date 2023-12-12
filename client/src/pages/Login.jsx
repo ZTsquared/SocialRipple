@@ -3,10 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-
 import useAuth from "../hooks/useAuth";
-import NavBar from "../components/NavBar";
 
 export default function Login() {
 	const { isLoggedIn, onLogin } = useAuth();
@@ -59,7 +56,7 @@ export default function Login() {
 				<Modal
 					show={show}
 					onHide={closeModal}
-					size="lg"
+					size="s"
 					aria-labelledby="contained-modal-title-vcenter"
 					centered
 					>
@@ -106,10 +103,6 @@ export default function Login() {
 						</div>
 					</div>
 					</Modal.Body>
-				<Modal.Footer style={{backgroundColor: "#babecb"}}>
-
-					
-				</Modal.Footer>
 			</Modal>
 			
 		</div>
