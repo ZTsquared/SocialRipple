@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
-
   Link,
   useNavigate,
   useLocation,
   useParams,
   Outlet,
-
 } from "react-router-dom";
 import ActionCard from "../components/ActionCard";
 import Map from "../components/Map";
 
 export default function ActionsMenu() {
-
   const navigate = useNavigate();
   const location = useLocation();
   const [actions, setActions] = useState([]); // an array with ALL the actions
@@ -25,6 +22,11 @@ export default function ActionsMenu() {
     group: false,
   });
   const [typeOfActions, setTypeOfActions] = useState("all");
+  const actionTypes = [
+    ["all", "All Types"],
+    ["group", "Group"],
+    ["indiv", "Individual"],
+  ];
 
   useEffect(() => {
     console.log(location.state);
@@ -83,13 +85,11 @@ export default function ActionsMenu() {
     }
   }
 
-
   function handleKeywordChange(e) {
     if (e.target.checked) setSelectedKeywordIds((k) => [...k, e.target.value]);
     else
       setSelectedKeywordIds((k) => k.filter((key) => key !== e.target.value));
   }
-
 
   function handleFilterToggle() {
     if (selectFilter) {
@@ -104,7 +104,6 @@ export default function ActionsMenu() {
   function handleAndSearchToggle() {
     setAndSearch(!andSearch);
   }
-
 
   // function actionsToDisplayToggle(event) {
   //   console.log(event.target.name);
@@ -133,11 +132,10 @@ export default function ActionsMenu() {
   // This all can be also refactored into components, but I think the concept of staying in the same page, even if filters for the actions are
   // implemented, makes sense.
 
-
   // but if we prefer the other approach we can revert to a previous commit ^^
 
   return (
-    <div>
+    <div style={{ marginLeft: "30px" }}>
       {!selectFilter ? (
         <button className="sigInButton-css" onClick={handleFilterToggle}>
           Search Actions
@@ -145,28 +143,29 @@ export default function ActionsMenu() {
       ) : (
         <div>
           <br />
-          <label className="form-label">
-            What kind of activities are you looking for?
-          </label>
+          <div className="form-label">
+            What type of activities are you looking for?
+          </div>
           <br />
-          <button
-            className={typeOfActions === "group" ? "btn-check" : "btn"}
-            onClick={() => setTypeOfActions("group")}
-          >
-            Group
-          </button>
-          <button
-            className={typeOfActions === "indiv" ? "btn-check" : "btn"}
-            onClick={() => setTypeOfActions("indiv")}
-          >
-            Individual
-          </button>
-          <button
-            className={typeOfActions === "all" ? "btn-check" : "btn"}
-            onClick={() => setTypeOfActions("all")}
-          >
-            All Types
-          </button>
+          {actionTypes.map((type) => (
+            <span>
+              <input
+                type="radio"
+                className="btn-check"
+                name="options-outlined"
+                id={type[0] + "Toggle"}
+                autocomplete="off"
+                checked={typeOfActions === type[0] && "checked"}
+              />
+              <label
+                className="btn keywordSelect-css"
+                for={type[0] + "Toggle"}
+                onClick={() => setTypeOfActions(type[0])}
+              >
+                {type[1]}
+              </label>
+            </span>
+          ))}
           <br />
           <br />
           <label className="form-label">What themes interest you?</label>
@@ -194,7 +193,7 @@ export default function ActionsMenu() {
                     autoComplete="off"
                   />
                   <label
-                    className="btn"
+                    className="btn keywordSelect-css"
                     htmlFor={keyword.id}
                     style={{ backgroundColor: "#e4f1fe" }}
                   >
@@ -209,8 +208,9 @@ export default function ActionsMenu() {
             type="checkbox"
             onChange={handleAndSearchToggle}
             checked={andSearch ? "checked" : false}
+            style={{ margin: "6px" }}
           />
-          <label htmlFor="">
+          <label htmlFor="" style={{ marginBottom: "10px" }}>
             Show only actions that match all my selected keywords
           </label>
           <br />
@@ -261,5 +261,4 @@ export default function ActionsMenu() {
       <br />
     </div>
   );
-
 }
