@@ -74,7 +74,6 @@ export default function NavBar() {
   const handleToggleOffcanvas = () => {
     setShowOffcanvas(!showOffcanvas);
   };
-
   return (
     <nav
       className="navbar bg-body-tertiary fixed-top"
@@ -108,11 +107,11 @@ export default function NavBar() {
         <div
           className={`offcanvas offcanvas-end${showOffcanvas ? " show" : ""}`}
           tabIndex="-1"
-          style={{
-            width: "15%",
-            background: "linear-gradient(to top, #001B79, #FF90C2)",
-            color: "#1640D6",
-          }}
+          	style={{
+						width: "15%",
+						backgroundColor: "#ffe4e1",
+						// color: "#1640D6",
+					}}
           id="offcanvasNavbar"
           aria-labelledby="offcanvasNavbarLabel"
         >
@@ -206,6 +205,7 @@ export default function NavBar() {
               )}
             </ul>
             {/* <form className="d-flex mt-3" role="search"> //just leaving this in here in case we want a search bar at any point 
+
               <input
                 className="form-control me-2"
                 type="search"

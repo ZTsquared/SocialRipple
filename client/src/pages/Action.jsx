@@ -101,18 +101,7 @@ export default function Action() {
     if (e.target.checked) setRequirements((r) => [...r, e.target.value]);
     else setRequirements((r) => r.filter((req) => req !== e.target.value));
 
-    console.log(e);
-    if (e.target.checked) {
-      setRequirements((r) => [...r, e.target.value]);
-      check = 1;
-    } else {
-      setRequirements((r) => r.filter((req) => req !== e.target.value));
-      check = 0;
-    }
 
-    if (e.target.checked) setRequirements((r) => [...r, e.target.value]);
-    else setRequirements((r) => r.filter((req) => req !== e.target.value));
-  }
 
   // users to join events with the requirements selected
   const handleClick = () => {
@@ -133,42 +122,7 @@ export default function Action() {
   }
   const [show, setShow] = useState(true);
 
-  return (
-    <div>
-      <Modal
-        show={show}
-        onHide={closeModal}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>{oneAction.name}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div>
-            <div className="actioncontainer-css">
-              <div className="tabs">
-                <Tabs defaultActiveKey="description" id="tabs">
-                  <Tab
-                    eventKey="description"
-                    title="Description"
-                    className="actionTabContent-css "
-                  >
-                    <p>{oneAction.description}</p>
-                    <br></br>
-                    {oneAction.Keywords && (
-                      <div className="keywordBadges">
-                        <ul>
-                          {oneAction.Keywords.map((keyword) => (
-                            <li className="badge bg-primary" key={keyword.id}>
-                              {keyword.keyword}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </Tab>
+
 
 
 	return (
