@@ -42,6 +42,7 @@ a {
 
 /* but this doesn't work when I create a class for the map itlsef */
 .modal-xlg {
+
 	height: 30px;
 }
 #page-container {
@@ -50,6 +51,7 @@ a {
 }
 
 .mainmenu_container {
+
 	display: flex;
 	columns: 2;
 	padding: auto;
@@ -67,6 +69,7 @@ a {
 
 .actions_right_side {
 	width: 25%;
+
 }
 
 #content-wrap {
@@ -159,23 +162,57 @@ a {
 }
 
 .dateAtEntry-css {
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
+
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
 }
 
+
+.actionCreatedTittle-css {
+  align-items: center;
+  margin-top: 250px;
+  text-align: center;
+}
+
+.buttonToGoToHomePage-css {
+  position: absolute;
+  width: 110px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 100px;
+  left: 0px;
+  right: 0px;
+  margin-top: 230px;
+  border-radius: 6px;
+  border: 0px;
+  padding: 9px 19px;
+  color: rgb(248, 242, 242);
+  background-color: rgb(108, 187, 226);
+}
+
+.buttonToAddNewRequirement-css {
+  border-radius: 6px;
+  border: 0px;
+  padding: 7px 16px;
+  color: rgb(248, 242, 242);
+  background-color: rgb(108, 187, 226);
+
 .actionCard-css {
-	background-color: white;
-	width: 18.5rem;
-	height: 18.5rem;
-	text-align: left;
-	border: 1px solid black;
-	margin-bottom: 50px;
-	border-radius: 6px;
-	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  width: 18rem;
+  height: 18rem;
+  text-align: left;
+  border: 1px solid black;
+  margin-bottom: 50px;
+  border-radius: 6px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
 .actionCard-css:hover {
-	border: 1.3px solid black;
-	box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.2);
+  background-color: rgb(245, 245, 245);
+  border: 1px solid black;
+  box-shadow: 8px 8px 5px rgba(0, 0, 0, 0.3);
+
+
 }

@@ -8,10 +8,10 @@ import Action from "./pages/Action";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreateAction from "./pages/CreateAction";
-import JoinAction from "./pages/JoinAction";
+// import JoinAction from "./pages/JoinAction";
 import Profile from "./pages/Profile";
-import ActionsGroup from "./pages/ActionsGroup";
-import ActionsIndividual from "./pages/ActionsIndividual";
+// import ActionsGroup from "./pages/ActionsGroup";
+// import ActionsIndividual from "./pages/ActionsIndividual";
 //auth stuff
 import AuthProvider from "./components/AuthProvider";
 import RequireAuth from "./components/RequireAuth";
@@ -19,7 +19,6 @@ import NavBar from "./components/NavBar";
 import FootBar from "./components/FootBar";
 
 function App() {
-
   const [showNavbar, setShowNavbar] = useState();
   return (
     <AuthProvider>
@@ -39,10 +38,10 @@ function App() {
           />
 
           <Route path="/Actions" element={<ActionsMenu />}>
-              {/* <Route path="Actions/View/:ActionId" element={<ActionsMenu />} /> */}
-              <Route path="/Actions/View/:ActionId" element={<Action />} />
+            {/* <Route path="Actions/View/:ActionId" element={<ActionsMenu />} /> */}
+            <Route path="/Actions/View/:ActionId" element={<Action />} />
           </Route>
-          <Route path="/Actions/:typeOfActions" element={<ActionsMenu />} />
+          {/* <Route path="/Actions/:typeOfActions" element={<ActionsMenu />} /> */}
           <Route
             path="/Action/Create"
             element={
@@ -52,7 +51,7 @@ function App() {
             }
           />
 
-          <Route path="/Action/Join" element={<JoinAction />} />
+          {/* <Route path="/Action/Join" element={<JoinAction />} /> */}
         </Routes>
       </div>
     </AuthProvider>

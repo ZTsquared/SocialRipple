@@ -9,10 +9,10 @@ import {
 } from "@react-google-maps/api";
 import getUser from "./GetUser";
 
-export default function Map() {
+export default function Map({ actions }) {
   const [map, setMap] = useState(null);
-  const [center, setCenter] = useState({lat: 41.481111, lng: 2.127002});
-  const [actions, setActions] = useState([]);
+  const [center, setCenter] = useState({ lat: 41.481111, lng: 2.127002 });
+  // const [actions, setActions] = useState([]);
   const [showInfoWindow, setShowInfoWindow] = useState({
     visible: false,
     position: {},
@@ -20,7 +20,7 @@ export default function Map() {
   const [currentMarkerAction, setCurrentMarkerAction] = useState();
 
   useEffect(() => {
-    getActions();
+    // getActions();
     setUserCoordinatesAsCenter();
   }, []);
 
@@ -31,7 +31,6 @@ export default function Map() {
   }
 
   const containerStyle = {
-
     // display: "flex",
     width: "800px",
     height: "800px",
@@ -43,7 +42,7 @@ export default function Map() {
   });
 
   const onLoad = useCallback(function callback(map) {
-    map.zoom=10;
+    map.zoom = 10;
     setMap(map);
   }, []);
 
@@ -61,39 +60,36 @@ export default function Map() {
     });
   }
 
-  async function getActions() {
-    try {
-      const response = await fetch(`/api/actions`);
-      const data = await response.json();
-      setActions(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function getActions() {
+  //   try {
+  //     const response = await fetch(`/api/actions`);
+  //     const data = await response.json();
+  //     setActions(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   const MyInfoWindow = () => {
-
-    return(
-      <InfoWindow
-              onCloseClick={() => console.log("this")}
-              position={center}
-            >
-              <div>
-                <p>{currentMarkerAction.name}</p>
-                <p>{currentMarkerAction.description}</p>
-                <Link to={`/Actions/View/${currentMarkerAction.id}`}>
-                  learn more{" "}
-                </Link>
-              </div>
+    return (
+      <InfoWindow onCloseClick={() => console.log("this")} position={center}>
+        <div>
+          <p>{currentMarkerAction.name}</p>
+          <p>{currentMarkerAction.description}</p>
+          <Link to={`/Actions/View/${currentMarkerAction.id}`}>
+            learn more{" "}
+          </Link>
+        </div>
       </InfoWindow>
-    )
-  }
-
+    );
+  };
 
   return (
     <div>
-
-    <h3> <br /></h3>
+      <h3>
+        {" "}
+        <br />
+      </h3>
 
       {isLoaded && center && (
         <GoogleMap
@@ -114,11 +110,7 @@ export default function Map() {
                 />
               </div>
             ))}
-          {showInfoWindow.visible === true && (
-          
-            <MyInfoWindow />
-
-          )}
+          {showInfoWindow.visible === true && <MyInfoWindow />}
         </GoogleMap>
       )}
     </div>
