@@ -107,9 +107,6 @@ export default function CreateAction() {
 
   const handleRequirementChange = (index, event) => {
     const { name, value } = event.target;
-    // name === "req_capacity"
-    //   ? setRequirements({ ...requirements, capacity: value })
-    //   : setRequirements({ ...requirements, description: value });
     const newRequirements = [...requirements];
     newRequirements[index][name] = value;
     setRequirements(newRequirements);
