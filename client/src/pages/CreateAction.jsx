@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Form from "react-bootstrap/Form";
-
-import NavBar from "../components/NavBar";
 
 export default function CreateAction() {
   const [actionBody, setActionBody] = useState({ description: "" });
@@ -28,11 +24,6 @@ export default function CreateAction() {
     getUsers();
     getKeywords();
   }, []);
-
-  // useEffect(() => {
-  //   console.log("login requirements");
-  //   console.log(requirements);
-  // }, [requirements]);
 
   useEffect(() => {
     setCoordinates(
@@ -84,26 +75,23 @@ export default function CreateAction() {
     }
 
     if (actionBody.online) {
-      console.log(preferences.length);
       if (
-        actionBody.online_link.length &&
-        actionBody.name.length &&
-        actionBody.description.length &&
-        preferences.length
+        actionBody.online_link?.length &&
+        actionBody.name?.length &&
+        actionBody.description?.length &&
+        preferences?.length
       ) {
-        console.log("it is online");
         setAllInputsCompleted(true);
       }
     } else if (actionBody.inperson) {
       if (
-        actionBody.city.length &&
-        actionBody.street.length &&
-        actionBody.house_number.length &&
-        actionBody.name.length &&
-        actionBody.description.length &&
-        preferences.length
+        actionBody.city?.length &&
+        actionBody.street?.length &&
+        actionBody.house_number?.length &&
+        actionBody.name?.length &&
+        actionBody.description?.length &&
+        preferences?.length
       ) {
-        console.log("it is not online");
         setAllInputsCompleted(true);
       }
     }
@@ -111,16 +99,15 @@ export default function CreateAction() {
 
   const handleRequirementChange = (index, event) => {
     const { name, value, checked } = event.target;
-
-    if (name === "capacity_checkbox") {
+    if (name === `capacity_checkbox${index}`) {
       console.log(`is it checked? ${checked}`);
       if (checked) setUnlimitedPlaces(true);
       else if (!checked) setUnlimitedPlaces(false);
     }
 
-    if (unlimitedPlaces) {
-      requirements[index].capacity = null;
-    }
+    // if (unlimitedPlaces) {
+    //   requirements[index].capacity = null;
+    // } //this was here for the unlimited volunteers option
 
     if (
       (requirements[index].capacity > 0 &&
@@ -135,9 +122,6 @@ export default function CreateAction() {
     newRequirements[index][name] = value;
 
     setRequirements(newRequirements);
-
-    console.log(unlimitedPlaces);
-    console.log(requirements);
   };
 
   const addRequirement = (e) => {
@@ -155,10 +139,6 @@ export default function CreateAction() {
 
     await setCoordinates(actionBody.street, actionBody.number, actionBody.city);
 
-    //to be refactored. doing it like this now because the actionBody has the street, house number and city
-    //instead of coordinates and it made sense to me passing the whole thing with the coordinates instead
-    //of an address
-
     if (allInputsCompleted) {
       createNewAction({
         online: actionBody.online,
@@ -174,8 +154,8 @@ export default function CreateAction() {
         latitude: actionCoordinates?.lat,
         longitude: actionCoordinates?.lng,
         organiser_id: user.id,
-        Keywords: preferences, // placeholder for now
-        Requirements: requirements, // placeholder for now
+        Keywords: preferences,
+        Requirements: requirements,
       });
       setActionCreated(true);
     }
@@ -190,7 +170,6 @@ export default function CreateAction() {
         const responseToJson = await response.json();
 
         if (responseToJson.results.length > 0) {
-          console.log("fetch ok (I guess)");
           setActionCoordinates(responseToJson.results[0].geometry?.location);
         } else return;
       }
@@ -200,9 +179,7 @@ export default function CreateAction() {
   };
 
   const createNewAction = async (action) => {
-    console.log("one");
     try {
-      console.log("trying...");
       const response = await fetch("/api/actions", {
         method: "POST",
         headers: {
@@ -212,7 +189,6 @@ export default function CreateAction() {
         body: JSON.stringify(action),
       });
       const data = await response.json();
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -252,7 +228,6 @@ export default function CreateAction() {
                 maxLength={35}
                 className="form-control"
                 cols="50"
-                rows="1"
               />
             </label>{" "}
             <br />
@@ -295,7 +270,7 @@ export default function CreateAction() {
                 onChange={handleChange}
                 name="start_time"
                 id="start_time"
-                type="datetime-local" //made this change so you could add the time but its not working
+                type="datetime-local"
                 className="form-control"
               />
             </label>
@@ -465,7 +440,7 @@ export default function CreateAction() {
                   </div>
                 </div>
               ))}
-            </div>{" "}
+            </div>
             <br />
             <br />
             <h5>Volunteership Requirements:</h5>
@@ -477,12 +452,13 @@ export default function CreateAction() {
                     onChange={(e) => handleRequirementChange(index, e)}
                     name="capacity"
                     type="number"
+                    min="0"
                     value={requirement.capacity}
                     className="form-control"
                   />
                 </label>
-                <br />
-                <label
+                {/* <br /> */}
+                {/* <label
                   htmlFor="capacity"
                   className="form-label"
                   style={{
@@ -496,11 +472,11 @@ export default function CreateAction() {
                       setUnlimitedPlaces(e.target.checked);
                     }}
                     type="checkbox"
-                    name="capacity_checkbox"
+                    name={`capacity_checkbox${index}`}
                     checked={unlimitedPlaces}
                     className="checkedBoxesCreateAction-css"
                   />
-                </label>
+                </label> */}
                 <br />
                 <label htmlFor={`description_${index}`} className="form-label">
                   Description: <br />
