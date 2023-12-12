@@ -170,6 +170,10 @@ a {
   text-align: center;
 }
 
+.bodyOfCreateAction-css {
+  text-align: center;
+}
+
 .buttonToGoToHomePage-css {
   position: absolute;
   width: 110px;
