@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import Form from "react-bootstrap/Form";
 
 import NavBar from "../components/NavBar";
 
@@ -102,14 +102,11 @@ export default function CreateAction() {
         setAllInputsCompleted(true);
       }
     }
-    console.log(allInputsCompleted);
+    console.log(requirements);
   };
 
   const handleRequirementChange = (index, event) => {
     const { name, value } = event.target;
-    // name === "req_capacity"
-    //   ? setRequirements({ ...requirements, capacity: value })
-    //   : setRequirements({ ...requirements, description: value });
     const newRequirements = [...requirements];
     newRequirements[index][name] = value;
     setRequirements(newRequirements);
@@ -202,7 +199,7 @@ export default function CreateAction() {
   };
 
   return (
-    <div>
+    <div className="bodyOfCreateAction-css">
       {!actionCreated && (
         <div>
           <h2>Create an Action, Make a Difference!</h2>
@@ -466,6 +463,24 @@ export default function CreateAction() {
                 </label>
                 <br />
                 <label
+                  htmlFor={`req_capacity_${index}`}
+                  className="form-label"
+                  style={{
+                    fontSize: "17px",
+                  }}
+                >
+                  {" "}
+                  Unlimited places
+                  <input
+                    onChange={handleChange}
+                    type="checkbox"
+                    name="req_capacity"
+                    id="is_group"
+                    className="checkedBoxesCreateAction-css"
+                  />
+                </label>
+                <br />
+                <label
                   htmlFor={`req_description_${index}`}
                   className="form-label"
                 >
@@ -511,7 +526,9 @@ export default function CreateAction() {
               </button>
             ) : (
               <div>
-                <div>Please finish completing all the inputs😉</div>
+                <div>
+                  Finish completing all the inputs to create an Action!😉
+                </div>
                 <button
                   className="sigInButton-css"
                   style={{
