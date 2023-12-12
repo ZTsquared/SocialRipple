@@ -117,8 +117,9 @@ a {
 .mission-container-css {
 	/* background-color: #ffe4e1; */
 	/* padding: 20px; */
-	margin: 50px;
+	/* margin: 50px; */
 	text-align: left;
+	margin-left: 50px;
 	max-width: 600px;
 }
 
