@@ -3,6 +3,7 @@ package-lock.json
 .DS_Store
 node_modules/
 package-lock.json
+.gitignore
 
 # local env files
 .env
