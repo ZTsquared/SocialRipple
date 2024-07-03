@@ -10,8 +10,7 @@ Users create "Actions" for others to join, these can be individual such as readi
 
 Actions can be searched by keyword, and in person actions can be browsed on a map view.
 
-<img src="images/SocialRippleActions.png" alt="Social Ripple Homescreen" width="200" height="250" />
-<img src="images/SocialRippleHome.png" alt="Social Ripple Actions Search" width="200" height="250" />
+<img src="images/SocialRippleActions.png" alt="Social Ripple Homescreen" width="400" height="500" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/SocialRippleHome.png" alt="Social Ripple Actions Search" width="400" height="500" />
 
 ### Built with:
 
